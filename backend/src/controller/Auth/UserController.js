@@ -1,23 +1,14 @@
-const axios = require('axios');
-const User = require('../models/User');
+//const axios = require('axios');
+const User = require('../../models/User');
+const Token = require('../../models/Token');
+const passEncode = require('../../utils/passEncode');
+const nodemailer = require("nodemailer");
+const crypto = require('crypto');
 
 module.exports = {
     async index(request, response) {
         const users = await User.find();
         return response.json(users);
-    },
-
-    async store(request, response) {
-        const { name, email, password, avatar_url } = request.body;
-
-        const user = await User.create({
-          name,
-          email,
-          password,
-          avatar_url,  
-        })
-
-        return response.json(user);
     },
 
     async update(request, response) {
