@@ -27,6 +27,6 @@ routes.get('/invocador', RiotController.index);
 
 // Token
 routes.get('/confirmation/:email/:token', ConfirmationController.confirmation);
-//app.post('/resend', UserController.resendTokenPost);
+routes.post('/resend', ConfirmationController.resend);
 
 module.exports = routes;

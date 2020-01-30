@@ -69,4 +69,4 @@ Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.md) para
 
 ---
 
-Feito com ♥ by jlenon7 :wave:
+Feito com 👍😎🖤 por [jlenon7](https://github.com/jlenon7) :wave:

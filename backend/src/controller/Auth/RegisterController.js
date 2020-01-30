@@ -2,7 +2,7 @@
 const User = require('../../models/User');
 const Token = require('../../models/Token');
 const passEncode = require('../../utils/passEncode');
-const nodemailer = require("nodemailer");
+const sendEmail = require('../../utils/sendEmail');
 const crypto = require('crypto');
 require('dotenv').config({path: ".env"});
 
@@ -25,34 +25,19 @@ module.exports = {
                     avatar_url
                 });
 
-                // Create a verification token for this user
+                // Cria um token de verificação para este usuário
                 var token = new Token({ _userId: user._id, token: crypto.randomBytes(16).toString('hex') });
 
                 token.save(function (err) {
                     if (err) { return response.status(500).json({ msg: err.message }); }
                 });
-                // Send the email
-                var transporter = nodemailer.createTransport({ 
-                    host: "smtp.gmail.com", 
-                    port: 465,
-                    auth: { 
-                        user: process.env.SENDGRID_USERNAME, 
-                        pass: process.env.SENDGRID_PASSWORD
-                    }, 
-                });
-                var mailOptions = { 
-                    from: process.env.APP_NAME, 
-                    to: user.email, 
-                    subject: 'Token de verificação da conta', 
-                    html: "<p><b>Olá</b>, Por favor, verifique sua conta clicando nesse link: <b>http://"+request.headers.host+"/confirmation/"+user.email+"/"+token.token+"</b></p>"
-                    //text: 'Olá,\n\n' + 'Por favor, verifique sua conta clicando nesse link: \nhttp:\/\/' + request.headers.host + '\/confirmation\/' + token.token + '.\n' 
-                };
-                transporter.sendMail(mailOptions, function (err) {
-                    if (err) { 
-                        return response.status(500).json({ msg: err.message }); 
-                    }
-                    response.status(200).json({ msg: 'Um email de verificação foi enviado para: ' + user.email});
-                });
+
+                // Envia o email
+                if (!sendEmail(user.email, token.token, request.headers.host)){
+                    response.status(200).json({ type: 'done', msg: 'Um email de verificação foi enviado para: ' + user.email});
+                } else {
+                    response.status(500).json({ type: 'error', msg: 'Ocorreu um erro durante o envio do seu email, tente novamente mais tarde'});
+                }
 
                 //return response.json(user);
             } else {
