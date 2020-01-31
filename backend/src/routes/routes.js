@@ -5,6 +5,7 @@ const ConfirmationController = require('../controller/Auth/ConfirmationControlle
 const LoginController = require('../controller/Auth/LoginController');
 const SearchController = require('../controller/SearchController');
 const RiotController = require('../controller/RiotController');
+const ForgetController = require('../controller/Auth/ForgetController');
 
 const routes = Router();
 
@@ -28,5 +29,6 @@ routes.get('/invocador', RiotController.index);
 // Token
 routes.get('/confirmation/:email/:token', ConfirmationController.confirmation);
 routes.post('/resend', ConfirmationController.resend);
+routes.post('/reset-password', ForgetController.recover);
 
 module.exports = routes;
