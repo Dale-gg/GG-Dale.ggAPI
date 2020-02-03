@@ -1,9 +1,6 @@
 //const axios = require('axios');
 const User = require('../../models/User');
-const Token = require('../../models/Token');
 const passEncode = require('../../utils/passEncode');
-const nodemailer = require("nodemailer");
-const crypto = require('crypto');
 
 module.exports = {
     async index(request, response) {
@@ -31,5 +28,26 @@ module.exports = {
         user = await User.findOneAndRemove({ id });
     
         return response.json(user);
+    },
+    
+    async resetPass(request, response) {
+        const { email } = request.params;
+        const { password, password_confirm } = request.body;
+        
+        if (password == password_confirm) {
+            const passEncoded = passEncode(password);
+            var query = { email: email }
+            user = await User.update(query, {
+                password: passEncoded
+            });
+
+            if (user) {
+                response.status(200).json({ type: 'done', msg: 'Senha resetada com sucesso.'});
+            } else {
+                response.status(500).json({ type: 'error', msg: 'Ocorreu algum erro no servidor, tente novamente mais tarde.'});
+            }
+        } else {
+            response.status(400).json({ type: 'validation-error', msg: 'As senhas digitadas não coincidem.'});
+        }
     }
 };
