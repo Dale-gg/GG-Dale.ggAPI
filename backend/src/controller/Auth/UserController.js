@@ -23,11 +23,11 @@ module.exports = {
     },
 
     async destroy(request, response) {
-        const { id } = request.params.id;
+        const { id } = request.params;
         
         user = await User.findOneAndRemove({ id });
     
-        return response.json(user);
+        return response.status(200).json({ type: 'user-deleted', msg: 'Usuário deletado com sucesso.' });
     },
 
     async detail(request, response) {
