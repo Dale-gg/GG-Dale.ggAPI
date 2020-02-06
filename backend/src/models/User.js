@@ -7,7 +7,8 @@ const UserSchema = new mongoose.Schema({
     avatar_url: { type: String, required: true },
     status: { type: Boolean, default: false },
     passwordResetToken: String,
-    passwordResetExpires: Date
+    passwordResetExpires: Date,
+    email_verified_at: Date
 });
 
 module.exports = mongoose.model('User', UserSchema);
