@@ -32,7 +32,7 @@ routes.get('/confirmation/:email/:token', ConfirmationController.confirmation);
 routes.get('/forget-token/:email/:token', ForgetController.confirmToken);
 
 // Search User
-routes.get('/search', SearchController.index);
+routes.get('/search', UserController.detail);
 
 // Riot API Usage
 routes.get('/invocador', RiotController.index);
