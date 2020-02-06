@@ -3,7 +3,6 @@ const UserController = require('../controller/Auth/UserController');
 const RegisterController = require('../controller/Auth/RegisterController');
 const ConfirmationController = require('../controller/Auth/ConfirmationController');
 const LoginController = require('../controller/Auth/LoginController');
-const SearchController = require('../controller/SearchController');
 const RiotController = require('../controller/RiotController');
 const ForgetController = require('../controller/Auth/ForgetController');
 
