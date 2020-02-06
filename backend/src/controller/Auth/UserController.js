@@ -29,6 +29,16 @@ module.exports = {
     
         return response.json(user);
     },
+
+    async detail(request, response) {
+        const { _id: id } = request.query;
+
+        const users = await User.find({
+            id,
+        });
+
+        return response.json({ users });
+    },
     
     async resetPass(request, response) {
         const { email } = request.params;
