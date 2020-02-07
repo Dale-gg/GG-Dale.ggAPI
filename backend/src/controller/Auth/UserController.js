@@ -9,7 +9,7 @@ module.exports = {
     },
 
     async update(request, response) {
-        const id = request.params.id;
+        const { id } = request.params;
         const { name, avatar_url } = request.body;
         
             var query = { _id: id };
@@ -22,11 +22,21 @@ module.exports = {
     },
 
     async destroy(request, response) {
-        const id = request.params.id;
+        const { id } = request.params;
         
         user = await User.findOneAndRemove({ _id: id });
     
-        return response.json(user);
+        return response.status(200).json({ type: 'user-deleted', msg: 'Usuário deletado com sucesso.' });
+    },
+
+    async detail(request, response) {
+        const { _id: id } = request.query;
+
+        const users = await User.find({
+            id,
+        });
+
+        return response.json({ users });
     },
     
     async resetPass(request, response) {

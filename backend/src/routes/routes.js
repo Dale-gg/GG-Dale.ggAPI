@@ -3,7 +3,6 @@ const UserController = require('../controller/Auth/UserController');
 const RegisterController = require('../controller/Auth/RegisterController');
 const ConfirmationController = require('../controller/Auth/ConfirmationController');
 const LoginController = require('../controller/Auth/LoginController');
-const SearchController = require('../controller/SearchController');
 const RiotController = require('../controller/RiotController');
 const ForgetController = require('../controller/Auth/ForgetController');
 
@@ -32,7 +31,7 @@ routes.get('/confirmation/:email/:token', ConfirmationController.confirmation);
 routes.get('/forget-token/:email/:token', ForgetController.confirmToken);
 
 // Search User
-routes.get('/search', SearchController.index);
+routes.get('/search', UserController.detail);
 
 // Riot API Usage
 routes.get('/invocador', RiotController.index);
