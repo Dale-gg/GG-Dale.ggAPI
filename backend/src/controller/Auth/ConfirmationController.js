@@ -12,10 +12,10 @@ module.exports = {
             // Se encontrarmos um token, buscamos pelo seu respectivo usuário
             User.findOne({ _id: token._userId, email:  request.params.email }, function (err, user) {
                 if (!user) return response.status(400).json({ type: 'not-found', msg: 'Não encontramos nenhum usuário com este token.' });
-                if (user.status) return response.status(400).json({ type: 'already-verified', msg: 'Este usuário já foi verificado.' });
+                if (user.email_verified_at) return response.status(400).json({ type: 'already-verified', msg: 'Este usuário já foi verificado.' });
 
                 // Verifica e salva o usuário
-                user.status = true;
+                user.email_verified_at = Date.now();
                 user.save(function (err) {
                     if (err) { return response.status(500).json({ type: 'server-error', msg: err.message }); }
                     response.status(200).json({ type: 'acc-verified', msg: 'Conta verificada, por favor faça o login.'});
@@ -28,7 +28,7 @@ module.exports = {
         var entry = 'register'
         User.findOne({ email: request.body.email }, function (err, user) {
             if (!user) return response.status(400).json({ type: 'email-not-found', msg: 'Não encontramos nenhum usuário com este email.' });
-            if (user.status) return response.status(400).json({ type: 'already-verified', msg: 'Este usuário já foi verificado.' });
+            if (user.email_verified_at) return response.status(400).json({ type: 'already-verified', msg: 'Este usuário já foi verificado.' });
 
             var token = new Token({ _userId: user._id, token: crypto.randomBytes(16).toString('hex') });
 
