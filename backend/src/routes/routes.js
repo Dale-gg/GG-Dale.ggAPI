@@ -12,7 +12,7 @@ const routes = Router();
 // CRUD User
 routes.get('/', UserController.index);
 routes.get('/users', UserController.index);
-routes.put('/users', UserController.update);
+routes.put('/user/:id', UserController.update);
 routes.delete('/user/:id', UserController.destroy);
 
 // Auth User
