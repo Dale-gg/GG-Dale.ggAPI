@@ -16,9 +16,9 @@ module.exports = {
             user = await User.update(query, {
                 name,
                 avatar_url,
-            })
-        
-        return response.status(200).json({ type: 'user-updated', msg: 'Usuário atualizado com sucesso.' });
+            });
+
+        response.status(200).json({ type: 'updated', msg: 'Usuário atualizado com sucesso.'});
     },
 
     async destroy(request, response) {
