@@ -5,7 +5,7 @@ const passEncode = require('../../utils/passEncode');
 module.exports = {
     async index(request, response) {
         const users = await User.find();
-        return response.json(users);
+        return response.status(200).json({ type: 'lista-usuarios', msg: 'Listando usuários', users});
     },
 
     async update(request, response) {
@@ -18,7 +18,7 @@ module.exports = {
                 avatar_url,
             });
 
-        response.status(200).json({ type: 'updated', msg: 'Usuário atualizado com sucesso.'});
+        return response.status(200).json({ type: 'usuario-atualizado', msg: 'Usuário atualizado com sucesso.'});
     },
 
     async destroy(request, response) {
@@ -26,7 +26,7 @@ module.exports = {
         
         user = await User.findOneAndRemove({ _id: id });
     
-        return response.status(200).json({ type: 'user-deleted', msg: 'Usuário deletado com sucesso.' });
+        return response.status(200).json({ type: 'usuario-deletado', msg: 'Usuário deletado com sucesso.' });
     },
 
     async detail(request, response) {
@@ -36,7 +36,7 @@ module.exports = {
             id,
         });
 
-        return response.json({ users });
+        return response.status(200).json({ type: 'detalhando-usuario', msg: 'Detalhando usuário', users });
     },
 
     async disable(request, response) {
@@ -52,7 +52,7 @@ module.exports = {
         
         user.save();
         
-        return response.status(200).json({ type: 'user-disable', msg: 'Usuário desativado com sucesso.' });
+        return response.status(200).json({ type: 'usuario-desativado', msg: 'Usuário desativado com sucesso.' });
     },
 
     async restore(request, response) {
@@ -68,7 +68,7 @@ module.exports = {
         
         user.save();
         
-        return response.status(200).json({ type: 'user-restore', msg: 'Usuário restaurado com sucesso.' });
+        return response.status(200).json({ type: 'usuario-restaurado', msg: 'Usuário restaurado com sucesso.' });
     },
     
     async resetPass(request, response) {
@@ -83,12 +83,12 @@ module.exports = {
             });
 
             if (user) {
-                response.status(200).json({ type: 'done', msg: 'Senha resetada com sucesso.'});
+                return response.status(200).json({ type: 'feito', msg: 'Senha resetada com sucesso.'});
             } else {
-                response.status(500).json({ type: 'error', msg: 'Ocorreu algum erro no servidor, tente novamente mais tarde.'});
+                return response.status(500).json({ type: 'error', msg: 'Ocorreu algum erro no servidor, tente novamente mais tarde.'});
             }
         } else {
-            response.status(400).json({ type: 'validation-error', msg: 'As senhas digitadas não coincidem.'});
+            return response.status(400).json({ type: 'erro-validacao', msg: 'As senhas digitadas não coincidem.'});
         }
     }
 };

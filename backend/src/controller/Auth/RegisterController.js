@@ -14,7 +14,7 @@ module.exports = {
         findUser = await User.findOne({email});
 
         if (findUser) {
-            return response.status(400).send({ msg: 'O email que você tentou cadastrar já existe!' });
+            return response.status(400).send({ type: 'erro-validacao' msg: 'O email que você tentou cadastrar já existe!' });
         } else {
             if (password == password_confirm) {           
                 const passEncoded = passEncode(password);
@@ -33,12 +33,12 @@ module.exports = {
                 });
 
                 if (!sendToken(user.email, entry, token.token, request.headers.host)){
-                    response.status(200).json({ type: 'done', msg: 'Um email de verificação foi enviado para: ' + user.email});
+                    response.status(200).json({ type: 'feito', msg: 'Um email de verificação foi enviado para: ' + user.email});
                 } else {
                     response.status(500).json({ type: 'error', msg: 'Ocorreu um erro durante o envio do seu email, tente novamente mais tarde'});
                 }
             } else {
-                response.status(400).json({ type: 'validation-error', msg: 'As senhas digitadas não coincidem.'});
+                response.status(400).json({ type: 'erro-validacao', msg: 'As senhas digitadas não coincidem.'});
             }
         }
     }
