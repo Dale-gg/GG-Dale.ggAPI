@@ -14,6 +14,8 @@ routes.get('/', UserController.index);
 routes.get('/users', UserController.index);
 routes.put('/user/:id', UserController.update);
 routes.delete('/user/:id', UserController.destroy);
+routes.put('/user/:id/disable', UserController.disable);
+routes.put('/user/:id/restore', UserController.restore);
 
 // Auth User
 routes.post('/users', RegisterController.register);
