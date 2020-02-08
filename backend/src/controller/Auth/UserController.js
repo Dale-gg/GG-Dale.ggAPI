@@ -38,6 +38,38 @@ module.exports = {
 
         return response.json({ users });
     },
+
+    async disable(request, response) {
+        const { _id: id } = request.params;
+
+        user = await User.findOne({
+           id    
+        }); 
+        
+        user.status = false;
+        user.deleted = true;
+        user.deletedAt = Date.now();
+        
+        user.save();
+        
+        return response.status(200).json({ type: 'user-disable', msg: 'Usuário desativado com sucesso.' });
+    },
+
+    async restore(request, response) {
+        const { _id: id } = request.params;
+
+        user = await User.findOne({
+           id    
+        }); 
+        
+        user.status = true;
+        user.deleted = false;
+        user.deletedAt = null;
+        
+        user.save();
+        
+        return response.status(200).json({ type: 'user-restore', msg: 'Usuário restaurado com sucesso.' });
+    },
     
     async resetPass(request, response) {
         const { email } = request.params;
