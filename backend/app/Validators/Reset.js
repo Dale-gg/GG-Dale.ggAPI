@@ -1,4 +1,10 @@
+const Antl = use('Antl');
+
 class Reset {
+  get validateAll(){
+    return true;
+  }
+
   get rules () {
     return {
      token: 'required',
@@ -7,11 +13,7 @@ class Reset {
   }
 
   get messages () {
-    return {
-      'token.required': 'You must provide a token address.',
-      'password.required': 'You must provide a password',
-      'password.confirmed': 'You must provide the password_confirmation'
-    }
+    return Antl.list('validation');
   }
 
   async fails (messages) {

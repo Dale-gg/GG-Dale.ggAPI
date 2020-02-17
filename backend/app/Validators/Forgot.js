@@ -1,4 +1,10 @@
+const Antl = use('Antl');
+
 class Forgot {
+  get validateAll(){
+    return true;
+  }
+
   get rules () {
     return {
       email: 'email|required',
@@ -6,10 +12,7 @@ class Forgot {
   }
 
   get messages () {
-    return {
-      'email.required': 'You must provide a email address.',
-      'email.email': 'You must provide a valid email address.'
-    }
+    return Antl.list('validation');
   }
 
   async fails (messages) {

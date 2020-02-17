@@ -1,4 +1,10 @@
+const Antl = use('Antl');
+
 class Session {
+  get validateAll(){
+    return true;
+  }
+
   get rules () {
     return {
       email: 'email|required',
@@ -7,11 +13,7 @@ class Session {
   }
 
   get messages () {
-    return {
-      'email.required': 'You must provide a email address.',
-      'email.email': 'You must provide a valid email address.',
-      'password.required': 'You must provide a password'
-    }
+    return Antl.list('validation');
   }
 
   async fails (messages) {

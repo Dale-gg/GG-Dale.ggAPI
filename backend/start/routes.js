@@ -14,12 +14,28 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route');
 
+Route.get('files/:file', 'FileController.show');
+
+// User
 Route.get('/users', 'UserController.index');
 Route.post('/user', 'UserController.store').validator('User');
-Route.post('/confirm', 'ConfirmUserController.store').validator('Confirm');
 Route.delete('/user/:id', 'UserController.delete');
 Route.put('/user/:id', 'UserController.restore');
 
+// Auth
+Route.post('/confirm', 'ConfirmUserController.store').validator('Confirm');
 Route.post('/sessions', 'SessionController.store').validator('Session');
 Route.post('/forgot', 'ForgotPasswordController.store').validator('Forgot');
 Route.post('/reset', 'ResetPasswordController.store').validator('Reset');
+
+//Route.group(() => {
+//    Route.put('/profile', 'ProfileController.update').validator('Profile');
+//
+//    Route.get('/workshops', 'WorkshopController.index');
+//    Route.get('/workshop/:id', 'WorkshopController.show');
+//
+//    Route.post('/workshops', 'WorkshopController.store').validator('Workshop');
+//    Route.put('/workshops/:id', 'WorkshopController.update').validator('Workshop');
+//
+//    Route.delete('/workshops/:id', 'WorkshopController.destroy');
+//}).middleware('auth');

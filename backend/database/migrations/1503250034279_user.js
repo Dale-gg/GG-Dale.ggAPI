@@ -5,7 +5,9 @@ class UserSchema extends Schema {
   up() {
     this.create('users', table => {
       table.increments();
+      table.string('avatar');
       table.string('name').notNullable();
+      table.string('title');
       table.string('bio');
       table.string('github');
       table.string('linkedin');
