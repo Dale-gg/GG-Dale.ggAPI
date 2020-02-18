@@ -28,7 +28,7 @@ test('it should be able to confirm the user', async ({ client }) => {
   response.assertStatus(204);
 });
 
-test('it should be able to soft delete an User', async ({ client }) => {
+test('it should be able to soft delete an User', async ({ assert, client }) => {
   const user = await Factory.model('App/Models/User').create({
     name: 'João Lenon',
     email: 'lenonsec7@gmail.com',
@@ -41,6 +41,7 @@ test('it should be able to soft delete an User', async ({ client }) => {
     .end();
 
   response.assertStatus(200);
+  assert.equal(response.body.user.deleted, true);
 });
 
 test('it should be able to restore an User', async ({ assert, client }) => {

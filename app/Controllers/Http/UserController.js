@@ -21,7 +21,7 @@ class UserController {
     });
   }
 
-  async store({ request }) {
+  async store({ request, response }) {
     const { name, email, password } = request.only([
       'name',
       'email',
@@ -47,6 +47,12 @@ class UserController {
 
     const confirmAccountUrl = `${Env.get('APP_URL')}/confirm?token=${token}`;
     const subject = Antl.formatMessage('response.welcome');
+
+    // He is not returning this response
+    response.status(204).json({
+      type: 'success-register',
+      msg: Antl.formatMessage('response.success-register', { name: user.name }),
+    });
 
     await Mail.send(
       'emails.confirm',
