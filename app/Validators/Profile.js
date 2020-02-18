@@ -5,7 +5,7 @@ class Profile {
     return true;
   }
 
-  get rules () {
+  get rules() {
     return {
       name: 'required',
       password: 'confirmed',
@@ -17,7 +17,7 @@ class Profile {
     return Antl.list('validation');
   }
 
-  async fails (messages) {
+  async fails(messages) {
     return this.ctx.response.send(messages);
   }
 }

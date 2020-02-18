@@ -1,23 +1,23 @@
 const Antl = use('Antl');
 
 class Confirm {
-  get validateAll(){
+  get validateAll() {
     return true;
   }
 
-  get rules () {
+  get rules() {
     return {
       token: 'required',
     };
   }
 
-  get messages () {
+  get messages() {
     return Antl.list('validation');
   }
 
-  async fails (messages) {
+  async fails(messages) {
     return this.ctx.response.send(messages);
   }
 }
 
-module.exports = Confirm
+module.exports = Confirm;

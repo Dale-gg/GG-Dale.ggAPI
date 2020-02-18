@@ -25,10 +25,10 @@ Route.post('/confirm', 'ConfirmUserController.store').validator('Confirm');
 Route.post('/sessions', 'SessionController.store').validator('Session');
 Route.post('/forgot', 'ForgotPasswordController.store').validator('Forgot');
 Route.post('/reset', 'ResetPasswordController.store').validator('Reset');
+Route.put('/user/:id', 'UserController.restore');
 
 // JWT Middleware
 Route.group(() => {
-    Route.put('/profile', 'ProfileController.update').validator('Profile');
-    Route.delete('/user/:id', 'UserController.delete');
-    Route.put('/user/:id', 'UserController.restore');
+  Route.put('/profile', 'ProfileController.update').validator('Profile');
+  Route.delete('/user/:id', 'UserController.destroy');
 }).middleware('auth');

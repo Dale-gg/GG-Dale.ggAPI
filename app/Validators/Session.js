@@ -1,24 +1,24 @@
 const Antl = use('Antl');
 
 class Session {
-  get validateAll(){
+  get validateAll() {
     return true;
   }
 
-  get rules () {
+  get rules() {
     return {
       email: 'email|required',
       password: 'required',
     };
   }
 
-  get messages () {
+  get messages() {
     return Antl.list('validation');
   }
 
-  async fails (messages) {
+  async fails(messages) {
     return this.ctx.response.send(messages);
   }
 }
 
-module.exports = Session
+module.exports = Session;
