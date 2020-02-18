@@ -1,0 +1,12 @@
+{
+ "welcome": "Dale.gg - Welcome Summoner",
+ "error-time-token": "Invalid time period, please try again.",
+ "email-confirmed": "Your e-mail has been confirmed.",
+ "forgot-request": "An e-mail has been send to your account with the reset token.",
+ "password-reset": "Your password has been reseted.",
+ "success-all-users": "Listing all Users.",
+ "success-register": "The User {name}, has been successfully registered, check your e-mail box",
+ "user-soft-deleted": "The User number {id}, has been successfully disabled.",
+ "user-soft-restored": "The User number {id}, has been successfully restored.",
+ "success-profile-update": "Your profile has been successfully updated."
+}
