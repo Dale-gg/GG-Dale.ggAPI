@@ -1,0 +1,11 @@
+{
+  "welcome": "Dale.gg - Bem vindo Invocador",
+  "error-time-token": "Período de tempo inválido, tente novamente.",
+  "email-confirmed": "Seu email foi confirmado.",
+  "forgot-request": "Um e-mail foi enviado para sua conta com o token de redefinição.",
+  "password-reset": "Sua senha foi redefinida.",
+  "success-all-users": "Listando todos os usuários.",
+  "user-soft-deleted": "O Usuário numero {id}, foi desabilitado com sucesso.",
+  "user-soft-restored": "O Usuário numero {id}, foi restaurado com sucesso.",
+  "success-profile-update": "Seu perfil foi atualizado com sucesso."
+ }
