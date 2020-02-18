@@ -4,6 +4,8 @@ const { parseISO, isBefore, subHours } = require('date-fns');
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Token = use('App/Models/Token');
 
+const Antl = use('Antl');
+
 class ConfirmUserController {
   async store({ request, response }) {
     const { token } = request.only(['token']);
@@ -11,9 +13,10 @@ class ConfirmUserController {
     const userToken = await Token.findByOrFail('token', token);
 
     if (isBefore(parseISO(userToken.created_at), subHours(new Date(), 36000))) {
-      return response
-        .status(400)
-        .json({ error: 'Invalid date range, please try again.' });
+      return response.status(400).json({
+        type: 'error-time-token',
+        msg: Antl.formatMessage('response.error-time-token'),
+      });
     }
 
     const user = await userToken.user().fetch();
@@ -22,7 +25,11 @@ class ConfirmUserController {
 
     await user.save();
 
-    return response.status(204).json({ type: 'email_confirmed', msg: 'Your e-mail has been confirmed :)', user });
+    return response.status(204).json({
+      type: 'email-confirmed',
+      msg: Antl.formatMessage('response.email-confirmed'),
+      user,
+    });
   }
 }
 

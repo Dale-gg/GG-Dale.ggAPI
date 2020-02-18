@@ -3,12 +3,13 @@ const { promisify } = require('util');
 
 const Mail = use('Mail');
 const Env = use('Env');
+const Antl = use('Antl');
 // Typescript Intellisense
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const User = use('App/Models/User');
 
 class ForgotPasswordController {
-  async store({ request }) {
+  async store({ request, response }) {
     const email = request.input('email');
 
     const user = await User.findByOrFail('email', email);
@@ -33,6 +34,11 @@ class ForgotPasswordController {
           .subject('RS/XP - Welcome to Rocketseat');
       }
     );
+
+    return response.status(200).json({
+      type: 'forgot-request',
+      msg: Antl.formatMessage('response.forgot-request'),
+    });
   }
 }
 
