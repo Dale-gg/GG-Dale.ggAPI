@@ -9,29 +9,26 @@ trait('Test/ApiClient');
 trait('Auth/Client');
 trait('DatabaseTransactions');
 
-test('it should be able to confirm the user', async ({ assert, client }) => {
-    const email = 'lenonsec7@gmail.com';
-    const type = 'confirmaccount';
+test('it should be able to confirm the user', async ({ client }) => {
+  const email = 'lenonsec7@gmail.com';
+  const type = 'confirmaccount';
 
-    const user = await Factory.model('App/Models/User').create({ email });
-    const userToken = await Factory.model('App/Models/Token').make({ type });
+  const user = await Factory.model('App/Models/User').create({ email });
+  const userToken = await Factory.model('App/Models/Token').make({ type });
 
-    await user.tokens().save(userToken);
+  await user.tokens().save(userToken);
 
-    const response = await client
-      .post('/confirm')
-      .send({
-        token: userToken.token
-      })
-      .end();
+  const response = await client
+    .post('/confirm')
+    .send({
+      token: userToken.token,
+    })
+    .end();
 
-    response.assertStatus(204);
-
-    await user.reload();
+  response.assertStatus(204);
 });
 
-test('it should be able to soft delete an User', async ({ assert, client }) => {
-
+test('it should be able to soft delete an User', async ({ client }) => {
   const user = await Factory.model('App/Models/User').create({
     name: 'João Lenon',
     email: 'lenonsec7@gmail.com',
@@ -40,26 +37,28 @@ test('it should be able to soft delete an User', async ({ assert, client }) => {
 
   const response = await client
     .delete(`/user/${user.id}`)
+    .loginVia(user, 'jwt')
     .end();
 
   response.assertStatus(200);
 });
 
-test('it should be able to soft restore an User', async ({ assert, client }) => {
-
+test('it should be able to restore an User', async ({ assert, client }) => {
   const user = await Factory.model('App/Models/User').create({
     name: 'João Lenon',
     email: 'lenonsec7@gmail.com',
     password: '123456',
     deleted: true,
-    status: false
+    status: false,
   });
 
-  const response = await client
-    .put(`/user/${user.id}`)
-    .end();
+  const response = await client.put(`/user/${user.id}`).end();
 
   response.assertStatus(200);
+
+  await user.reload();
+
+  assert.equal(user.deleted, false);
 });
 
 test('it should be able to update profile', async ({ assert, client }) => {
@@ -79,8 +78,8 @@ test('it should be able to update profile', async ({ assert, client }) => {
 
   response.assertStatus(200);
 
-  assert.equal(response.body.name, 'Jorge');
-  assert.exists(response.body.avatar);
+  assert.equal(response.body.user.name, 'Jorge');
+  assert.exists(response.body.user.avatar);
 
   await user.reload();
 
