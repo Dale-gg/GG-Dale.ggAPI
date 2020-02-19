@@ -28,11 +28,8 @@ class UserController {
       'password',
     ]);
 
-    const avatar = 'initAvatar213029dsa30129dsa4012453953kvfkdjt.jpeg';
-
     const user = await User.create({
       name,
-      avatar,
       email,
       password,
     });
@@ -48,12 +45,6 @@ class UserController {
     const confirmAccountUrl = `${Env.get('APP_URL')}/confirm?token=${token}`;
     const subject = Antl.formatMessage('response.welcome');
 
-    // He is not returning this response
-    response.status(204).json({
-      type: 'success-register',
-      msg: Antl.formatMessage('response.success-register', { name: user.name }),
-    });
-
     await Mail.send(
       'emails.confirm',
       { name: user.name, confirmAccountUrl },
@@ -64,6 +55,12 @@ class UserController {
           .subject(subject);
       }
     );
+
+    // He is not returning this response
+    return response.status(204).json({
+      type: 'success-register',
+      msg: Antl.formatMessage('response.success-register', { name: user.name }),
+    });
   }
 
   async destroy({ response, params }) {
