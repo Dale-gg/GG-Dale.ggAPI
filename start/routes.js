@@ -16,19 +16,24 @@ const Route = use('Route');
 
 Route.get('files/:file', 'FileController.show');
 
+// Riot API
+Route.get('/summoner/:region/:summonerName', 'RiotApiController.index');
+
 // User
 Route.get('/users', 'UserController.index');
 Route.post('/user', 'UserController.store').validator('User');
 
 // Auth
-Route.post('/confirm', 'ConfirmUserController.store').validator('Confirm');
-Route.post('/sessions', 'SessionController.store').validator('Session');
-Route.post('/forgot', 'ForgotPasswordController.store').validator('Forgot');
-Route.post('/reset', 'ResetPasswordController.store').validator('Reset');
+Route.post('/confirm', 'Auth/ConfirmUserController.store').validator('Confirm');
+Route.post('/sessions', 'Auth/SessionController.store').validator('Session');
+Route.post('/forgot', 'Auth/ForgotPasswordController.store').validator(
+  'Forgot'
+);
+Route.post('/reset', 'Auth/ResetPasswordController.store').validator('Reset');
 Route.put('/user/:id', 'UserController.restore');
 
 // JWT Middleware
 Route.group(() => {
-  Route.put('/profile', 'ProfileController.update').validator('Profile');
+  Route.put('/profile', 'Auth/ProfileController.update').validator('Profile');
   Route.delete('/user/:id', 'UserController.destroy');
 }).middleware('auth');
