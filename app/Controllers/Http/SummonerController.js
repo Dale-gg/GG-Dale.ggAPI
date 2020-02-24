@@ -6,7 +6,11 @@ class SummonerController {
     
     const summoner = await RiotAPI(region, summonerName);
 
-    console.log(summoner);
+    return response.status(200).json({ type: 'get-summoner', msg: 'Invocador encontrado!', summoner});
+  }
+
+  async store({  }) {
+    
   }
 }
 

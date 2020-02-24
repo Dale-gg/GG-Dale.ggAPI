@@ -17,7 +17,7 @@ test('it should get some summoner', async ({ assert, client }) => {
 
   response.assertStatus(200);
 
-  assert.equal(response.body.data.name, summonerName);
+  assert.equal(response.body.summoner.name, summonerName);
 }).timeout(30000);
 
 // test('it should not get some summoner', async ({ assert, client }) => {
