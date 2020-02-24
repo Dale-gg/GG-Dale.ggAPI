@@ -9,9 +9,9 @@ class SummonerController {
 
     const tiers = await getTier(summoner.id, region);
     const tierSolo = tiers[0];
-    //const tierFlex = tiers[1];
+    const tierFlex = tiers[1];
 
-    return response.status(200).json({ type: 'get-summoner', msg: 'Invocador encontrado!', summoner, tierSolo});
+    return response.status(200).json({ type: 'get-summoner', msg: 'Invocador encontrado!', summoner, tierSolo, tierFlex});
   }
 
   async store({  }) {
