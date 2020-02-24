@@ -1,11 +1,10 @@
 const getSummonerUrl = '.api.riotgames.com/lol/summoner/v4/summoners/by-name/';
-// const getTierUrl = '.api.riotgames.com/lol/league/v4/entries/by-summoner/';
 // const getMatchlistUrl = '.api.riotgames.com/lol/match/v4/matchlists/by-account/';
 // const getMatchDto = '.api.riotgames.com/lol/match/v4/matches/';
 const Env = use('Env');
 const Axios = use('axios');
 
-async function getSummoner (region, summonerName){
+async function getSummoner(region, summonerName){
     try {
         const summoner = await Axios.get(
             `https://${region}${getSummonerUrl}${summonerName}${Env.get('RIOT_KEY')}`
@@ -23,18 +22,6 @@ async function getSummoner (region, summonerName){
         return err;
     }
 }
-
-// async function getTier(id, region){
-//     try {
-//         const apiResponse = await Axios.get(
-//             `https://${region}${getTierUrl}${id}${Env.get('RIOT_KEY')}`
-//         );
-        
-//         return apiResponse.data;
-//     } catch(err) {
-//         console.log(err);
-//     }
-// }
 
 // async function getMatchlist(region, accountId) {
 //     try {
