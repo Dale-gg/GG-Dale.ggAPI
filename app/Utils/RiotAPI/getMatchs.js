@@ -1,5 +1,5 @@
 const getMatchlistUrl = '.api.riotgames.com/lol/match/v4/matchlists/by-account/';
-//const getMatchDto = '.api.riotgames.com/lol/match/v4/matches/';
+const getMatchDto = '.api.riotgames.com/lol/match/v4/matches/';
 
 const Env = use('Env');
 const Axios = use('axios');
@@ -10,15 +10,16 @@ async function getMatch(region, accountId) {
             `https://${region}${getMatchlistUrl}${accountId}${Env.get('RIOT_KEY')}&endIndex=10`
         );
 
-        // const games = apiResponse.data.matches;
-        
-        // for(var game in games) {
-        //     const matchDto = await Axios.get(
-        //         `https://${region}${getMatchDto}${games[game].gameId}${Env.get('RIOT_KEY')}`
-        //     );
-        // }
+        const games = apiResponse.data.matches;
 
-        return apiResponse.data.matches;
+        for(var game in games) {
+            const matchDto = await Axios.get(
+                `https://${region}${getMatchDto}${games[game].gameId}${Env.get('RIOT_KEY')}`
+            );
+            // console.log(matchDto)
+        }
+
+        return games;
     } catch(err) {
         console.log(err);
     }
