@@ -17,7 +17,7 @@ const Route = use('Route');
 Route.get('files/:file', 'FileController.show');
 
 // Riot API
-Route.get('/summoner/:region/:summonerName', 'RiotApiController.index');
+Route.get('/summoner/:region/:summonerName', 'SummonerController.index');
 
 // User
 Route.get('/users', 'UserController.index');
