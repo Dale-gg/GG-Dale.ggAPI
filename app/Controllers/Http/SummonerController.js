@@ -1,5 +1,6 @@
 const getSummoner = require('../../Utils/RiotAPI/getSummoner');
 const getTier = require('../../Utils/RiotAPI/getTier');
+const getMatchs = require('../../Utils/RiotAPI/getMatchs');
 
 class SummonerController {
   async index({ response, params }) {
@@ -11,7 +12,9 @@ class SummonerController {
     const tierSolo = tiers[0];
     const tierFlex = tiers[1];
 
-    return response.status(200).json({ type: 'get-summoner', msg: 'Invocador encontrado!', summoner, tierSolo, tierFlex});
+    const matchs = await getMatchs(region, summoner.accountId);
+
+    return response.status(200).json({ type: 'get-summoner', msg: 'Invocador encontrado!', summoner, tierSolo, tierFlex, matchs});
   }
 
   async store({  }) {

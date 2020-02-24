@@ -50,6 +50,20 @@ test('it should get the flex tier of the summoner', async ({ assert, client }) =
   assert.equal(response.body.tierFlex.tier, tierFlex);
 }).timeout(30000);
 
+test('it should get ten matchs from the summoner', async ({ assert, client }) => {
+  const summonerName = 'iLenon7';
+  const region = 'br1';
+
+  const response = await client
+    .get(`/summoner/${region}/${summonerName}`)
+    .end();
+
+  response.assertStatus(200);
+
+  assert.equal(response.body.summoner.name, summonerName);
+  assert.exists(response.body.matchs);
+}).timeout(30000);
+
 // test('it should not get some summoner', async ({ assert, client }) => {
 //   const summonerName = 'jainzidaleincomodantemermaunnn';
 //   const region = 'br1';
