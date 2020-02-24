@@ -14,6 +14,13 @@ class SummonerController {
 
     const matchs = await getMatchs(region, summoner.accountId);
 
+    // Nível banco de dados
+    // for(var game in games) {
+    //   const matchDto = await Axios.get(
+    //       `https://${region}${getMatchDto}${games[game].gameId}${Env.get('RIOT_KEY')}`
+    //   );
+    // }
+
     return response.status(200).json({ type: 'get-summoner', msg: 'Invocador encontrado!', summoner, tierSolo, tierFlex, matchs});
   }
 
