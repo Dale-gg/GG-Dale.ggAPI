@@ -1,3 +1,6 @@
+/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
+const Summoner = use('App/Models/Summoner');
+
 const getSummoner = require('../../Utils/RiotAPI/getSummoner');
 const getTier = require('../../Utils/RiotAPI/getTier');
 const getMatchs = require('../../Utils/RiotAPI/getMatchs');
@@ -5,14 +8,22 @@ const getMatchs = require('../../Utils/RiotAPI/getMatchs');
 class SummonerController {
   async index({ response, params }) {
     const { region, summonerName } = params;
-    
-    const summoner = await getSummoner(region, summonerName);
 
-    const tiers = await getTier(summoner.id, region);
+    const summonerAPI = await getSummoner(region, summonerName);
+
+    await Summoner.create({
+      accountId: summonerAPI.accountId,
+      summonerId: summonerAPI.id,
+      puuid: summonerAPI.puuid,
+      summonerName: summonerAPI.name,
+      revisionDate: summonerAPI.revisionDate,
+    });
+
+    const tiers = await getTier(summonerAPI.id, region);
     const tierSolo = tiers[0];
     const tierFlex = tiers[1];
 
-    const matchs = await getMatchs(region, summoner.accountId);
+    const matchs = await getMatchs(region, summonerAPI.accountId);
 
     // Nível banco de dados
     // for(var game in games) {
@@ -21,11 +32,14 @@ class SummonerController {
     //   );
     // }
 
-    return response.status(200).json({ type: 'get-summoner', msg: 'Invocador encontrado!', summoner, tierSolo, tierFlex, matchs});
-  }
-
-  async store({  }) {
-    
+    return response.status(200).json({
+      type: 'get-summoner',
+      msg: 'Invocador encontrado!',
+      summonerAPI,
+      tierSolo,
+      tierFlex,
+      matchs,
+    });
   }
 }
 
