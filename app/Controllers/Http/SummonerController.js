@@ -8,15 +8,15 @@ const getMatchs = require('../../Utils/RiotAPI/getMatchs');
 class SummonerController {
   async index({ response, params }) {
     const { region, summonerName } = params;
-    
+
     const summonerAPI = await getSummoner(region, summonerName);
 
-    const summonerDB = await Summoner.create({
+    await Summoner.create({
       accountId: summonerAPI.accountId,
       summonerId: summonerAPI.id,
       puuid: summonerAPI.puuid,
       summonerName: summonerAPI.name,
-      revisionDate: summonerAPI.revisionDate
+      revisionDate: summonerAPI.revisionDate,
     });
 
     const tiers = await getTier(summonerAPI.id, region);
@@ -32,11 +32,14 @@ class SummonerController {
     //   );
     // }
 
-    return response.status(200).json({ type: 'get-summoner', msg: 'Invocador encontrado!', summonerAPI, tierSolo, tierFlex, matchs});
-  }
-
-  async store({  }) {
-    
+    return response.status(200).json({
+      type: 'get-summoner',
+      msg: 'Invocador encontrado!',
+      summonerAPI,
+      tierSolo,
+      tierFlex,
+      matchs,
+    });
   }
 }
 

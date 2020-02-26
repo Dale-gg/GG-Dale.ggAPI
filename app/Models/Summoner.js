@@ -1,7 +1,6 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
-const Model = use('Model')
+const Model = use('Model');
 
-class Summoner extends Model {
-}
+class Summoner extends Model {}
 
-module.exports = Summoner
+module.exports = Summoner;
