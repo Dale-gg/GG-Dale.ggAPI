@@ -7,7 +7,10 @@ trait('Test/ApiClient');
 trait('Auth/Client');
 trait('DatabaseTransactions');
 
-test('it should get some summoner and save it in the database', async ({ assert, client }) => {
+test('it should get some summoner and save it in the database', async ({
+  assert,
+  client,
+}) => {
   const summonerName = 'iLenon7';
   const region = 'br1';
 
@@ -20,9 +23,12 @@ test('it should get some summoner and save it in the database', async ({ assert,
   assert.equal(response.body.summonerAPI.name, summonerName);
 }).timeout(30000);
 
-test('it should get the solo/duo tier of the summoner', async ({ assert, client }) => {
+test('it should get the solo/duo tier of the summoner and save it', async ({
+  assert,
+  client,
+}) => {
   const summonerName = 'iLenon7';
-  const tierSolo = 'GOLD'
+  const tierSolo = 'GOLD';
   const region = 'br1';
 
   const response = await client
@@ -35,9 +41,12 @@ test('it should get the solo/duo tier of the summoner', async ({ assert, client 
   assert.equal(response.body.tierSolo.tier, tierSolo);
 }).timeout(30000);
 
-test('it should get the flex tier of the summoner', async ({ assert, client }) => {
+test('it should get the flex tier of the summoner', async ({
+  assert,
+  client,
+}) => {
   const summonerName = 'RNS Hylen';
-  const tierFlex = 'DIAMOND'
+  const tierFlex = 'DIAMOND';
   const region = 'br1';
 
   const response = await client
@@ -50,7 +59,10 @@ test('it should get the flex tier of the summoner', async ({ assert, client }) =
   assert.equal(response.body.tierFlex.tier, tierFlex);
 }).timeout(30000);
 
-test('it should get ten matchs from the summoner', async ({ assert, client }) => {
+test('it should get ten matchs from the summoner', async ({
+  assert,
+  client,
+}) => {
   const summonerName = 'iLenon7';
   const region = 'br1';
 
