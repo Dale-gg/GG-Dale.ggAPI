@@ -1,6 +1,9 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Summoner = use('App/Models/Summoner');
 
+/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
+const Tier = use('App/Models/Tier');
+
 const getSummoner = require('../../Utils/RiotAPI/getSummoner');
 const getTier = require('../../Utils/RiotAPI/getTier');
 const getMatchs = require('../../Utils/RiotAPI/getMatchs');
@@ -11,7 +14,7 @@ class SummonerController {
 
     const summonerAPI = await getSummoner(region, summonerName);
 
-    await Summoner.create({
+    Summoner.create({
       accountId: summonerAPI.accountId,
       summonerId: summonerAPI.id,
       puuid: summonerAPI.puuid,
@@ -21,7 +24,40 @@ class SummonerController {
 
     const tiers = await getTier(summonerAPI.id, region);
     const tierSolo = tiers[0];
+
+    if (tierSolo) {
+      Tier.create({
+        summonerId: summonerAPI.id,
+        leagueId: tierSolo.leagueId,
+        queueType: tierSolo.queueType,
+        tier: tierSolo.tier,
+        rank: tierSolo.rank,
+        pdl: tierSolo.leaguePoints,
+        wins: tierSolo.wins,
+        losses: tierSolo.losses,
+        inactive: tierSolo.inactive,
+        freshBlood: tierSolo.freshBlood,
+        hotStreak: tierSolo.hotStreak,
+      });
+    }
+
     const tierFlex = tiers[1];
+
+    if (tierFlex) {
+      Tier.create({
+        summonerId: summonerAPI.id,
+        leagueId: tierFlex.leagueId,
+        queueType: tierFlex.queueType,
+        tier: tierFlex.tier,
+        rank: tierFlex.rank,
+        pdl: tierFlex.leaguePoints,
+        wins: tierFlex.wins,
+        losses: tierFlex.losses,
+        inactive: tierFlex.inactive,
+        freshBlood: tierFlex.freshBlood,
+        hotStreak: tierFlex.hotStreak,
+      });
+    }
 
     const matchs = await getMatchs(region, summonerAPI.accountId);
 
