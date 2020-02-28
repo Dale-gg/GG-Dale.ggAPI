@@ -9,9 +9,9 @@ const getTier = require('../../Utils/RiotAPI/getTier');
 const getMatchs = require('../../Utils/RiotAPI/getMatchs');
 
 class SummonerController {
-  async show({ response, params }) {
+  async show({ request, response }) {
     console.log('ENTROU NO SHOW');
-    const { region, summonerName } = params;
+    const { region, summonerName } = request.get();
 
     const summoner = await Summoner.query()
       .where({
@@ -27,9 +27,10 @@ class SummonerController {
     });
   }
 
-  async store({ response, params }) {
+  async store({ request, response }) {
     console.log('ENTROU NO STORE');
-    const { region, summonerName } = params;
+    const { region, summonerName } = request.get();
+    console.log(region)
 
     const summonerAPI = await getSummoner(region, summonerName);
 

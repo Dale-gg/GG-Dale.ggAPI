@@ -15,7 +15,7 @@ test('it should get some summoner and save it in the database', async ({
   const region = 'br1';
 
   const response = await client
-    .get(`/summoner/${region}/${summonerName}`)
+    .get(`/summoner/?region=${region}&summonerName=${summonerName}`)
     .end();
 
   response.assertStatus(200);
@@ -32,7 +32,7 @@ test('it should get the solo/duo tier of the summoner and save it', async ({
   const region = 'br1';
 
   const response = await client
-    .get(`/summoner/${region}/${summonerName}`)
+    .get(`/summoner/?region=${region}&summonerName=${summonerName}`)
     .end();
 
   response.assertStatus(200);
@@ -50,7 +50,7 @@ test('it should get the flex tier of the summoner and save it', async ({
   const region = 'br1';
 
   const response = await client
-    .get(`/summoner/${region}/${summonerName}`)
+    .get(`/summoner/?region=${region}&summonerName=${summonerName}`)
     .end();
 
   response.assertStatus(200);
@@ -67,7 +67,7 @@ test('it should get ten matchs from the summoner', async ({
   const region = 'br1';
 
   const response = await client
-    .get(`/summoner/${region}/${summonerName}`)
+    .get(`/summoner/?region=${region}&summonerName=${summonerName}`)
     .end();
 
   response.assertStatus(200);
@@ -89,7 +89,7 @@ test('it should enter in the show() method instead of store()', async ({
   });
 
   const response = await client
-    .get(`/summoner/${region}/${summoner.summonerName}`)
+    .get(`/summoner/?region=${region}&summonerName=${summoner.summonerName}`)
     .end();
 
   response.assertStatus(200);

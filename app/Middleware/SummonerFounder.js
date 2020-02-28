@@ -11,8 +11,8 @@ class SummonerFounder {
    * @param {Request} ctx.request
    * @param {Function} next
    */
-  async handle({ response, params }, next) {
-    const { region, summonerName } = params;
+  async handle({ request, response }, next) {
+    const { region, summonerName } = request.get();
 
     const summoner = await Summoner.findBy({
       summonerName,
@@ -21,10 +21,9 @@ class SummonerFounder {
     if (summoner) {
       await next();
     } else {
-      await response.route('SummonerController.store', {
-        region,
-        summonerName,
-      });
+      return response.route(
+        `/summoner/store?region=${region}&summonerName=${summonerName}`
+      );
     }
   }
 }
