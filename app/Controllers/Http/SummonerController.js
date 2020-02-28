@@ -10,13 +10,15 @@ const getMatchs = require('../../Utils/RiotAPI/getMatchs');
 
 class SummonerController {
   async show({ response, params }) {
-    console.log('ENTREI NO SHOW KKJDSAKJKA');
+    console.log('ENTROU NO SHOW');
     const { region, summonerName } = params;
 
-    const summoner = Summoner.findBy({
-      region,
-      summonerName,
-    });
+    const summoner = await Summoner.query()
+      .where({
+        summonerName,
+        region,
+      })
+      .fetch();
 
     return response.status(200).json({
       type: 'get-summoner',
@@ -26,7 +28,7 @@ class SummonerController {
   }
 
   async store({ response, params }) {
-    console.log('ENTREI NO STORE KKJDSAKJKA');
+    console.log('ENTROU NO STORE');
     const { region, summonerName } = params;
 
     const summonerAPI = await getSummoner(region, summonerName);

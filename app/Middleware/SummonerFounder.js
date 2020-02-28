@@ -21,7 +21,7 @@ class SummonerFounder {
     if (summoner) {
       await next();
     } else {
-      return response.route('SummonerController.store', {
+      await response.route('SummonerController.store', {
         region,
         summonerName,
       });

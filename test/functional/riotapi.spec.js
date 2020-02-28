@@ -85,6 +85,7 @@ test('it should enter in the show() method instead of store()', async ({
 
   const summoner = await Factory.model('App/Models/Summoner').create({
     summonerName,
+    region,
   });
 
   const response = await client
@@ -93,7 +94,7 @@ test('it should enter in the show() method instead of store()', async ({
 
   response.assertStatus(200);
 
-  assert.equal(response.body.summoner.summonerName, summonerName);
+  assert.equal(response.body.summoner[0].summonerName, summonerName);
   assert.exists(response.body.summoner);
 });
 
