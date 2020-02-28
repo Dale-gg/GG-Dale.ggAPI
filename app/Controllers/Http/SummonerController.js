@@ -10,7 +10,6 @@ const getMatchs = require('../../Utils/RiotAPI/getMatchs');
 
 class SummonerController {
   async show({ request, response }) {
-    console.log('ENTROU NO SHOW');
     const { region, summonerName } = request.get();
 
     const summoner = await Summoner.query()
@@ -20,6 +19,14 @@ class SummonerController {
       })
       .fetch();
 
+    if (!summoner) {
+      return response.status(404).json({
+        type: 'get-summoner',
+        msg: 'Invocador não encontrado na base de dados local!',
+        summoner,
+      });
+    }
+
     return response.status(200).json({
       type: 'get-summoner',
       msg: 'Invocador encontrado!',
@@ -28,9 +35,7 @@ class SummonerController {
   }
 
   async store({ request, response }) {
-    console.log('ENTROU NO STORE');
     const { region, summonerName } = request.get();
-    console.log(region)
 
     const summonerAPI = await getSummoner(region, summonerName);
 
