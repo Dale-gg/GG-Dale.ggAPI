@@ -9,8 +9,33 @@ const getTier = require('../../Utils/RiotAPI/getTier');
 const getMatchs = require('../../Utils/RiotAPI/getMatchs');
 
 class SummonerController {
-  async index({ response, params }) {
-    const { region, summonerName } = params;
+  async show({ request, response }) {
+    const { region, summonerName } = request.get();
+
+    const summoner = await Summoner.query()
+      .where({
+        summonerName,
+        region,
+      })
+      .fetch();
+
+    if (!summoner) {
+      return response.status(404).json({
+        type: 'get-summoner',
+        msg: 'Invocador não encontrado na base de dados local!',
+        summoner,
+      });
+    }
+
+    return response.status(200).json({
+      type: 'get-summoner',
+      msg: 'Invocador encontrado!',
+      summoner,
+    });
+  }
+
+  async store({ request, response }) {
+    const { region, summonerName } = request.get();
 
     const summonerAPI = await getSummoner(region, summonerName);
 
@@ -18,6 +43,7 @@ class SummonerController {
       accountId: summonerAPI.accountId,
       summonerId: summonerAPI.id,
       puuid: summonerAPI.puuid,
+      region,
       summonerName: summonerAPI.name,
       revisionDate: summonerAPI.revisionDate,
     });
@@ -61,13 +87,6 @@ class SummonerController {
 
     const matchs = await getMatchs(region, summonerAPI.accountId);
 
-    // Nível banco de dados
-    // for(var game in games) {
-    //   const matchDto = await Axios.get(
-    //       `https://${region}${getMatchDto}${games[game].gameId}${Env.get('RIOT_KEY')}`
-    //   );
-    // }
-
     return response.status(200).json({
       type: 'get-summoner',
       msg: 'Invocador encontrado!',
@@ -76,6 +95,13 @@ class SummonerController {
       tierFlex,
       matchs,
     });
+
+    // Nível banco de dados
+    // for(var game in games) {
+    //   const matchDto = await Axios.get(
+    //       `https://${region}${getMatchDto}${games[game].gameId}${Env.get('RIOT_KEY')}`
+    //   );
+    // }
   }
 }
 

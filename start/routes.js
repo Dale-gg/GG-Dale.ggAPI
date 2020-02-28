@@ -17,7 +17,11 @@ const Route = use('Route');
 Route.get('files/:file', 'FileController.show');
 
 // Riot API
-Route.get('/summoner/:region/:summonerName', 'SummonerController.index');
+Route.group(() => {
+  Route.get('/summoner', 'SummonerController.show');
+}).middleware('summoner');
+
+Route.get('/summoner/store', 'SummonerController.store');
 
 // User
 Route.get('/users', 'UserController.index');

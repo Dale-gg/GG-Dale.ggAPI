@@ -1,7 +1,7 @@
 const { test, trait } = use('Test/Suite')('RiotAPI');
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
-// const Factory = use('Factory');
+const Factory = use('Factory');
 
 trait('Test/ApiClient');
 trait('Auth/Client');
@@ -15,7 +15,7 @@ test('it should get some summoner and save it in the database', async ({
   const region = 'br1';
 
   const response = await client
-    .get(`/summoner/${region}/${summonerName}`)
+    .get(`/summoner/?region=${region}&summonerName=${summonerName}`)
     .end();
 
   response.assertStatus(200);
@@ -32,7 +32,7 @@ test('it should get the solo/duo tier of the summoner and save it', async ({
   const region = 'br1';
 
   const response = await client
-    .get(`/summoner/${region}/${summonerName}`)
+    .get(`/summoner/?region=${region}&summonerName=${summonerName}`)
     .end();
 
   response.assertStatus(200);
@@ -41,7 +41,7 @@ test('it should get the solo/duo tier of the summoner and save it', async ({
   assert.equal(response.body.tierSolo.tier, tierSolo);
 }).timeout(30000);
 
-test('it should get the flex tier of the summoner', async ({
+test('it should get the flex tier of the summoner and save it', async ({
   assert,
   client,
 }) => {
@@ -50,7 +50,7 @@ test('it should get the flex tier of the summoner', async ({
   const region = 'br1';
 
   const response = await client
-    .get(`/summoner/${region}/${summonerName}`)
+    .get(`/summoner/?region=${region}&summonerName=${summonerName}`)
     .end();
 
   response.assertStatus(200);
@@ -67,7 +67,7 @@ test('it should get ten matchs from the summoner', async ({
   const region = 'br1';
 
   const response = await client
-    .get(`/summoner/${region}/${summonerName}`)
+    .get(`/summoner/?region=${region}&summonerName=${summonerName}`)
     .end();
 
   response.assertStatus(200);
@@ -75,6 +75,28 @@ test('it should get ten matchs from the summoner', async ({
   assert.equal(response.body.summonerAPI.name, summonerName);
   assert.exists(response.body.matchs);
 }).timeout(30000);
+
+test('it should enter in the show() method instead of store()', async ({
+  assert,
+  client,
+}) => {
+  const summonerName = 'iLenon7';
+  const region = 'br1';
+
+  const summoner = await Factory.model('App/Models/Summoner').create({
+    summonerName,
+    region,
+  });
+
+  const response = await client
+    .get(`/summoner/?region=${region}&summonerName=${summoner.summonerName}`)
+    .end();
+
+  response.assertStatus(200);
+
+  assert.equal(response.body.summoner[0].summonerName, summonerName);
+  assert.exists(response.body.summoner);
+});
 
 // test('it should not get some summoner', async ({ assert, client }) => {
 //   const summonerName = 'jainzidaleincomodantemermaunnn';

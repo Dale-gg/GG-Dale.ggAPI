@@ -28,3 +28,15 @@ Factory.blueprint('App/Models/Token', (faker, i, data = {}) => {
     ...data,
   };
 });
+
+Factory.blueprint('App/Models/Summoner', (faker, i, data = {}) => {
+  return {
+    accountId: faker.string(),
+    summonerId: faker.string(),
+    puuid: faker.string(),
+    summonerName: faker.name(),
+    region: faker.string(),
+    revisionDate: faker.date(),
+    ...data,
+  };
+});
