@@ -9,6 +9,7 @@ class SummonerSchema extends Schema {
       table.string('summonerId').notNullable();
       table.string('puuid').notNullable();
       table.string('summonerName').notNullable();
+      table.string('region').notNullable();
       table.date('revisionDate').notNullable();
       table.timestamps();
     });
