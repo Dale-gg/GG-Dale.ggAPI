@@ -50,6 +50,7 @@ test('it should get ten matchs from the summoner', async ({
   client,
 }) => {
   const summonerName = 'iLenon7';
+  const tierSolo = 'GOLD';
   const region = 'br1';
 
   const response = await client
@@ -58,8 +59,9 @@ test('it should get ten matchs from the summoner', async ({
 
   response.assertStatus(200);
 
-  assert.equal(response.body.summonerAPI.name, summonerName);
-  assert.exists(response.body.matchs);
+  assert.equal(response.body.summoner[0].summoner_name, summonerName);
+  assert.equal(response.body.summoner[0].tiers[0].tier, tierSolo);
+  // assert.exists(response.body.summoner[0].matchs);
 }).timeout(30000);
 
 test('it should enter in the show and bring a summoner with his tier', async ({
