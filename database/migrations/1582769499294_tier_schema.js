@@ -6,12 +6,12 @@ class TierSchema extends Schema {
     this.create('tiers', table => {
       table.increments();
       table
-        .string('summonerId')
+        .string('summoner_id')
         .unsigned()
-        .references('summonerId')
+        .references('summoner_id')
         .inTable('summoners');
-      table.string('leagueId');
-      table.string('queueType');
+      table.string('league_id');
+      table.string('queue_type');
       table.string('tier');
       table.string('rank');
       table.integer('pdl');
@@ -20,8 +20,8 @@ class TierSchema extends Schema {
       table.integer('losses');
       table.boolean('inactive');
       table.boolean('veteran');
-      table.boolean('hotStreak');
-      table.boolean('freshBlood');
+      table.boolean('hot_streak');
+      table.boolean('fresh_blood');
       table.string('season');
       table.timestamps();
     });

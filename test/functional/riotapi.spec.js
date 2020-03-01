@@ -84,17 +84,20 @@ test('it should enter in the show() method instead of store()', async ({
   const region = 'br1';
 
   const summoner = await Factory.model('App/Models/Summoner').create({
-    summonerName,
+    summoner_name: summonerName,
     region,
   });
+  const summonerTier = await Factory.model('App/Models/Tier').make();
+
+  await summoner.tiers().save(summonerTier);
 
   const response = await client
-    .get(`/summoner/?region=${region}&summonerName=${summoner.summonerName}`)
+    .get(`/summoner/?region=${region}&summonerName=${summoner.summoner_name}`)
     .end();
 
   response.assertStatus(200);
 
-  assert.equal(response.body.summoner[0].summonerName, summonerName);
+  assert.equal(response.body.summoner[0].summoner_name, summonerName);
   assert.exists(response.body.summoner);
 });
 

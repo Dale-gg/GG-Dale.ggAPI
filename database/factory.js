@@ -31,12 +31,32 @@ Factory.blueprint('App/Models/Token', (faker, i, data = {}) => {
 
 Factory.blueprint('App/Models/Summoner', (faker, i, data = {}) => {
   return {
-    accountId: faker.string(),
-    summonerId: faker.string(),
+    account_id: faker.string(),
+    summoner_id: faker.string(),
     puuid: faker.string(),
-    summonerName: faker.name(),
+    summoner_name: faker.name(),
     region: faker.string(),
-    revisionDate: faker.date(),
+    revision_date: faker.date(),
+    ...data,
+  };
+});
+
+Factory.blueprint('App/Models/Tier', (faker, i, data = {}) => {
+  return {
+    summoner_id: data.summoner_id || faker.string(),
+    league_id: faker.string(),
+    queue_type: faker.string(),
+    tier: faker.string(),
+    rank: faker.string(),
+    pdl: 50,
+    winrate: faker.string(),
+    wins: faker.integer(),
+    losses: faker.integer(),
+    inactive: false,
+    veteran: false,
+    hot_streak: false,
+    fresh_blood: false,
+    season: faker.string(),
     ...data,
   };
 });
