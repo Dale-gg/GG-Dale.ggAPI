@@ -13,6 +13,7 @@ test('it should get some summoner and save it in the database', async ({
 }) => {
   const summonerName = 'iLenon7';
   const region = 'br1';
+  const tier = 'GOLD';
 
   const response = await client
     .get(`/summoner/?region=${region}&summonerName=${summonerName}`)
@@ -20,7 +21,8 @@ test('it should get some summoner and save it in the database', async ({
 
   response.assertStatus(200);
 
-  assert.equal(response.body.summonerAPI.name, summonerName);
+  assert.equal(response.body.summoner[0].summoner_name, summonerName);
+  assert.equal(response.body.summoner[0].tiers[0].tier, tier);
 }).timeout(30000);
 
 test('it should get the solo/duo tier of the summoner and save it', async ({
