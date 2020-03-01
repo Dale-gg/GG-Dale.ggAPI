@@ -76,7 +76,7 @@ test('it should get ten matchs from the summoner', async ({
   assert.exists(response.body.matchs);
 }).timeout(30000);
 
-test('it should enter in the show() method instead of store()', async ({
+test('it should enter in the show and bring a summoner with his tier', async ({
   assert,
   client,
 }) => {
@@ -87,7 +87,10 @@ test('it should enter in the show() method instead of store()', async ({
     summoner_name: summonerName,
     region,
   });
-  const summonerTier = await Factory.model('App/Models/Tier').make();
+
+  const summonerTier = await Factory.model('App/Models/Tier').make({
+    summoner_id: summoner.id,
+  });
 
   await summoner.tiers().save(summonerTier);
 
@@ -97,8 +100,9 @@ test('it should enter in the show() method instead of store()', async ({
 
   response.assertStatus(200);
 
-  assert.equal(response.body.summoner[0].summoner_name, summonerName);
   assert.exists(response.body.summoner);
+  assert.exists(response.body.summoner[0].tiers);
+  assert.equal(response.body.summoner[0].summoner_name, summonerName);
 });
 
 // test('it should not get some summoner', async ({ assert, client }) => {

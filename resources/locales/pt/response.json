@@ -8,5 +8,7 @@
   "success-register": "O Usuário {name}, foi registrado com sucesso, cheque sua caixa de e-mail",
   "user-soft-deleted": "O Usuário numero {id}, foi desabilitado com sucesso.",
   "user-soft-restored": "O Usuário numero {id}, foi restaurado com sucesso.",
-  "success-profile-update": "Seu perfil foi atualizado com sucesso."
+  "success-profile-update": "Seu perfil foi atualizado com sucesso.",
+  "not-found-summoner": "Invocador não encontrado.",
+  "get-summoner": "Invocador encontrado."
  }

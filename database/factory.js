@@ -43,7 +43,7 @@ Factory.blueprint('App/Models/Summoner', (faker, i, data = {}) => {
 
 Factory.blueprint('App/Models/Tier', (faker, i, data = {}) => {
   return {
-    summoner_id: data.summoner_id || faker.string(),
+    summoner_id: data.id || faker.string(),
     league_id: faker.string(),
     queue_type: faker.string(),
     tier: faker.string(),

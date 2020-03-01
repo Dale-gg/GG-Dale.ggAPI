@@ -6,9 +6,9 @@ class TierSchema extends Schema {
     this.create('tiers', table => {
       table.increments();
       table
-        .string('summoner_id')
+        .integer('summoner_id')
         .unsigned()
-        .references('summoner_id')
+        .references('id')
         .inTable('summoners');
       table.string('league_id');
       table.string('queue_type');

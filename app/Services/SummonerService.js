@@ -9,58 +9,12 @@ const getMatchs = require('../Utils/RiotAPI/getMatchs');
 
 class SummonerService {
   async show({ region, summonerName }) {
-    const summoner = await Summoner.findByOrFail({
-      region,
-      summoner_name: summonerName,
-    });
+    const summoner = await Summoner.query()
+      .where({ region, summoner_name: summonerName })
+      .with('tiers')
+      .fetch();
 
-    const tier = await summoner.tiers().fetch();
-    const tiersolo = tier.rows[0];
-    const tierflex = tier.rows[1];
-
-    const objectResponse = {
-      summoner: {
-        id: summoner.id,
-        account_id: summoner.account_id,
-        summoner_id: summoner.summoner_id,
-        puuid: summoner.puuid,
-        summoner_name: summoner.summoner_name,
-        region: summoner.region,
-        revision_date: summoner.revision_date,
-        tiersolo: {
-          id: tiersolo.id || 'not-ranked',
-          league_id: tiersolo.league_id || 'not-ranked',
-          queue_type: tiersolo.queue_type || 'not-ranked',
-          tier: tiersolo.tier || 'not-ranked',
-          rank: tiersolo.rank || 'not-ranked',
-          pdl: tiersolo.pdl || 'not-ranked',
-          winrate: tiersolo.winrate || 'not-ranked',
-          wins: tiersolo.wins || 'not-ranked',
-          losses: tiersolo.losses || 'not-ranked',
-          inactive: tiersolo.inactive || 'not-ranked',
-          hot_streak: tiersolo.hot_streak || 'not-ranked',
-          fresh_blood: tiersolo.fresh_blood || 'not-ranked',
-          season: tiersolo.season || 'not-ranked',
-        },
-        tierflex: {
-          id: 'not-ranked' || tierflex.id,
-          league_id: tierflex.league_id || 'not-ranked',
-          queue_type: tierflex.queue_type || 'not-ranked',
-          tier: tierflex.tier || 'not-ranked',
-          rank: tierflex.rank || 'not-ranked',
-          pdl: tierflex.pdl || 'not-ranked',
-          winrate: tierflex.winrate || 'not-ranked',
-          wins: tierflex.wins || 'not-ranked',
-          losses: tierflex.losses || 'not-ranked',
-          inactive: tierflex.inactive || 'not-ranked',
-          hot_streak: tierflex.hot_streak || 'not-ranked',
-          fresh_blood: tierflex.fresh_blood || 'not-ranked',
-          season: tierflex.season || 'not-ranked',
-        },
-      },
-    };
-
-    return objectResponse;
+    return summoner;
   }
 
   async store({ region, summonerName }) {
