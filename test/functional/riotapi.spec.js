@@ -25,29 +25,12 @@ test('it should get some summoner and save it in the database', async ({
   assert.equal(response.body.summoner[0].tiers[0].tier, tier);
 }).timeout(30000);
 
-test('it should get the solo/duo tier of the summoner and save it', async ({
-  assert,
-  client,
-}) => {
-  const summonerName = 'iLenon7';
-  const tierSolo = 'GOLD';
-  const region = 'br1';
-
-  const response = await client
-    .get(`/summoner/?region=${region}&summonerName=${summonerName}`)
-    .end();
-
-  response.assertStatus(200);
-
-  assert.equal(response.body.summonerAPI.name, summonerName);
-  assert.equal(response.body.tierSolo.tier, tierSolo);
-}).timeout(30000);
-
-test('it should get the flex tier of the summoner and save it', async ({
+test('it should get some summoner and save it with flex and solo tier', async ({
   assert,
   client,
 }) => {
   const summonerName = 'RNS Hylen';
+  const tierSolo = 'DIAMOND';
   const tierFlex = 'DIAMOND';
   const region = 'br1';
 
@@ -57,8 +40,9 @@ test('it should get the flex tier of the summoner and save it', async ({
 
   response.assertStatus(200);
 
-  assert.equal(response.body.summonerAPI.name, summonerName);
-  assert.equal(response.body.tierFlex.tier, tierFlex);
+  assert.equal(response.body.summoner[0].summoner_name, summonerName);
+  assert.equal(response.body.summoner[0].tiers[0].tier, tierSolo);
+  assert.equal(response.body.summoner[0].tiers[1].tier, tierFlex);
 }).timeout(30000);
 
 test('it should get ten matchs from the summoner', async ({
