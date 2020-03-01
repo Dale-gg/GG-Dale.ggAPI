@@ -20,7 +20,7 @@ class SummonerService {
   async store({ region, summonerName }) {
     const summonerAPI = await getSummoner(region, summonerName);
 
-    Summoner.create({
+    const summoner = await Summoner.create({
       account_id: summonerAPI.accountId,
       summoner_id: summonerAPI.id,
       puuid: summonerAPI.puuid,
@@ -33,8 +33,8 @@ class SummonerService {
     const tierSolo = tiers[0];
 
     if (tierSolo) {
-      Tier.create({
-        summoner_id: summonerAPI.id,
+      const summonerSoloTier = await Tier.create({
+        summoner_id: summoner.id,
         league_id: tierSolo.leagueId,
         queue_type: tierSolo.queueType,
         tier: tierSolo.tier,
@@ -46,13 +46,14 @@ class SummonerService {
         fresh_blood: tierSolo.freshBlood,
         hot_streak: tierSolo.hotStreak,
       });
+      await summoner.tiers().save(summonerSoloTier);
     }
 
     const tierFlex = tiers[1];
 
     if (tierFlex) {
-      Tier.create({
-        summoner_id: summonerAPI.id,
+      const summonerFlexTier = await Tier.create({
+        summoner_id: summoner.id,
         league_id: tierFlex.leagueId,
         queue_type: tierFlex.queueType,
         tier: tierFlex.tier,
@@ -64,6 +65,7 @@ class SummonerService {
         fresh_blood: tierFlex.freshBlood,
         hot_streak: tierFlex.hotStreak,
       });
+      await summoner.tiers().save(summonerFlexTier);
     }
 
     const matchs = await getMatchs(region, summonerAPI.accountId);
@@ -75,15 +77,15 @@ class SummonerService {
     //   );
     // }
 
-    const summoner = await Summoner.query()
+    const resSummoner = await Summoner.query()
       .where({
-        summonerName,
+        summoner_name: summonerName,
         region,
       })
       .with('tiers')
       .fetch();
 
-    return summoner;
+    return resSummoner;
   }
 }
 
