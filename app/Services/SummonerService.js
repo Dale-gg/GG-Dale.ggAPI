@@ -7,65 +7,35 @@ const getSummoner = require('../Utils/RiotAPI/getSummoner');
 const getTier = require('../Utils/RiotAPI/getTier');
 const getMatchs = require('../Utils/RiotAPI/getMatchs');
 
+const SummonerRepository = use('App/Repositories/SummonerRepository');
+const TierRepository = use('App/Repositories/TierRepository');
+
 class SummonerService {
+  constructor() {
+    this.summonerRepository = new SummonerRepository();
+    this.tierRepository = new TierRepository();
+  }
+
   async show({ region, summonerName }) {
-    const summoner = await Summoner.query()
-      .where({ region, summoner_name: summonerName })
-      .with('tiers')
-      .fetch();
+    const summoner = await this.summonerRepository.show(region, summonerName);
 
     return summoner;
   }
 
   async store({ region, summonerName }) {
     const summonerAPI = await getSummoner(region, summonerName);
-
-    const summoner = await Summoner.create({
-      account_id: summonerAPI.accountId,
-      summoner_id: summonerAPI.id,
-      puuid: summonerAPI.puuid,
-      region,
-      summoner_name: summonerAPI.name,
-      revision_date: summonerAPI.revisionDate,
-    });
+    const summoner = await this.summonerRepository.store(summonerAPI, region);
 
     const tiers = await getTier(summonerAPI.id, region);
     const tierSolo = tiers[0];
-
-    if (tierSolo) {
-      const summonerSoloTier = await Tier.create({
-        summoner_id: summoner.id,
-        league_id: tierSolo.leagueId,
-        queue_type: tierSolo.queueType,
-        tier: tierSolo.tier,
-        rank: tierSolo.rank,
-        pdl: tierSolo.leaguePoints,
-        wins: tierSolo.wins,
-        losses: tierSolo.losses,
-        inactive: tierSolo.inactive,
-        fresh_blood: tierSolo.freshBlood,
-        hot_streak: tierSolo.hotStreak,
-      });
-      await summoner.tiers().save(summonerSoloTier);
-    }
-
     const tierFlex = tiers[1];
 
+    if (tierSolo) {
+      await this.tierRepository.store(summoner.id, region, tierSolo);
+    }
+
     if (tierFlex) {
-      const summonerFlexTier = await Tier.create({
-        summoner_id: summoner.id,
-        league_id: tierFlex.leagueId,
-        queue_type: tierFlex.queueType,
-        tier: tierFlex.tier,
-        rank: tierFlex.rank,
-        pdl: tierFlex.leaguePoints,
-        wins: tierFlex.wins,
-        losses: tierFlex.losses,
-        inactive: tierFlex.inactive,
-        fresh_blood: tierFlex.freshBlood,
-        hot_streak: tierFlex.hotStreak,
-      });
-      await summoner.tiers().save(summonerFlexTier);
+      await this.tierRepository.store(summoner.id, region, tierFlex);
     }
 
     const matchs = await getMatchs(region, summonerAPI.accountId);

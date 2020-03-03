@@ -30,7 +30,7 @@ class UserController {
   async destroy({ response, params }) {
     const { id } = await this.userService.destroy(params);
 
-    return response.status(200).json({
+    return response.status(204).json({
       type: 'user-soft-deleted',
       msg: Antl.formatMessage('response.user-soft-deleted', { id }),
     });
