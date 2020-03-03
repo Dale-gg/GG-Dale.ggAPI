@@ -13,6 +13,7 @@ test('it should get some summoner and save it in the database', async ({
 }) => {
   const summonerName = 'iLenon7';
   const region = 'br1';
+  const tier = 'GOLD';
 
   const response = await client
     .get(`/summoner/?region=${region}&summonerName=${summonerName}`)
@@ -20,10 +21,31 @@ test('it should get some summoner and save it in the database', async ({
 
   response.assertStatus(200);
 
-  assert.equal(response.body.summonerAPI.name, summonerName);
+  assert.equal(response.body.summoner[0].summoner_name, summonerName);
+  assert.equal(response.body.summoner[0].tiers[0].tier, tier);
 }).timeout(30000);
 
-test('it should get the solo/duo tier of the summoner and save it', async ({
+test('it should get some summoner and save it with flex and solo tier', async ({
+  assert,
+  client,
+}) => {
+  const summonerName = 'RNS Hylen';
+  const tierSolo = 'DIAMOND';
+  const tierFlex = 'DIAMOND';
+  const region = 'br1';
+
+  const response = await client
+    .get(`/summoner/?region=${region}&summonerName=${summonerName}`)
+    .end();
+
+  response.assertStatus(200);
+
+  assert.equal(response.body.summoner[0].summoner_name, summonerName);
+  assert.equal(response.body.summoner[0].tiers[0].tier, tierSolo);
+  assert.equal(response.body.summoner[0].tiers[1].tier, tierFlex);
+}).timeout(30000);
+
+test('it should get ten matchs from the summoner', async ({
   assert,
   client,
 }) => {
@@ -37,47 +59,12 @@ test('it should get the solo/duo tier of the summoner and save it', async ({
 
   response.assertStatus(200);
 
-  assert.equal(response.body.summonerAPI.name, summonerName);
-  assert.equal(response.body.tierSolo.tier, tierSolo);
-}).timeout(30000);
-
-test('it should get the flex tier of the summoner and save it', async ({
-  assert,
-  client,
-}) => {
-  const summonerName = 'RNS Hylen';
-  const tierFlex = 'DIAMOND';
-  const region = 'br1';
-
-  const response = await client
-    .get(`/summoner/?region=${region}&summonerName=${summonerName}`)
-    .end();
-
-  response.assertStatus(200);
-
-  assert.equal(response.body.summonerAPI.name, summonerName);
-  assert.equal(response.body.tierFlex.tier, tierFlex);
-}).timeout(30000);
-
-test('it should get ten matchs from the summoner', async ({
-  assert,
-  client,
-}) => {
-  const summonerName = 'iLenon7';
-  const region = 'br1';
-
-  const response = await client
-    .get(`/summoner/?region=${region}&summonerName=${summonerName}`)
-    .end();
-
-  response.assertStatus(200);
-
   assert.equal(response.body.summoner[0].summoner_name, summonerName);
   assert.equal(response.body.summoner[0].tiers[0].tier, tierSolo);
   assert.exists(response.body.summoner[0].matchs);
 }).timeout(30000);
 
-test('it should enter in the show() method instead of store()', async ({
+test('it should enter in the show and bring a summoner with his tier', async ({
   assert,
   client,
 }) => {
@@ -85,7 +72,7 @@ test('it should enter in the show() method instead of store()', async ({
   const region = 'br1';
 
   const summoner = await Factory.model('App/Models/Summoner').create({
-    summonerName,
+    summoner_name: summonerName,
     region,
   });
 
@@ -101,12 +88,11 @@ test('it should enter in the show() method instead of store()', async ({
   await summoner.matchs().save(summonerMatchlist);
 
   const response = await client
-    .get(`/summoner/?region=${region}&summonerName=${summoner.summonerName}`)
+    .get(`/summoner/?region=${region}&summonerName=${summoner.summoner_name}`)
     .end();
 
   response.assertStatus(200);
 
-  assert.equal(response.body.summoner[0].summonerName, summonerName);
   assert.exists(response.body.summoner);
   assert.exists(response.body.summoner[0].tiers);
   assert.exists(response.body.summoner[0].matchs);

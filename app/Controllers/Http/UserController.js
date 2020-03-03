@@ -1,18 +1,12 @@
-// Typescript Intellisense
-/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
-const User = use('App/Models/User');
-
-const Database = use('Database');
-const Mail = use('Mail');
-const Env = use('Env');
+const UserService = use('App/Services/UserService');
 const Antl = use('Antl');
-
-const { randomBytes } = require('crypto');
-const { promisify } = require('util');
-
 class UserController {
+  constructor() {
+    this.userService = new UserService();
+  }
+
   async index({ response }) {
-    const users = await Database.select('*').from('users');
+    const users = await this.userService.index();
 
     return response.status(200).json({
       type: 'success-all-users',
@@ -22,80 +16,32 @@ class UserController {
   }
 
   async store({ request, response }) {
-    const { name, email, password } = request.only([
-      'name',
-      'email',
-      'password',
-    ]);
+    const user = await this.userService.store(request.all());
 
-    const user = await User.create({
-      name,
-      email,
-      password,
-    });
-
-    const random = await promisify(randomBytes)(16);
-    const token = random.toString('hex');
-
-    await user.tokens().create({
-      token,
-      type: 'confirmaccount',
-    });
-
-    const confirmAccountUrl = `${Env.get('APP_URL')}/confirm?token=${token}`;
-    const subject = Antl.formatMessage('response.welcome');
-
-    await Mail.send(
-      'emails.confirm',
-      { name: user.name, confirmAccountUrl },
-      message => {
-        message
-          .to(user.email)
-          .from('Dale.gg')
-          .subject(subject);
-      }
-    );
-
-    // He is not returning this response
-    return response.status(204).json({
+    return response.json({
       type: 'success-register',
-      msg: Antl.formatMessage('response.success-register', { name: user.name }),
+      msg: '',
+      user: Antl.formatMessage('response.success-register', {
+        name: user.name,
+      }),
     });
   }
 
   async destroy({ response, params }) {
-    const { id } = params;
+    const { id } = await this.userService.destroy(params);
 
-    const user = await User.findBy({
-      id,
-    });
-
-    await user.delete();
-    user.deleted = true;
-    user.status = false;
-
-    await user.save();
-
-    return response.status(200).json({
+    return response.status(204).json({
       type: 'user-soft-deleted',
       msg: Antl.formatMessage('response.user-soft-deleted', { id }),
-      user,
     });
   }
 
   async restore({ response, params }) {
-    const { id } = params;
-
-    await Database.table('users')
-      .where('id', id)
-      .update({ deleted_at: null, deleted: false, status: true });
-
-    const user = await Database.table('users').where('id', id);
+    const { id } = await this.userService.restore(params);
 
     return response.status(200).json({
       type: 'user-soft-restored',
       msg: Antl.formatMessage('response.user-soft-restored', { id }),
-      user,
     });
   }
 }
