@@ -8,7 +8,5 @@
  "success-register": "The User {name}, has been successfully registered, check your e-mail box",
  "user-soft-deleted": "The User number {id}, has been successfully disabled.",
  "user-soft-restored": "The User number {id}, has been successfully restored.",
- "success-profile-update": "Your profile has been successfully updated.",
- "not-found-summoner": "Summoner not found.",
- "get-summoner": "Summoner found."
+ "success-profile-update": "Your profile has been successfully updated."
 }

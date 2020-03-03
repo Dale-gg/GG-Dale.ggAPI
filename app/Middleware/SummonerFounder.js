@@ -16,7 +16,7 @@ class SummonerFounder {
 
     const summoner = await Summoner.query()
       .where({
-        summoner_name: summonerName,
+        summonerName,
         region,
       })
       .fetch();

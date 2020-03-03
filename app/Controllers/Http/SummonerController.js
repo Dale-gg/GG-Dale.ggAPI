@@ -1,44 +1,99 @@
-const SummonerService = use('App/Services/SummonerService');
-const Antl = use('Antl');
+/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
+const Summoner = use('App/Models/Summoner');
+
+/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
+const Tier = use('App/Models/Tier');
+
+const getSummoner = require('../../Utils/RiotAPI/getSummoner');
+const getTier = require('../../Utils/RiotAPI/getTier');
+const getMatchs = require('../../Utils/RiotAPI/getMatchs');
 
 class SummonerController {
-  constructor() {
-    this.summonerService = new SummonerService();
-  }
-
   async show({ request, response }) {
-    const summoner = await this.summonerService.show(request.get());
+    const { region, summonerName } = request.get();
+
+    const summoner = await Summoner.query()
+      .where({
+        summonerName,
+        region,
+      })
+      .fetch();
 
     if (!summoner) {
       return response.status(404).json({
-        type: 'not-found-summoner',
-        msg: Antl.formatMessage('response.not-found-summoner'),
+        type: 'get-summoner',
+        msg: 'Invocador não encontrado na base de dados local!',
         summoner,
       });
     }
 
     return response.status(200).json({
       type: 'get-summoner',
-      msg: Antl.formatMessage('response.get-summoner'),
+      msg: 'Invocador encontrado!',
       summoner,
     });
   }
 
   async store({ request, response }) {
-    const summoner = await this.summonerService.store(request.get());
+    const { region, summonerName } = request.get();
 
-    if (!summoner) {
-      return response.status(404).json({
-        type: 'not-found-summoner',
-        msg: Antl.formatMessage('response.not-found-summoner'),
-        summoner,
+    const summonerAPI = await getSummoner(region, summonerName);
+
+    Summoner.create({
+      accountId: summonerAPI.accountId,
+      summonerId: summonerAPI.id,
+      puuid: summonerAPI.puuid,
+      region,
+      summonerName: summonerAPI.name,
+      revisionDate: summonerAPI.revisionDate,
+    });
+
+    const tiers = await getTier(summonerAPI.id, region);
+    const tierSolo = tiers[0];
+
+    if (tierSolo) {
+      Tier.create({
+        summonerId: summonerAPI.id,
+        leagueId: tierSolo.leagueId,
+        queueType: tierSolo.queueType,
+        tier: tierSolo.tier,
+        rank: tierSolo.rank,
+        pdl: tierSolo.leaguePoints,
+        wins: tierSolo.wins,
+        losses: tierSolo.losses,
+        inactive: tierSolo.inactive,
+        freshBlood: tierSolo.freshBlood,
+        hotStreak: tierSolo.hotStreak,
       });
     }
 
+    const tierFlex = tiers[1];
+
+    if (tierFlex) {
+      Tier.create({
+        summonerId: summonerAPI.id,
+        leagueId: tierFlex.leagueId,
+        queueType: tierFlex.queueType,
+        tier: tierFlex.tier,
+        rank: tierFlex.rank,
+        pdl: tierFlex.leaguePoints,
+        wins: tierFlex.wins,
+        losses: tierFlex.losses,
+        inactive: tierFlex.inactive,
+        freshBlood: tierFlex.freshBlood,
+        hotStreak: tierFlex.hotStreak,
+      });
+    }
+
+    const matchs = await getMatchs(region, summonerAPI.accountId);
+
     return response.status(200).json({
       type: 'get-summoner',
-      msg: Antl.formatMessage('response.get-summoner'),
-      summoner,
+      msg: 'Invocador encontrado!',
+      summonerAPI,
+      tierSolo,
+      tierFlex,
+      matchs,
     });
 
     // Nível banco de dados
