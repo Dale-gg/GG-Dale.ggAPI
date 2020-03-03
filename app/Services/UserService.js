@@ -1,8 +1,5 @@
-// Typescript Intellisense
-/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
-const User = use('App/Models/User');
+const UserRepository = use('App/Repositories/UserRepository');
 
-const Database = use('Database');
 const Mail = use('Mail');
 const Env = use('Env');
 const Antl = use('Antl');
@@ -11,18 +8,18 @@ const { randomBytes } = require('crypto');
 const { promisify } = require('util');
 
 class UserService {
+  constructor() {
+    this.userRepository = new UserRepository();
+  }
+
   async index() {
-    const users = await Database.select('*').from('users');
+    const users = await this.userRepository.index();
 
     return users;
   }
 
   async store({ name, email, password }) {
-    const user = await User.create({
-      name,
-      email,
-      password,
-    });
+    const user = await this.userRepository.store(name, email, password);
 
     const random = await promisify(randomBytes)(16);
     const token = random.toString('hex');
@@ -45,34 +42,16 @@ class UserService {
           .subject(subject);
       }
     );
-    // He is not returning this response
-    // return response.status(204).json({
-    //   type: 'success-register',
-    //   msg: Antl.formatMessage('response.success-register', { name: user.name }),
-    // });
   }
 
   async destroy({ id }) {
-    const user = await User.findBy({
-      id,
-    });
-
-    await user.delete();
-
-    user.deleted = true;
-    user.status = false;
-
-    await user.save();
+    const user = await this.userRepository.destroy(id);
 
     return user;
   }
 
   async restore({ id }) {
-    await Database.table('users')
-      .where('id', id)
-      .update({ deleted_at: null, deleted: false, status: true });
-
-    const user = await Database.table('users').where('id', id);
+    const user = await this.userRepository.restore(id);
 
     return user;
   }
