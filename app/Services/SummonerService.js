@@ -31,18 +31,14 @@ class SummonerService {
     const tierFlex = tiers[1];
 
     if (tierSolo) {
-      await this.tierRepository.store(summoner.id, region, tierSolo);
+      this.tierRepository.store(summoner.id, region, tierSolo);
     }
     if (tierFlex) {
-      await this.tierRepository.store(summoner.id, region, tierFlex);
+      this.tierRepository.store(summoner.id, region, tierFlex);
     }
 
     const matchListAPI = await getMatchs(region, summonerAPI.accountId);
-    await this.matchRepository.store(
-      summonerAPI.accountId,
-      region,
-      matchListAPI
-    );
+    this.matchRepository.store(summonerAPI.accountId, region, matchListAPI);
 
     const resSummoner = await Summoner.query()
       .where({
