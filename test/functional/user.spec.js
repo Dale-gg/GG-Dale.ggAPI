@@ -9,15 +9,6 @@ trait('Test/ApiClient');
 trait('Auth/Client');
 trait('DatabaseTransactions');
 
-test('it should be able to list all users', async ({ assert, client }) => {
-  await Factory.model('App/Models/User').createMany(5);
-
-  const response = await client.get('/users').end();
-
-  response.assertStatus(200);
-  assert.exists(response.body.users);
-});
-
 test('it should be able to confirm the user', async ({ client }) => {
   const email = 'lenonsec7@gmail.com';
   const type = 'confirmaccount';
@@ -37,7 +28,7 @@ test('it should be able to confirm the user', async ({ client }) => {
   response.assertStatus(204);
 });
 
-test('it should be able to soft delete an User', async ({ client }) => {
+test('it should be able to soft delete an User', async ({ assert, client }) => {
   const user = await Factory.model('App/Models/User').create({
     name: 'João Lenon',
     email: 'lenonsec7@gmail.com',
@@ -49,13 +40,11 @@ test('it should be able to soft delete an User', async ({ client }) => {
     .loginVia(user, 'jwt')
     .end();
 
-  response.assertStatus(204);
+  response.assertStatus(200);
+  assert.equal(response.body.user.deleted, true);
 });
 
-test('it should be able to soft restore an User', async ({
-  assert,
-  client,
-}) => {
+test('it should be able to restore an User', async ({ assert, client }) => {
   const user = await Factory.model('App/Models/User').create({
     name: 'João Lenon',
     email: 'lenonsec7@gmail.com',
