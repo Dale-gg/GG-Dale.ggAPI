@@ -60,3 +60,16 @@ Factory.blueprint('App/Models/Tier', (faker, i, data = {}) => {
     ...data,
   };
 });
+
+Factory.blueprint('App/Models/Matchlist', (faker, i, data = {}) => {
+  return {
+    summoner_id: data.id || faker.string(),
+    lane: faker.string(),
+    game_id: faker.string(),
+    platform_id: faker.string(),
+    queue: faker.integer(),
+    role: faker.string(),
+    season: faker.integer(),
+    ...data,
+  };
+});
