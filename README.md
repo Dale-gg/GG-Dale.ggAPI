@@ -24,6 +24,7 @@
 <p align="center">
   <a href="#rocket-tecnologias">🚀 Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-projeto">💻 Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-docs">📊 Docs</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-layout">🔖 Layout</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-como-contribuir">🤔 Como contribuir</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#memo-licença">📝 Licença</a>
@@ -48,6 +49,10 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 ## 💻 Projeto
 
 O Dale.gg é um projeto que visa facilitar a vida dos jogadores de League of Legends, apresentando gráficos e estátisticas dos jogadores de todas as regiões.
+
+## 📊 Docs
+
+Você pode conferir nossa documentação completa aqui na nossa branch [docs](https://github.com/jlenon7/dale.gg-omni/tree/docs) além disso, temos a nossa [Wiki](https://github.com/jlenon7/dale.gg-omni/wiki), detalhando as metodologias usadas no nosso projeto e também seus diagramas.
 
 ## 🔖 Layout
 
