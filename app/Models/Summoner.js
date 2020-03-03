@@ -5,6 +5,10 @@ class Summoner extends Model {
   tiers() {
     return this.hasMany('App/Models/Tier');
   }
+
+  matchs() {
+    return this.hasMany('App/Models/Matchlist');
+  }
 }
 
 module.exports = Summoner;

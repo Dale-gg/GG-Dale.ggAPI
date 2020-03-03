@@ -1,7 +1,5 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Summoner = use('App/Models/Summoner');
-/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
-const Tier = use('App/Models/Tier');
 
 const getSummoner = require('../Utils/RiotAPI/getSummoner');
 const getTier = require('../Utils/RiotAPI/getTier');
@@ -9,11 +7,13 @@ const getMatchs = require('../Utils/RiotAPI/getMatchs');
 
 const SummonerRepository = use('App/Repositories/SummonerRepository');
 const TierRepository = use('App/Repositories/TierRepository');
+const MatchRepository = use('App/Repositories/MatchRepository');
 
 class SummonerService {
   constructor() {
     this.summonerRepository = new SummonerRepository();
     this.tierRepository = new TierRepository();
+    this.matchRepository = new MatchRepository();
   }
 
   async show({ region, summonerName }) {
@@ -33,19 +33,16 @@ class SummonerService {
     if (tierSolo) {
       await this.tierRepository.store(summoner.id, region, tierSolo);
     }
-
     if (tierFlex) {
       await this.tierRepository.store(summoner.id, region, tierFlex);
     }
 
-    const matchs = await getMatchs(region, summonerAPI.accountId);
-
-    // Nível banco de dados
-    // for(var game in games) {
-    //   const matchDto = await Axios.get(
-    //       `https://${region}${getMatchDto}${games[game].gameId}${Env.get('RIOT_KEY')}`
-    //   );
-    // }
+    const matchListAPI = await getMatchs(region, summonerAPI.accountId);
+    await this.matchRepository.store(
+      summonerAPI.accountId,
+      region,
+      matchListAPI
+    );
 
     const resSummoner = await Summoner.query()
       .where({
@@ -53,6 +50,7 @@ class SummonerService {
         region,
       })
       .with('tiers')
+      .with('matchs')
       .fetch();
 
     return resSummoner;
