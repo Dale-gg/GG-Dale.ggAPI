@@ -5,12 +5,12 @@ class SummonerSchema extends Schema {
   up() {
     this.create('summoners', table => {
       table.increments();
-      table.string('accountId').notNullable();
-      table.string('summonerId').notNullable();
+      table.string('account_id').notNullable();
+      table.string('summoner_id').notNullable();
       table.string('puuid').notNullable();
-      table.string('summonerName').notNullable();
+      table.string('summoner_name').notNullable();
       table.string('region').notNullable();
-      table.date('revisionDate').notNullable();
+      table.date('revision_date').notNullable();
       table.timestamps();
     });
   }
