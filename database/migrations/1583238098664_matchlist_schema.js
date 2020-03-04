@@ -16,6 +16,11 @@ class MatchlistSchema extends Schema {
         .unsigned()
         .references('id')
         .inTable('summoners');
+      table
+        .integer('matchdto_id')
+        .unsigned()
+        .references('id')
+        .inTable('match_dtos');
       table.timestamps();
     });
   }

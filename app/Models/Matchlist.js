@@ -5,6 +5,10 @@ class Matchlist extends Model {
   summoner() {
     return this.belongsTo('App/Models/Summoner');
   }
+
+  matchdto() {
+    return this.hasOne('App/Models/MatchDto');
+  }
 }
 
 module.exports = Matchlist;

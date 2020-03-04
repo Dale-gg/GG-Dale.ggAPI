@@ -40,6 +40,11 @@ class SummonerService {
     const matchListAPI = await getMatchs(region, summonerAPI.accountId);
     this.matchRepository.store(summonerAPI.accountId, region, matchListAPI);
 
+    // for (const match in matchListAPI) {
+    //   const matchDto = await getMatchDto(region, matchListAPI[match].gameId);
+    //   this.matchDtoRepository.store(matchDto);
+    // }
+
     const resSummoner = await Summoner.query()
       .where({
         summoner_name: summonerName,

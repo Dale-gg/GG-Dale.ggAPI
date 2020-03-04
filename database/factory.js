@@ -73,3 +73,15 @@ Factory.blueprint('App/Models/Matchlist', (faker, i, data = {}) => {
     ...data,
   };
 });
+
+Factory.blueprint('App/Models/MatchDto', (faker, i, data = {}) => {
+  return {
+    season_id: faker.integer(),
+    queue_id: faker.string(),
+    game_id: data.gameId || faker.integer(),
+    platform_id: faker.string(),
+    game_mode: faker.string(),
+    map_id: faker.integer(),
+    game_type: faker.string(),
+  };
+});
