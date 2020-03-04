@@ -76,12 +76,14 @@ Factory.blueprint('App/Models/Matchlist', (faker, i, data = {}) => {
 
 Factory.blueprint('App/Models/MatchDto', (faker, i, data = {}) => {
   return {
+    matchlist_id: data.id || faker.string(),
     season_id: faker.integer(),
     queue_id: faker.string(),
-    game_id: data.gameId || faker.integer(),
+    game_id: faker.integer(),
     platform_id: faker.string(),
     game_mode: faker.string(),
     map_id: faker.integer(),
     game_type: faker.string(),
+    ...data,
   };
 });
