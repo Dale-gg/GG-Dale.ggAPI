@@ -62,6 +62,7 @@ test('it should get ten matchs from the summoner', async ({
   assert.equal(response.body.summoner[0].summoner_name, summonerName);
   assert.equal(response.body.summoner[0].tiers[0].tier, tierSolo);
   assert.exists(response.body.summoner[0].matchs);
+  assert.exists(response.body.summoner[0].matchs[0].matchdto);
 }).timeout(30000);
 
 test('it should enter in the show and bring a summoner with his tier', async ({
@@ -80,12 +81,19 @@ test('it should enter in the show and bring a summoner with his tier', async ({
     summoner_id: summoner.id,
   });
 
+  await summoner.tiers().save(summonerTier);
+
   const summonerMatchlist = await Factory.model('App/Models/Matchlist').make({
     summoner_id: summoner.id,
   });
 
-  await summoner.tiers().save(summonerTier);
+  const summonerMatchDto = await Factory.model('App/Models/MatchDto').make({
+    matchlist_id: summonerMatchlist.id,
+  });
+
   await summoner.matchs().save(summonerMatchlist);
+
+  await summonerMatchlist.matchdto().save(summonerMatchDto);
 
   const response = await client
     .get(`/summoner/?region=${region}&summonerName=${summoner.summoner_name}`)
@@ -96,6 +104,7 @@ test('it should enter in the show and bring a summoner with his tier', async ({
   assert.exists(response.body.summoner);
   assert.exists(response.body.summoner[0].tiers);
   assert.exists(response.body.summoner[0].matchs);
+  assert.exists(response.body.summoner[0].matchs[0].matchdto);
   assert.equal(response.body.summoner[0].summoner_name, summonerName);
 });
 

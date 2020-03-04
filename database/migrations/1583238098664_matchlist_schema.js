@@ -9,7 +9,7 @@ class MatchlistSchema extends Schema {
       table.string('game_id');
       table.string('platform_id');
       table.integer('queue');
-      table.integer('role');
+      table.string('role');
       table.integer('season');
       table
         .integer('summoner_id')

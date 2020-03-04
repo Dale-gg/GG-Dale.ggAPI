@@ -46,7 +46,7 @@ class SummonerService {
         region,
       })
       .with('tiers')
-      .with('matchs')
+      .with('matchs.matchdto')
       .fetch();
 
     return resSummoner;

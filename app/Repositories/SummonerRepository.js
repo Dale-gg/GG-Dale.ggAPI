@@ -6,7 +6,7 @@ class SummonerRepository {
     const summoner = await Summoner.query()
       .where({ region, summoner_name: summonerName })
       .with('tiers')
-      .with('matchs')
+      .with('matchs.matchdto')
       .fetch();
 
     return summoner;
