@@ -4,10 +4,7 @@ const Summoner = use('App/Models/Summoner');
 class SummonerRepository {
   async show(region, summonerName) {
     const summoner = await Summoner.query()
-      .where({
-        summoner_name: summonerName,
-        region,
-      })
+      .whereRaw(`summoner_name ILIKE ? AND region = '${region}'`, summonerName)
       .with('tiers')
       .with('matchs.matchdto')
       .fetch();

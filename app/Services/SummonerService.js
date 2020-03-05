@@ -28,7 +28,7 @@ class SummonerService {
   async store({ region, summonerName }) {
     const summonerAPI = await getSummoner(region, summonerName);
 
-    if (summonerAPI.response.status) {
+    if (summonerAPI.name == null || summonerAPI.name === 'Error') {
       return null;
     }
 
@@ -47,14 +47,6 @@ class SummonerService {
 
     const matchListAPI = await getMatchs(region, summonerAPI.accountId);
 
-    // for (const match in matchListAPI) {
-    //   await this.matchRepository.store(
-    //     summonerAPI.accountId,
-    //     region,
-    //     matchListAPI[match]
-    //   );
-    // }
-
     const promises = [];
     for (const match in matchListAPI) {
       promises.push(
@@ -67,17 +59,8 @@ class SummonerService {
     }
     await Promise.all(promises);
 
-    // const matchs = await this.matchRepository.store(
-    //   summonerAPI.accountId,
-    //   region,
-    //   matchListAPI
-    // );
-
     const resSummoner = await Summoner.query()
-      .where({
-        summoner_name: summonerName,
-        region,
-      })
+      .whereRaw(`summoner_name ILIKE ? AND region = '${region}'`, summonerName)
       .with('tiers')
       .with('matchs.matchdto')
       .fetch();
