@@ -1,3 +1,6 @@
+/* eslint-disable no-await-in-loop */
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Summoner = use('App/Models/Summoner');
 
@@ -38,7 +41,20 @@ class SummonerService {
     }
 
     const matchListAPI = await getMatchs(region, summonerAPI.accountId);
-    this.matchRepository.store(summonerAPI.accountId, region, matchListAPI);
+
+    for (const match in matchListAPI) {
+      await this.matchRepository.store(
+        summonerAPI.accountId,
+        region,
+        matchListAPI[match]
+      );
+    }
+
+    // const matchs = await this.matchRepository.store(
+    //   summonerAPI.accountId,
+    //   region,
+    //   matchListAPI
+    // );
 
     const resSummoner = await Summoner.query()
       .where({

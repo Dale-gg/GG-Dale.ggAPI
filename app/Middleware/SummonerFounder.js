@@ -14,14 +14,19 @@ class SummonerFounder {
   async handle({ request, response }, next) {
     const { region, summonerName } = request.get();
 
-    const summoner = await Summoner.query()
-      .where({
-        summoner_name: summonerName,
-        region,
-      })
-      .fetch();
+    // const summoner = await Summoner.query()
+    //   .where({
+    //     region,
+    //     summoner_name: summonerName,
+    //   })
+    //   .fetch();
 
-    if (summoner.rows[0]) {
+    const summoner = await Summoner.findBy({
+      region,
+      summoner_name: summonerName,
+    });
+
+    if (summoner) {
       await next();
     } else {
       return response.route(
