@@ -27,6 +27,11 @@ class SummonerService {
 
   async store({ region, summonerName }) {
     const summonerAPI = await getSummoner(region, summonerName);
+
+    if (summonerAPI.response.status) {
+      return null;
+    }
+
     const summoner = await this.summonerRepository.store(summonerAPI, region);
 
     const tiers = await getTier(summonerAPI.id, region);
@@ -42,13 +47,25 @@ class SummonerService {
 
     const matchListAPI = await getMatchs(region, summonerAPI.accountId);
 
+    // for (const match in matchListAPI) {
+    //   await this.matchRepository.store(
+    //     summonerAPI.accountId,
+    //     region,
+    //     matchListAPI[match]
+    //   );
+    // }
+
+    const promises = [];
     for (const match in matchListAPI) {
-      await this.matchRepository.store(
-        summonerAPI.accountId,
-        region,
-        matchListAPI[match]
+      promises.push(
+        this.matchRepository.store(
+          summonerAPI.accountId,
+          region,
+          matchListAPI[match]
+        )
       );
     }
+    await Promise.all(promises);
 
     // const matchs = await this.matchRepository.store(
     //   summonerAPI.accountId,
