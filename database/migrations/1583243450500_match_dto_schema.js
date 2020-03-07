@@ -18,7 +18,6 @@ class MatchDtoSchema extends Schema {
       table.string('platform_id');
       table.integer('map_id');
       table.string('game_type');
-      // table.references(participants)
       table.timestamps();
     });
   }
