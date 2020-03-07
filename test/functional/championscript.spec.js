@@ -74,8 +74,23 @@ test('it should show one of the league of legends champions', async ({
   const response = await client.get(`/champions/${championName}/show`).end();
 
   response.assertStatus(200);
-  console.log(response.body.champion)
 
   assert.exists(response.body.champion);
   assert.equal(response.body.champion.name, championName);
 });
+
+test('it should store all of the league of legends champions', async ({
+  assert,
+  client,
+}) => {
+  const language = 'pt_BR';
+  const version = '10.5.1';
+
+  const response = await client
+    .post(`/champions/${language}/${version}/storeAll`)
+    .end();
+
+  response.assertStatus(200);
+
+  assert.exists(response.body.champions);
+}).timeout(99999);

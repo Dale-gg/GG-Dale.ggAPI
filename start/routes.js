@@ -42,6 +42,12 @@ Route.post('/champions/store', 'ChampionController.store');
 Route.get('/champions/:championName/show', 'ChampionController.show');
 Route.put('/champions/:championName/update', 'ChampionController.update');
 
+// Champion Script
+Route.post(
+  '/champions/:language/:version/storeAll',
+  'ChampionController.storeAll'
+);
+
 // JWT Middleware
 Route.group(() => {
   Route.put('/profile', 'Auth/ProfileController.update').validator('Profile');

@@ -55,7 +55,14 @@ class ChampionController {
     });
   }
 
-  async destroy({ params, request, response }) {
+  async storeAll({ request, response }) {
+    const champions = await this.championService.storeAll(request.all());
+
+    return response.status(200).json({
+      type: 'success-created-allchampions',
+      msg: Antl.formatMessage('response.success-created-allchampions'),
+      champions,
+    });
   }
 }
 
