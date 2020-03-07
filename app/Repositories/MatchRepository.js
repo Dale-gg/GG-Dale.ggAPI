@@ -43,6 +43,8 @@ class MatchRepository {
       queue_id: matchDtoAPI.queueId,
       game_id: matchDtoAPI.gameId,
       platform_id: matchDtoAPI.platformId,
+      game_duration: matchDtoAPI.gameDuration,
+      game_creation: matchDtoAPI.gameCreation,
     });
 
     const promises = [];

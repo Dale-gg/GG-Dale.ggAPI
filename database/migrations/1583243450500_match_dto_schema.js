@@ -10,14 +10,16 @@ class MatchDtoSchema extends Schema {
         .unsigned()
         .references('id')
         .inTable('matchlists');
+      table.integer('map_id');
       table.string('game_id');
-      table.integer('season_id');
       table.integer('queue_id');
+      table.integer('season_id');
+      table.string('platform_id');
       table.string('game_mode');
       table.string('game_version');
-      table.string('platform_id');
-      table.integer('map_id');
       table.string('game_type');
+      table.integer('game_duration');
+      table.integer('game_creation');
       table.timestamps();
     });
   }
