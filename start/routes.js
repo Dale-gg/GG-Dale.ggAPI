@@ -36,6 +36,9 @@ Route.post('/forgot', 'Auth/ForgotPasswordController.store').validator(
 Route.post('/reset', 'Auth/ResetPasswordController.store').validator('Reset');
 Route.put('/user/:id', 'UserController.restore');
 
+// Champion
+Route.post('/champions/storeAll', 'ChampionController.store');
+
 // JWT Middleware
 Route.group(() => {
   Route.put('/profile', 'Auth/ProfileController.update').validator('Profile');
