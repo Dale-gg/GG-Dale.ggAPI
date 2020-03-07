@@ -13,7 +13,6 @@ test('it should get all the champions of db', async ({ assert, client }) => {
   const response = await client.get('/champions/index').end();
 
   response.assertStatus(200);
-  console.log(response.body.champions)
 
   assert.exists(response.body.champions);
 });
@@ -35,4 +34,29 @@ test('it should store one of the league of legends champions', async ({
 
   assert.exists(response.body.champion);
   assert.equal(response.body.champion.name, championName);
+});
+
+test('it should update one of the league of legends champions', async ({
+  assert,
+  client,
+}) => {
+  await Factory.model('App/Models/Champion').create({
+    name: 'Zed',
+    gamePatch: '9.24.1',
+  });
+
+  const championName = 'Zed';
+  const gamePatch = '10.5.1';
+  const language = 'pt_BR';
+
+  const response = await client
+    .put(`/champions/${championName}/update`)
+    .send({ gamePatch, language })
+    .end();
+
+  response.assertStatus(200);
+
+  assert.exists(response.body.champion);
+  assert.equal(response.body.champion.name, championName);
+  assert.equal(response.body.champion.version, gamePatch);
 });

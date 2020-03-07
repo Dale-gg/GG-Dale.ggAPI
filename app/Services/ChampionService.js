@@ -29,6 +29,20 @@ class ChampionService {
 
     return resChampion;
   }
+
+  async update(championName, { gamePatch, language }) {
+    const championAPI = await getChampion(gamePatch, language, championName);
+
+    if (championAPI.id == null || championAPI.id === 'Error') {
+      return null;
+    }
+
+    await this.championRepository.update(championName, championAPI, gamePatch);
+
+    const resChampion = await Champion.findBy({ name: championName });
+
+    return resChampion;
+  }
 }
 
 module.exports = ChampionService;

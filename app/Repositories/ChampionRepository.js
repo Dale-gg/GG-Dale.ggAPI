@@ -28,6 +28,14 @@ class ChampionRepository {
 
     return champion;
   }
+
+  async update(championName, championAPI, gamePatch) {
+    const champion = await Champion.findBy({ name: championName });
+
+    champion.merge(championAPI);
+    champion.save();
+    console.log(champion);
+  }
 }
 
 module.exports = ChampionRepository;

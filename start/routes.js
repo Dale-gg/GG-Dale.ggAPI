@@ -39,6 +39,7 @@ Route.put('/user/:id', 'UserController.restore');
 // Champion
 Route.get('/champions/index', 'ChampionController.index');
 Route.post('/champions/store', 'ChampionController.store');
+Route.put('/champions/update', 'ChampionController.update');
 
 // JWT Middleware
 Route.group(() => {

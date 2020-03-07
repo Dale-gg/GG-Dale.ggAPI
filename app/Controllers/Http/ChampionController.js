@@ -32,6 +32,19 @@ class ChampionController {
   }
 
   async update({ params, request, response }) {
+    console.log(params.championName)
+    const champion = await this.championService.update(
+      params.championName,
+      request.all()
+    );
+
+    return response.status(200).json({
+      type: 'success-updated-champion',
+      msg: Antl.formatMessage('response.success-updated-champion', {
+        name: champion.name,
+      }),
+      champion,
+    });
   }
 
   async destroy({ params, request, response }) {
