@@ -30,6 +30,12 @@ class ChampionService {
     return resChampion;
   }
 
+  async show(championName) {
+    const champion = await this.championRepository.show(championName);
+
+    return champion;
+  }
+
   async update(championName, { gamePatch, language }) {
     const championAPI = await getChampion(gamePatch, language, championName);
 

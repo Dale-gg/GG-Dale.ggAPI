@@ -7,6 +7,7 @@
  "success-all-users": "Listing all Users.",
  "success-all-champions": "Listing all Champions.",
  "success-created-champion": "{name} has been found, and successfully registered.",
+ "success-found-champion": "{name} has been found.",
  "success-updated-champion": "{name} has been successfully updated.",
  "success-register": "The User {name}, has been successfully registered, check your e-mail box",
  "user-soft-deleted": "The User number {id}, has been successfully disabled.",

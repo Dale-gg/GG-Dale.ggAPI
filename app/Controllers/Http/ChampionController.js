@@ -28,7 +28,16 @@ class ChampionController {
     });
   }
 
-  async show({ params, request, response, view }) {
+  async show({ params, response }) {
+    const champion = await this.championService.show(params.championName);
+
+    return response.status(200).json({
+      type: 'success-found-champion',
+      msg: Antl.formatMessage('response.success-found-champion', {
+        name: champion.name,
+      }),
+      champion,
+    });
   }
 
   async update({ params, request, response }) {

@@ -60,3 +60,21 @@ test('it should update one of the league of legends champions', async ({
   assert.equal(response.body.champion.name, championName);
   assert.equal(response.body.champion.version, gamePatch);
 });
+
+test('it should show one of the league of legends champions', async ({
+  assert,
+  client,
+}) => {
+  await Factory.model('App/Models/Champion').create({
+    name: 'Zed',
+  });
+
+  const championName = 'Zed';
+
+  const response = await client.get(`/champions/${championName}/update`).end();
+
+  response.assertStatus(200);
+
+  assert.exists(response.body.champion);
+  assert.equal(response.body.champion.name, championName);
+});
