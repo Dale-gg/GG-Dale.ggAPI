@@ -1,93 +1,41 @@
-'use strict'
+const ChampionService = use('App/Services/ChampionService');
+const Antl = use('Antl');
 
-/** @typedef {import('@adonisjs/framework/src/Request')} Request */
-/** @typedef {import('@adonisjs/framework/src/Response')} Response */
-/** @typedef {import('@adonisjs/framework/src/View')} View */
-
-/**
- * Resourceful controller for interacting with champions
- */
 class ChampionController {
-  /**
-   * Show a list of all champions.
-   * GET champions
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async index ({ request, response, view }) {
+  constructor() {
+    this.championService = new ChampionService();
   }
 
-  /**
-   * Render a form to be used for creating a new champion.
-   * GET champions/create
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async create ({ request, response, view }) {
+  async index({ response }) {
+    const champions = await this.championService.index();
+
+    return response.status(200).json({
+      type: 'success-all-champions',
+      msg: Antl.formatMessage('response.success-all-champions'),
+      champions,
+    });
   }
 
-  /**
-   * Create/save a new champion.
-   * POST champions
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async store ({ request, response }) {
+  async store({ request, response }) {
+    const champion = await this.championService.store(request.all());
+
+    return response.status(200).json({
+      type: 'success-created-champion',
+      msg: Antl.formatMessage('response.success-created-champion', {
+        name: champion.name,
+      }),
+      champion,
+    });
   }
 
-  /**
-   * Display a single champion.
-   * GET champions/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async show ({ params, request, response, view }) {
+  async show({ params, request, response, view }) {
   }
 
-  /**
-   * Render a form to update an existing champion.
-   * GET champions/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async edit ({ params, request, response, view }) {
+  async update({ params, request, response }) {
   }
 
-  /**
-   * Update champion details.
-   * PUT or PATCH champions/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async update ({ params, request, response }) {
-  }
-
-  /**
-   * Delete a champion with id.
-   * DELETE champions/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async destroy ({ params, request, response }) {
+  async destroy({ params, request, response }) {
   }
 }
 
-module.exports = ChampionController
+module.exports = ChampionController;

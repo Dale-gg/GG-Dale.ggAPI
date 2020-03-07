@@ -5,6 +5,8 @@
   "forgot-request": "Um e-mail foi enviado para sua conta com o token de redefinição.",
   "password-reset": "Sua senha foi redefinida.",
   "success-all-users": "Listando todos os usuários.",
+  "success-all-champions": "Listando todos os campeões.",
+ "success-created-champion": "{name} foi encontrado, e foi cadastrado com sucesso.",
   "success-register": "O Usuário {name}, foi registrado com sucesso, cheque sua caixa de e-mail",
   "user-soft-deleted": "O Usuário numero {id}, foi desabilitado com sucesso.",
   "user-soft-restored": "O Usuário numero {id}, foi restaurado com sucesso.",
