@@ -65,7 +65,7 @@ test('it should get ten matchs from the summoner', async ({
   assert.exists(response.body.summoner[0].matchs[0].matchdto);
 }).timeout(30000);
 
-test('it should enter in the show and bring a summoner with his tier', async ({
+test('it should enter in the show and bring a summoner with his tier and matchs', async ({
   assert,
   client,
 }) => {
@@ -91,9 +91,13 @@ test('it should enter in the show and bring a summoner with his tier', async ({
     matchlist_id: summonerMatchlist.id,
   });
 
-  await summoner.matchs().save(summonerMatchlist);
+  const participant = await Factory.model('App/Models/Participant').make({
+    match_dto_id: summonerMatchDto.id,
+  });
 
+  await summoner.matchs().save(summonerMatchlist);
   await summonerMatchlist.matchdto().save(summonerMatchDto);
+  await summonerMatchDto.participants().save(participant);
 
   const response = await client
     .get(`/summoner/?region=${region}&summonerName=${summoner.summoner_name}`)
@@ -105,18 +109,19 @@ test('it should enter in the show and bring a summoner with his tier', async ({
   assert.exists(response.body.summoner[0].tiers);
   assert.exists(response.body.summoner[0].matchs);
   assert.exists(response.body.summoner[0].matchs[0].matchdto);
+  assert.exists(response.body.summoner[0].matchs[0].matchdto.participants);
   assert.equal(response.body.summoner[0].summoner_name, summonerName);
 });
 
-// test('it should not get some summoner', async ({ assert, client }) => {
-//   const summonerName = 'jainzidaleincomodantemermaunnn';
-//   const region = 'br1';
+test('it should not get some summoner', async ({ assert, client }) => {
+  const summonerName = 'jainzidaleincomodantemermaunnn';
+  const region = 'br1';
 
-//   const response = await client
-//     .get(`/summoner/${region}/${summonerName}`)
-//     .end();
+  const response = await client
+    .get(`/summoner/?region=${region}&summonerName=${summonerName}`)
+    .end();
 
-//   response.assertStatus(404);
+  response.assertStatus(404);
 
-//   assert.equal(response.body.data, null);
-// }).timeout(10000);
+  assert.equal(response.body.data, null);
+});
