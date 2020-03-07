@@ -34,6 +34,9 @@ class MatchRepository {
       summoner_id: summoner.id,
     });
 
+    // const time = new Date(match.timestamp);
+    // console.log(time);
+
     const matchDto = await MatchDto.create({
       matchlist_id: summonerMatchlist.id,
       season_id: matchDtoAPI.seasonId,
