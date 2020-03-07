@@ -9,6 +9,7 @@
   "success-created-champion": "{name} foi encontrado, e foi cadastrado com sucesso.",
   "success-found-champion": "{name} foi encontrado.",
   "success-updated-champion": "{name} foi atualizado com sucesso.",
+  "success-created-allchampions": "TODOS OS FODENDOS CAMPEÕES CRIADOS NA PORRA DO BANCO",
   "success-register": "O Usuário {name}, foi registrado com sucesso, cheque sua caixa de e-mail",
   "user-soft-deleted": "O Usuário numero {id}, foi desabilitado com sucesso.",
   "user-soft-restored": "O Usuário numero {id}, foi restaurado com sucesso.",

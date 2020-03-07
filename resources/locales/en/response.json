@@ -9,6 +9,7 @@
  "success-created-champion": "{name} has been found, and successfully registered.",
  "success-found-champion": "{name} has been found.",
  "success-updated-champion": "{name} has been successfully updated.",
+ "success-created-allchampions": "ALL FUCKING CHAMPIONS CREATED IN DATABASE",
  "success-register": "The User {name}, has been successfully registered, check your e-mail box",
  "user-soft-deleted": "The User number {id}, has been successfully disabled.",
  "user-soft-restored": "The User number {id}, has been successfully restored.",
