@@ -14,9 +14,8 @@ async function getAllChampions(version, language) {
     );
 
     const champ = champion.data;
-    console.log(champ)
 
-    // return champ;
+    return champ;
   } catch (err) {
     return err;
   }

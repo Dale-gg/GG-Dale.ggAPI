@@ -54,7 +54,7 @@ class ChampionService {
   async storeAll({ version, language }) {
     const championsAPI = await getAllChampions(version, language);
 
-    await this.championRepository.storeAll(championsAPI);
+    await this.championRepository.storeAll(championsAPI, version);
 
     const resChampions = await Champion.all();
 
