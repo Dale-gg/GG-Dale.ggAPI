@@ -2,6 +2,7 @@
 const Champion = use('App/Models/Champion');
 
 const getChampion = require('../Utils/RiotAPI/getChampion');
+const getAllChampions = require('../Utils/RiotAPI/getAllChampions');
 
 const ChampionRepository = use('App/Repositories/ChampionRepository');
 
@@ -48,6 +49,16 @@ class ChampionService {
     const resChampion = await Champion.findBy({ name: championName });
 
     return resChampion;
+  }
+
+  async storeAll({ version, language }) {
+    const championsAPI = await getAllChampions(version, language);
+
+    await this.championRepository.storeAll(championsAPI);
+
+    const resChampions = await Champion.all();
+
+    return resChampions;
   }
 }
 

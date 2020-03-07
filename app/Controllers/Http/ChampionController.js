@@ -55,8 +55,8 @@ class ChampionController {
     });
   }
 
-  async storeAll({ request, response }) {
-    const champions = await this.championService.storeAll(request.all());
+  async storeAll({ params, response }) {
+    const champions = await this.championService.storeAll(params);
 
     return response.status(200).json({
       type: 'success-created-allchampions',
