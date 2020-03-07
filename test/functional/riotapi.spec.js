@@ -95,9 +95,14 @@ test('it should enter in the show and bring a summoner with his tier and matchs'
     match_dto_id: summonerMatchDto.id,
   });
 
+  const participantDto = await Factory.model('App/Models/ParticipantDto').make({
+    participant_id: participant.id,
+  });
+
   await summoner.matchs().save(summonerMatchlist);
   await summonerMatchlist.matchdto().save(summonerMatchDto);
   await summonerMatchDto.participants().save(participant);
+  await participant.participantdto().save(participantDto);
 
   const response = await client
     .get(`/summoner/?region=${region}&summonerName=${summoner.summoner_name}`)
@@ -110,6 +115,9 @@ test('it should enter in the show and bring a summoner with his tier and matchs'
   assert.exists(response.body.summoner[0].matchs);
   assert.exists(response.body.summoner[0].matchs[0].matchdto);
   assert.exists(response.body.summoner[0].matchs[0].matchdto.participants);
+  assert.exists(
+    response.body.summoner[0].matchs[0].matchdto.participants[0].participantdto
+  );
   assert.equal(response.body.summoner[0].summoner_name, summonerName);
 });
 

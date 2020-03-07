@@ -62,7 +62,7 @@ class SummonerService {
     const resSummoner = await Summoner.query()
       .whereRaw(`summoner_name LIKE ? AND region = '${region}'`, summonerName)
       .with('tiers')
-      .with('matchs.matchdto')
+      .with('matchs.matchdto.participants.participantdto')
       .fetch();
 
     return resSummoner;
