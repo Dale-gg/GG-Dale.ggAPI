@@ -87,3 +87,16 @@ Factory.blueprint('App/Models/MatchDto', (faker, i, data = {}) => {
     ...data,
   };
 });
+
+Factory.blueprint('App/Models/Participant', (faker, i, data = {}) => {
+  return {
+    team_id: faker.integer(),
+    game_id: faker.integer(),
+    champ_id: faker.integer(),
+    account_id: faker.string(),
+    summoner_id: faker.string(),
+    match_dto_id: data.id || faker.integer(),
+    highest_achieved_season_tier: faker.string(),
+    ...data,
+  };
+});
