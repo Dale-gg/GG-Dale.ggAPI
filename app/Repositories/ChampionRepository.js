@@ -3,6 +3,12 @@
 const Champion = use('App/Models/Champion');
 
 class ChampionRepository {
+  async index() {
+    const champions = await Champion.all();
+
+    return champions;
+  }
+
   async store(championAPI, gamePatch) {
     const image_full = `http://ddragon.leagueoflegends.com/cdn/${gamePatch}/img/champion/${championAPI.image.full}`;
     const image_splash = `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championAPI.name}_0.jpg`;
