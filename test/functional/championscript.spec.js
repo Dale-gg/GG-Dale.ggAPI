@@ -71,9 +71,10 @@ test('it should show one of the league of legends champions', async ({
 
   const championName = 'Zed';
 
-  const response = await client.get(`/champions/${championName}/update`).end();
+  const response = await client.get(`/champions/${championName}/show`).end();
 
   response.assertStatus(200);
+  console.log(response.body.champion)
 
   assert.exists(response.body.champion);
   assert.equal(response.body.champion.name, championName);
