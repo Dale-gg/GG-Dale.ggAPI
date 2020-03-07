@@ -42,7 +42,7 @@ test('it should update one of the league of legends champions', async ({
 }) => {
   await Factory.model('App/Models/Champion').create({
     name: 'Zed',
-    gamePatch: '9.24.1',
+    version: '9.24.1',
   });
 
   const championName = 'Zed';

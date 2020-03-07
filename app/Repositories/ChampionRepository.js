@@ -30,11 +30,23 @@ class ChampionRepository {
   }
 
   async update(championName, championAPI, gamePatch) {
+    const image_full = `http://ddragon.leagueoflegends.com/cdn/${gamePatch}/img/champion/${championAPI.image.full}`;
+    const image_splash = `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championAPI.name}_0.jpg`;
+    const image_loading = `http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${championAPI.name}_0.jpg`;
+
     const champion = await Champion.findBy({ name: championName });
 
-    champion.merge(championAPI);
-    champion.save();
-    console.log(champion);
+    champion.key = championAPI.key;
+    champion.name = championAPI.name;
+    champion.title = championAPI.title;
+    champion.tags = championAPI.tags;
+    champion.image_full_url = image_full;
+    champion.image_splash_url = image_splash;
+    champion.image_loading_url = image_loading;
+    champion.image_sprite_url = championAPI.image.sprite;
+    champion.version = gamePatch;
+
+    await champion.save();
   }
 }
 

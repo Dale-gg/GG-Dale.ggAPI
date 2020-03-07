@@ -32,7 +32,6 @@ class ChampionController {
   }
 
   async update({ params, request, response }) {
-    console.log(params.championName)
     const champion = await this.championService.update(
       params.championName,
       request.all()
