@@ -28,6 +28,8 @@ class MatchRepository {
       game_id: match.gameId,
       platform_id: match.platformId,
       role: match.role,
+      timestamp: match.timestamp,
+      queue: match.queue,
       season: match.season,
       summoner_id: summoner.id,
     });
