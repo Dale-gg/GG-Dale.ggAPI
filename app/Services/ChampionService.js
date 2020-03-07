@@ -10,6 +10,12 @@ class ChampionService {
     this.championRepository = new ChampionRepository();
   }
 
+  async index() {
+    const champions = await this.championRepository.index();
+
+    return champions;
+  }
+
   async store({ gamePatch, language, championName }) {
     const championAPI = await getChampion(gamePatch, language, championName);
 
