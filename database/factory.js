@@ -100,3 +100,31 @@ Factory.blueprint('App/Models/Participant', (faker, i, data = {}) => {
     ...data,
   };
 });
+
+Factory.blueprint('App/Models/ParticipantDto', (faker, i, data = {}) => {
+  return {
+    participant_id: data.id || faker.integer(),
+    perk0: faker.integer(),
+    perk1: faker.integer(),
+    perk2: faker.integer(),
+    perk3: faker.integer(),
+    perk4: faker.integer(),
+    perk5: faker.integer(),
+    item0: faker.integer(),
+    item1: faker.integer(),
+    item2: faker.integer(),
+    item3: faker.integer(),
+    item4: faker.integer(),
+    item5: faker.integer(),
+    kills: faker.integer(),
+    deaths: faker.integer(),
+    assists: faker.integer(),
+    win: true,
+    double_kills: faker.integer(),
+    triple_kills: faker.integer(),
+    quadra_kills: faker.integer(),
+    penta_kills: faker.integer(),
+    champ_level: faker.integer(),
+    ...data,
+  };
+});

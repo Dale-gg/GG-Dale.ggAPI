@@ -5,6 +5,10 @@ class Participant extends Model {
   matchdto() {
     return this.belongsTo('App/Models/MatchDto');
   }
+
+  participantdto() {
+    return this.hasOne('App/Models/ParticipantDto');
+  }
 }
 
 module.exports = Participant;
