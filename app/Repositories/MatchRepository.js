@@ -28,9 +28,14 @@ class MatchRepository {
       game_id: match.gameId,
       platform_id: match.platformId,
       role: match.role,
+      timestamp: match.timestamp,
+      queue: match.queue,
       season: match.season,
       summoner_id: summoner.id,
     });
+
+    // const time = new Date(match.timestamp);
+    // console.log(time);
 
     const matchDto = await MatchDto.create({
       matchlist_id: summonerMatchlist.id,
