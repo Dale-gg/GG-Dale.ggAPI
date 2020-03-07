@@ -20,9 +20,8 @@ test('it should store one of the league of legends champions', async ({
     .send({ gamePatch, language, championName })
     .end();
 
-    console.log(response.body)
   response.assertStatus(200);
 
   assert.exists(response.body.champion);
-  //assert.equal(response.body.champion);
+  assert.equal(response.body.champion.name, championName);
 });
