@@ -13,6 +13,7 @@ test('it should get all the champions of db', async ({ assert, client }) => {
   const response = await client.get('/champions/index').end();
 
   response.assertStatus(200);
+  console.log(response.body.champions)
 
   assert.exists(response.body.champions);
 });
