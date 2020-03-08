@@ -82,21 +82,19 @@ class ChampionRepository {
     const image_splash = `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championsAPI.name}_0.jpg`;
     const image_loading = `http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${championsAPI.name}_0.jpg`;
 
-    const champion = await Champion.findBy({
-      name: championsAPI.name,
-    });
-
-    champion.key = championsAPI.key;
-    champion.name = championsAPI.name;
-    champion.title = championsAPI.title;
-    champion.tags = championsAPI.tags;
-    champion.image_full_url = image_full;
-    champion.image_splash_url = image_splash;
-    champion.image_loading_url = image_loading;
-    champion.image_sprite_url = championsAPI.image.sprite;
-    champion.version = gamePatch;
-
-    await champion.save();
+    await Champion.query()
+      .where('name', championsAPI.name)
+      .update({
+        key: championsAPI.key,
+        name: championsAPI.name,
+        title: championsAPI.title,
+        tags: championsAPI.tags,
+        image_full_url: image_full,
+        image_splash_url: image_splash,
+        image_loading_url: image_loading,
+        image_sprite_url: championsAPI.image.sprite,
+        version: gamePatch,
+      });
   }
 }
 
