@@ -90,6 +90,8 @@ test('it should store all of the league of legends champions', async ({
     .post(`/champions/${language}/${version}/storeAll`)
     .end();
 
+  console.log(response.body.champions)
+
   response.assertStatus(200);
 
   assert.exists(response.body.champions);

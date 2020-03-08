@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable guard-for-in */
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Champion = use('App/Models/Champion');
 
@@ -54,7 +56,13 @@ class ChampionService {
   async storeAll({ version, language }) {
     const championsAPI = await getAllChampions(version, language);
 
-    await this.championRepository.storeAll(championsAPI, version);
+    const promises = [];
+    for (const champion in championsAPI) {
+      promises.push(
+        this.championRepository.storeAll(championsAPI[champion], version)
+      );
+    }
+    await Promise.all(promises);
 
     const resChampions = await Champion.all();
 

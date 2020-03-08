@@ -13,9 +13,7 @@ async function getAllChampions(version, language) {
       `http://${getChampionUrl}/${version}/data/${language}/champion.json`
     );
 
-    const champ = champion.data;
-
-    return champ;
+    return champion.data.data;
   } catch (err) {
     return err;
   }
