@@ -9,6 +9,10 @@ class Matchlist extends Model {
   matchdto() {
     return this.hasOne('App/Models/MatchDto');
   }
+
+  champion() {
+    return this.hasOne('App/Models/Champion');
+  }
 }
 
 module.exports = Matchlist;

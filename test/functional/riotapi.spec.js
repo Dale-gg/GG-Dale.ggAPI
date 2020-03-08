@@ -65,6 +65,19 @@ test('it should get ten matchs from the summoner', async ({
   assert.exists(response.body.summoner[0].matchs[0].matchdto);
 }).timeout(30000);
 
+test('it should not get some summoner', async ({ assert, client }) => {
+  const summonerName = 'jainzidaleincomodantemermaunnn';
+  const region = 'br1';
+
+  const response = await client
+    .get(`/summoner/?region=${region}&summonerName=${summonerName}`)
+    .end();
+
+  response.assertStatus(404);
+
+  assert.equal(response.body.data, null);
+});
+
 test('it should enter in the show and bring a summoner with his tier and matchs', async ({
   assert,
   client,
@@ -124,17 +137,4 @@ test('it should enter in the show and bring a summoner with his tier and matchs'
   );
   assert.equal(response.body.summoner[0].summoner_name, summonerName);
   assert.equal(response.body.summoner[0].matchs[0].champion, 'Zed');
-});
-
-test('it should not get some summoner', async ({ assert, client }) => {
-  const summonerName = 'jainzidaleincomodantemermaunnn';
-  const region = 'br1';
-
-  const response = await client
-    .get(`/summoner/?region=${region}&summonerName=${summonerName}`)
-    .end();
-
-  response.assertStatus(404);
-
-  assert.equal(response.body.data, null);
 });
