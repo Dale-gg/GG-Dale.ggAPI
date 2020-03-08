@@ -105,7 +105,7 @@ test('it should update all of the league of legends champions', async ({
   const version = '10.5.1';
 
   const response = await client
-    .post(`/champions/${language}/${version}/storeAll`)
+    .put(`/champions/${language}/${version}/updateAll`)
     .end();
 
   response.assertStatus(200);

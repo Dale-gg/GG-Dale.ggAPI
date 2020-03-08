@@ -47,6 +47,10 @@ Route.post(
   '/champions/:language/:version/storeAll',
   'ChampionController.storeAll'
 );
+Route.put(
+  '/champions/:language/:version/updateAll',
+  'ChampionController.updateAll'
+);
 
 // JWT Middleware
 Route.group(() => {

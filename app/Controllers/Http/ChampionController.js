@@ -64,6 +64,16 @@ class ChampionController {
       champions,
     });
   }
+
+  async updateAll({ params, response }) {
+    const champions = await this.championService.updateAll(params);
+
+    return response.status(200).json({
+      type: 'success-updated-allchampions',
+      msg: Antl.formatMessage('response.success-updated-allchampions'),
+      champions,
+    });
+  }
 }
 
 module.exports = ChampionController;

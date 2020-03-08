@@ -68,6 +68,22 @@ class ChampionService {
 
     return resChampions;
   }
+
+  async updateAll({ version, language }) {
+    const championsAPI = await getAllChampions(version, language);
+
+    const promises = [];
+    for (const champion in championsAPI) {
+      promises.push(
+        this.championRepository.updateAll(championsAPI[champion], version)
+      );
+    }
+    await Promise.all(promises);
+
+    const resChampions = await Champion.all();
+
+    return resChampions;
+  }
 }
 
 module.exports = ChampionService;

@@ -11,6 +11,7 @@
   "success-updated-champion": "{name} foi atualizado com sucesso.",
   "success-created-allchampions": "TODOS OS FODENDOS CAMPEÕES CRIADOS NA PORRA DO BANCO",
   "success-register": "O Usuário {name}, foi registrado com sucesso, cheque sua caixa de e-mail",
+  "success-updated-allchampions": "TODOS OS FODENDOS CAMPEÕES ATUALIZADOS NA PORRA DO BANCO",
   "user-soft-deleted": "O Usuário numero {id}, foi desabilitado com sucesso.",
   "user-soft-restored": "O Usuário numero {id}, foi restaurado com sucesso.",
   "success-profile-update": "Seu perfil foi atualizado com sucesso.",
