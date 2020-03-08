@@ -1,4 +1,8 @@
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
 const { test, trait } = use('Test/Suite')('Champions');
+
+const getAllChampions = require('../../app/Utils/RiotAPI/getAllChampions');
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory');
@@ -99,7 +103,20 @@ test('it should update all of the league of legends champions', async ({
   assert,
   client,
 }) => {
-  await Factory.model('App/Models/Champion').createMany(148);
+  const language1 = 'pt_BR';
+  const version1 = '9.24.1';
+
+  const championsAPI = await getAllChampions(version1, language1);
+
+  const promises = [];
+  for (const champion in championsAPI) {
+    promises.push(
+      Factory.model('App/Models/Champion').create({
+        name: championsAPI[champion].name,
+      })
+    );
+  }
+  await Promise.all(promises);
 
   const language = 'pt_BR';
   const version = '10.5.1';
@@ -109,6 +126,8 @@ test('it should update all of the league of legends champions', async ({
     .end();
 
   response.assertStatus(200);
+
   console.log(response.body.champions)
+
   assert.exists(response.body.champions);
 }).timeout(99999);

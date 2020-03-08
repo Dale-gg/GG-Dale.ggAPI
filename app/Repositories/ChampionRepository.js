@@ -76,6 +76,28 @@ class ChampionRepository {
       version: gamePatch,
     });
   }
+
+  async updateAll(championsAPI, gamePatch) {
+    const image_full = `http://ddragon.leagueoflegends.com/cdn/${gamePatch}/img/champion/${championsAPI.image.full}`;
+    const image_splash = `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championsAPI.name}_0.jpg`;
+    const image_loading = `http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${championsAPI.name}_0.jpg`;
+
+    const champion = await Champion.findBy({
+      name: championsAPI.name,
+    });
+
+    champion.key = championsAPI.key;
+    champion.name = championsAPI.name;
+    champion.title = championsAPI.title;
+    champion.tags = championsAPI.tags;
+    champion.image_full_url = image_full;
+    champion.image_splash_url = image_splash;
+    champion.image_loading_url = image_loading;
+    champion.image_sprite_url = championsAPI.image.sprite;
+    champion.version = gamePatch;
+
+    await champion.save();
+  }
 }
 
 module.exports = ChampionRepository;
