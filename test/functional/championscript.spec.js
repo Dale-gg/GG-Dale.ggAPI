@@ -94,3 +94,21 @@ test('it should store all of the league of legends champions', async ({
 
   assert.exists(response.body.champions);
 }).timeout(99999);
+
+test('it should update all of the league of legends champions', async ({
+  assert,
+  client,
+}) => {
+  await Factory.model('App/Models/Champion').createMany(148);
+
+  const language = 'pt_BR';
+  const version = '10.5.1';
+
+  const response = await client
+    .post(`/champions/${language}/${version}/storeAll`)
+    .end();
+
+  response.assertStatus(200);
+  console.log(response.body.champions)
+  assert.exists(response.body.champions);
+}).timeout(99999);
