@@ -128,3 +128,18 @@ Factory.blueprint('App/Models/ParticipantDto', (faker, i, data = {}) => {
     ...data,
   };
 });
+
+Factory.blueprint('App/Models/Champion', (faker, i, data = {}) => {
+  return {
+    key: faker.integer(),
+    name: data.name || faker.string(),
+    title: faker.string(),
+    tags: faker.string(),
+    version: data.version || faker.string(),
+    image_full_url: faker.string(),
+    image_loading_url: faker.string(),
+    image_splash_url: faker.string(),
+    image_sprite_url: faker.string(),
+    ...data,
+  };
+});
