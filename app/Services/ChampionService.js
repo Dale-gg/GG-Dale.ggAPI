@@ -81,7 +81,6 @@ class ChampionService {
     await Promise.all(promises);
 
     const resChampions = await Champion.all();
-    console.log(resChampions);
 
     return resChampions;
   }

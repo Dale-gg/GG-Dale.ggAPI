@@ -127,5 +127,7 @@ test('it should update all of the league of legends champions', async ({
 
   response.assertStatus(200);
 
-  assert.exists(response.body.champions);
+  console.log(response.body.champions)
+
+  assert.exists(response.body.champions.Zed);
 }).timeout(99999);
