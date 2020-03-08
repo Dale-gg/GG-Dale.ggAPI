@@ -99,6 +99,10 @@ test('it should enter in the show and bring a summoner with his tier and matchs'
     participant_id: participant.id,
   });
 
+  await Factory.model('App/Models/Champion').create({
+    name: 'Zed',
+  });
+
   await summoner.matchs().save(summonerMatchlist);
   await summonerMatchlist.matchdto().save(summonerMatchDto);
   await summonerMatchDto.participants().save(participant);
@@ -119,6 +123,7 @@ test('it should enter in the show and bring a summoner with his tier and matchs'
     response.body.summoner[0].matchs[0].matchdto.participants[0].participantdto
   );
   assert.equal(response.body.summoner[0].summoner_name, summonerName);
+  assert.equal(response.body.summoner[0].matchs[0].champion, 'Zed');
 });
 
 test('it should not get some summoner', async ({ assert, client }) => {
