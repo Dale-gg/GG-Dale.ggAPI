@@ -70,6 +70,7 @@ Factory.blueprint('App/Models/Matchlist', (faker, i, data = {}) => {
     queue: faker.integer(),
     role: faker.string(),
     season: faker.integer(),
+    champion_key: faker.integer(),
     ...data,
   };
 });
@@ -131,7 +132,8 @@ Factory.blueprint('App/Models/ParticipantDto', (faker, i, data = {}) => {
 
 Factory.blueprint('App/Models/Champion', (faker, i, data = {}) => {
   return {
-    key: faker.integer(),
+    matchlist_id: data.matchlist_id || faker.string(),
+    key: data.key || faker.integer(),
     name: data.name || faker.string(),
     title: faker.string(),
     tags: faker.string(),
