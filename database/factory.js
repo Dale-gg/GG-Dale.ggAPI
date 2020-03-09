@@ -70,6 +70,78 @@ Factory.blueprint('App/Models/Matchlist', (faker, i, data = {}) => {
     queue: faker.integer(),
     role: faker.string(),
     season: faker.integer(),
+    champion_key: faker.integer(),
+    ...data,
+  };
+});
+
+Factory.blueprint('App/Models/MatchDto', (faker, i, data = {}) => {
+  return {
+    matchlist_id: data.id || faker.string(),
+    season_id: faker.integer(),
+    queue_id: faker.string(),
+    game_id: faker.integer(),
+    platform_id: faker.string(),
+    game_mode: faker.string(),
+    map_id: faker.integer(),
+    game_type: faker.string(),
+    ...data,
+  };
+});
+
+Factory.blueprint('App/Models/Participant', (faker, i, data = {}) => {
+  return {
+    team_id: faker.integer(),
+    game_id: faker.integer(),
+    champ_id: faker.integer(),
+    account_id: faker.string(),
+    summoner_id: faker.string(),
+    match_dto_id: data.id || faker.integer(),
+    highest_achieved_season_tier: faker.string(),
+    ...data,
+  };
+});
+
+Factory.blueprint('App/Models/ParticipantDto', (faker, i, data = {}) => {
+  return {
+    participant_id: data.id || faker.integer(),
+    perk0: faker.integer(),
+    perk1: faker.integer(),
+    perk2: faker.integer(),
+    perk3: faker.integer(),
+    perk4: faker.integer(),
+    perk5: faker.integer(),
+    item0: faker.integer(),
+    item1: faker.integer(),
+    item2: faker.integer(),
+    item3: faker.integer(),
+    item4: faker.integer(),
+    item5: faker.integer(),
+    kills: faker.integer(),
+    deaths: faker.integer(),
+    assists: faker.integer(),
+    win: true,
+    double_kills: faker.integer(),
+    triple_kills: faker.integer(),
+    quadra_kills: faker.integer(),
+    penta_kills: faker.integer(),
+    champ_level: faker.integer(),
+    ...data,
+  };
+});
+
+Factory.blueprint('App/Models/Champion', (faker, i, data = {}) => {
+  return {
+    matchlist_id: data.matchlist_id || faker.string(),
+    key: data.key || faker.integer(),
+    name: data.name || faker.string(),
+    title: faker.string(),
+    tags: faker.string(),
+    version: data.version || faker.string(),
+    image_full_url: faker.string(),
+    image_loading_url: faker.string(),
+    image_splash_url: faker.string(),
+    image_sprite_url: faker.string(),
     ...data,
   };
 });

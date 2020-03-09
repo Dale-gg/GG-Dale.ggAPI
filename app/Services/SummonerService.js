@@ -1,3 +1,6 @@
+/* eslint-disable no-await-in-loop */
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Summoner = use('App/Models/Summoner');
 
@@ -24,6 +27,11 @@ class SummonerService {
 
   async store({ region, summonerName }) {
     const summonerAPI = await getSummoner(region, summonerName);
+
+    if (summonerAPI.name == null || summonerAPI.name === 'Error') {
+      return null;
+    }
+
     const summoner = await this.summonerRepository.store(summonerAPI, region);
 
     const tiers = await getTier(summonerAPI.id, region);
@@ -38,15 +46,24 @@ class SummonerService {
     }
 
     const matchListAPI = await getMatchs(region, summonerAPI.accountId);
-    this.matchRepository.store(summonerAPI.accountId, region, matchListAPI);
+
+    const promises = [];
+    for (const match in matchListAPI) {
+      promises.push(
+        this.matchRepository.store(
+          summonerAPI.accountId,
+          region,
+          matchListAPI[match]
+        )
+      );
+    }
+    await Promise.all(promises);
 
     const resSummoner = await Summoner.query()
-      .where({
-        summoner_name: summonerName,
-        region,
-      })
+      .whereRaw(`summoner_name ILIKE ? AND region = '${region}'`, summonerName)
       .with('tiers')
-      .with('matchs')
+      .with('matchs.champion')
+      .with('matchs.matchdto.participants.participantdto')
       .fetch();
 
     return resSummoner;

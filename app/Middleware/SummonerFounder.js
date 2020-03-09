@@ -1,7 +1,6 @@
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
-
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Summoner = use('App/Models/Summoner');
 
@@ -15,13 +14,10 @@ class SummonerFounder {
     const { region, summonerName } = request.get();
 
     const summoner = await Summoner.query()
-      .where({
-        summoner_name: summonerName,
-        region,
-      })
-      .fetch();
+      .whereRaw(`summoner_name ILIKE ? AND region = '${region}'`, summonerName)
+      .first();
 
-    if (summoner.rows[0]) {
+    if (summoner) {
       await next();
     } else {
       return response.route(
