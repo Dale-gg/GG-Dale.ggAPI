@@ -17,7 +17,7 @@ class MatchRepository {
   }
 
   async store(accountId, summonerRegion, match) {
-    const champion = await Champion.findBy({
+    const champion = await Champion.findByOrFail({
       key: match.champion,
     });
 
