@@ -1,6 +1,8 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Summoner = use('App/Models/Summoner');
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
+const Champion = use('App/Models/Champion');
+/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Matchlist = use('App/Models/Matchlist');
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const MatchDto = use('App/Models/MatchDto');
@@ -15,6 +17,9 @@ class MatchRepository {
   }
 
   async store(accountId, summonerRegion, match) {
+    const champion = Champion.findByOrFail({
+      key: match.champion,
+    });
     const summoner = await Summoner.findByOrFail({
       account_id: accountId,
       region: summonerRegion,
@@ -54,6 +59,7 @@ class MatchRepository {
     }
     await Promise.all(promises);
 
+    await summonerMatchlist.champion().save(champion);
     await summonerMatchlist.matchdto().save(matchDto);
     await summoner.matchs().save(summonerMatchlist);
   }

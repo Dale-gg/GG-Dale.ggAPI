@@ -10,11 +10,6 @@ class MatchlistSchema extends Schema {
         .unsigned()
         .references('id')
         .inTable('summoners');
-      table
-        .integer('champion_id')
-        .unsigned()
-        .references('id')
-        .inTable('champions');
       table.string('game_id');
       table.string('platform_id');
       table.string('lane');

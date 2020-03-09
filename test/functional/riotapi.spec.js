@@ -85,6 +85,10 @@ test('it should enter in the show and bring a summoner with his tier and matchs'
   const summonerName = 'iLenon7';
   const region = 'br1';
 
+  const champion = await Factory.model('App/Models/Champion').create({
+    name: 'Zed',
+  });
+
   const summoner = await Factory.model('App/Models/Summoner').create({
     summoner_name: summonerName,
     region,
@@ -100,6 +104,8 @@ test('it should enter in the show and bring a summoner with his tier and matchs'
     summoner_id: summoner.id,
   });
 
+  await summonerMatchlist.champion().save(champion);
+
   const summonerMatchDto = await Factory.model('App/Models/MatchDto').make({
     matchlist_id: summonerMatchlist.id,
   });
@@ -110,10 +116,6 @@ test('it should enter in the show and bring a summoner with his tier and matchs'
 
   const participantDto = await Factory.model('App/Models/ParticipantDto').make({
     participant_id: participant.id,
-  });
-
-  await Factory.model('App/Models/Champion').create({
-    name: 'Zed',
   });
 
   await summoner.matchs().save(summonerMatchlist);
@@ -136,5 +138,5 @@ test('it should enter in the show and bring a summoner with his tier and matchs'
     response.body.summoner[0].matchs[0].matchdto.participants[0].participantdto
   );
   assert.equal(response.body.summoner[0].summoner_name, summonerName);
-  assert.equal(response.body.summoner[0].matchs[0].champion, 'Zed');
+  assert.equal(response.body.summoner[0].matchs[0].champion.name, 'Zed');
 });

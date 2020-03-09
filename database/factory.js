@@ -131,6 +131,7 @@ Factory.blueprint('App/Models/ParticipantDto', (faker, i, data = {}) => {
 
 Factory.blueprint('App/Models/Champion', (faker, i, data = {}) => {
   return {
+    matchlist_id: data.matchlist_id || faker.string(),
     key: faker.integer(),
     name: data.name || faker.string(),
     title: faker.string(),
