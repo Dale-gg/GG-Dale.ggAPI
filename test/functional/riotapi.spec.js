@@ -1,4 +1,7 @@
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
 const { test, trait } = use('Test/Suite')('RiotAPI');
+const getAllChampions = require('../../app/Utils/RiotAPI/getAllChampions');
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory');
@@ -11,6 +14,22 @@ test('it should get some summoner and save it in the database', async ({
   assert,
   client,
 }) => {
+  const language1 = 'pt_BR';
+  const version1 = '9.24.1';
+
+  const championsAPI = await getAllChampions(version1, language1);
+
+  const promises = [];
+  for (const champion in championsAPI) {
+    promises.push(
+      Factory.model('App/Models/Champion').create({
+        name: championsAPI[champion].name,
+        key: championsAPI[champion].key,
+      })
+    );
+  }
+  await Promise.all(promises);
+
   const summonerName = 'iLenon7';
   const region = 'br1';
   const tier = 'GOLD';
@@ -29,6 +48,22 @@ test('it should get some summoner and save it with flex and solo tier', async ({
   assert,
   client,
 }) => {
+  const language1 = 'pt_BR';
+  const version1 = '9.24.1';
+
+  const championsAPI = await getAllChampions(version1, language1);
+
+  const promises = [];
+  for (const champion in championsAPI) {
+    promises.push(
+      Factory.model('App/Models/Champion').create({
+        name: championsAPI[champion].name,
+        key: championsAPI[champion].key,
+      })
+    );
+  }
+  await Promise.all(promises);
+
   const summonerName = 'RNS Hylen';
   const tierSolo = 'DIAMOND';
   const tierFlex = 'DIAMOND';
@@ -49,6 +84,22 @@ test('it should get ten matchs from the summoner', async ({
   assert,
   client,
 }) => {
+  const language1 = 'pt_BR';
+  const version1 = '9.24.1';
+
+  const championsAPI = await getAllChampions(version1, language1);
+
+  const promises = [];
+  for (const champion in championsAPI) {
+    promises.push(
+      Factory.model('App/Models/Champion').create({
+        name: championsAPI[champion].name,
+        key: championsAPI[champion].key,
+      })
+    );
+  }
+  await Promise.all(promises);
+
   const summonerName = 'iLenon7';
   const tierSolo = 'GOLD';
   const region = 'br1';

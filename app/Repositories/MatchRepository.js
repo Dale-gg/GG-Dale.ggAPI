@@ -17,9 +17,10 @@ class MatchRepository {
   }
 
   async store(accountId, summonerRegion, match) {
-    const champion = Champion.findByOrFail({
+    const champion = await Champion.findBy({
       key: match.champion,
     });
+
     const summoner = await Summoner.findByOrFail({
       account_id: accountId,
       region: summonerRegion,
@@ -37,6 +38,7 @@ class MatchRepository {
       queue: match.queue,
       season: match.season,
       summoner_id: summoner.id,
+      champion_key: match.champion,
     });
 
     // const time = new Date(match.timestamp);
