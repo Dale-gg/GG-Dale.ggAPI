@@ -6,7 +6,7 @@ class ParticipantSchema extends Schema {
     this.create('participants', table => {
       table.increments();
       table.integer('team_id');
-      table.integer('game_id');
+      table.bigInteger('game_id');
       table.integer('champ_id');
       table.string('account_id');
       table.string('summoner_id');

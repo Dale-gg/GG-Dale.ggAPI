@@ -16,7 +16,7 @@ class MatchlistSchema extends Schema {
       table.string('lane');
       table.integer('queue');
       table.string('role');
-      table.integer('timestamp');
+      table.bigInteger('timestamp');
       table.integer('season');
       table.timestamps();
     });

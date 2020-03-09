@@ -40,7 +40,6 @@ test('it should get some summoner and save it in the database', async ({
 
   response.assertStatus(200);
 
-  console.log(response.body.summoner[0].matchs)
   assert.equal(response.body.summoner[0].summoner_name, summonerName);
   assert.equal(response.body.summoner[0].tiers[0].tier, tier);
 }).timeout(30000);

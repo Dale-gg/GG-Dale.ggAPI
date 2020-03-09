@@ -18,8 +18,8 @@ class MatchDtoSchema extends Schema {
       table.string('game_mode');
       table.string('game_version');
       table.string('game_type');
-      table.integer('game_duration');
-      table.integer('game_creation');
+      table.bigInteger('game_duration');
+      table.bigInteger('game_creation');
       table.timestamps();
     });
   }
