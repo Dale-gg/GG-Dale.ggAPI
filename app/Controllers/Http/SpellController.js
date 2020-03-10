@@ -60,9 +60,23 @@ class SpellController {
   }
 
   async storeAll({ params, response }) {
+    const spells = await this.spellService.storeAll(params);
+
+    return response.status(200).json({
+      type: 'success-created-allspells',
+      msg: Antl.formatMessage('response.success-created-allspells'),
+      spells,
+    });
   }
 
   async updateAll({ params, response }) {
+    const spells = await this.spellService.updateAll(params);
+
+    return response.status(200).json({
+      type: 'success-updated-allspells',
+      msg: Antl.formatMessage('response.success-update-allspells'),
+      spells,
+    });
   }
 }
 
