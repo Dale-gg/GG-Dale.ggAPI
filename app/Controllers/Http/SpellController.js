@@ -2,10 +2,14 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-/**
- * Resourceful controller for interacting with spells
- */
+const SpellService = use('App/Services/SpellService');
+const Antl = use('Antl');
+
 class SpellController {
+  constructor() {
+    this.spellService = new SpellService();
+  }
+
   async index ({ request, response, view }) {
   }
 

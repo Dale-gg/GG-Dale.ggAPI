@@ -3,9 +3,15 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Spell = use('App/Models/Spell');
 
-const getAllChampions = require('../Utils/RiotAPI/getAllChampions');
+const SpellRepository = use('App/Services/SpellRepository');
+
+const getAllSpells = require('../Utils/RiotAPI/getAllSpells');
 
 class SpellService {
+  constructor() {
+    this.spellRepository = new SpellRepository();
+  }
+
   async index() {
     const champions = await this.championRepository.index();
 
