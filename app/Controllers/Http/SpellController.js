@@ -59,8 +59,10 @@ class SpellController {
     });
   }
 
-  async destroy ({ params, request, response }) {
+  async storeAll({ params, response }) {
+  }
 
+  async updateAll({ params, response }) {
   }
 }
 
