@@ -145,3 +145,17 @@ Factory.blueprint('App/Models/Champion', (faker, i, data = {}) => {
     ...data,
   };
 });
+
+Factory.blueprint('App/Models/Spell', (faker, i, data = {}) => {
+  return {
+    name: data.name || faker.string(),
+    key: faker.integer(),
+    spell_dd: data.spell_dd || faker.string(),
+    description: faker.string(),
+    group: faker.string(),
+    modes: faker.string(),
+    image_full_url: faker.string(),
+    image_sprite_url: faker.string(),
+    ...data,
+  };
+});
