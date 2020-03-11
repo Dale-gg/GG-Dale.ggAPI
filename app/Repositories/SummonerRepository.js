@@ -7,6 +7,7 @@ class SummonerRepository {
       .whereRaw(`summoner_name LIKE ? AND region = '${region}'`, summonerName)
       .with('tiers')
       .with('matchs.champion')
+      .with('matchs.matchdto.participants.champion')
       .with('matchs.matchdto.participants.participantdto')
       .fetch();
 
