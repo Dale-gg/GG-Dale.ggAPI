@@ -5,6 +5,10 @@ class Champion extends Model {
   matchlist() {
     return this.hasOne('App/Models/Matchlist');
   }
+
+  participant() {
+    return this.hasOne('App/Models/Participant');
+  }
 }
 
 module.exports = Champion;

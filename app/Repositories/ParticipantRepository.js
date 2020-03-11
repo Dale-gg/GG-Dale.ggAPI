@@ -4,6 +4,8 @@ const Participant = use('App/Models/Participant');
 const ParticipantDto = use('App/Models/ParticipantDto');
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const MatchDto = use('App/Models/MatchDto');
+/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
+const Champion = use('App/Models/Champion');
 
 class ParticipantRepository {
   async store(participantapi, matchDto) {
@@ -11,11 +13,16 @@ class ParticipantRepository {
       id: matchDto,
     });
 
+    const champion = await Champion.findByOrFail({
+      key: participantapi.champId,
+    });
+
     try {
       const participant = await Participant.create({
         team_id: participantapi.teamId,
         game_id: participantapi.gameId,
-        champ_id: participantapi.champId,
+        champion_id: champion.id,
+        champion_key: participantapi.champId,
         account_id: participantapi.accountId,
         summoner_id: participantapi.summonerId,
         match_dto_id: matchDto.id,
@@ -47,6 +54,7 @@ class ParticipantRepository {
         champ_level: participantapi.stats.champLevel,
       });
 
+      await champion.participant().save(participant);
       await match.participants().save(participant);
       await participant.participantdto().save(participantdto);
     } catch (err) {

@@ -7,9 +7,14 @@ class ParticipantSchema extends Schema {
       table.increments();
       table.integer('team_id');
       table.bigInteger('game_id');
-      table.integer('champ_id');
       table.string('account_id');
       table.string('summoner_id');
+      table
+        .integer('champion_id')
+        .unsigned()
+        .references('id')
+        .inTable('champions');
+      table.integer('champion_key');
       table
         .integer('match_dto_id')
         .unsigned()

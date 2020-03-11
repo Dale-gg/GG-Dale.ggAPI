@@ -94,7 +94,8 @@ Factory.blueprint('App/Models/Participant', (faker, i, data = {}) => {
   return {
     team_id: faker.integer(),
     game_id: faker.integer(),
-    champ_id: faker.integer(),
+    champion_id: data.champion_id || faker.integer(),
+    champion_key: faker.integer(),
     account_id: faker.string(),
     summoner_id: faker.string(),
     match_dto_id: data.id || faker.integer(),
