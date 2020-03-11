@@ -64,13 +64,14 @@ Factory.blueprint('App/Models/Tier', (faker, i, data = {}) => {
 Factory.blueprint('App/Models/Matchlist', (faker, i, data = {}) => {
   return {
     summoner_id: data.id || faker.string(),
+    champion_id: data.champid || faker.integer(),
+    champion_key: faker.integer(),
     lane: faker.string(),
     game_id: faker.string(),
     platform_id: faker.string(),
     queue: faker.integer(),
     role: faker.string(),
     season: faker.integer(),
-    champion_key: faker.integer(),
     ...data,
   };
 });
@@ -132,7 +133,6 @@ Factory.blueprint('App/Models/ParticipantDto', (faker, i, data = {}) => {
 
 Factory.blueprint('App/Models/Champion', (faker, i, data = {}) => {
   return {
-    matchlist_id: data.matchlist_id || faker.string(),
     key: data.key || faker.integer(),
     name: data.name || faker.string(),
     title: faker.string(),

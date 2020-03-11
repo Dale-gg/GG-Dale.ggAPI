@@ -64,9 +64,9 @@ test('it should get some summoner and save it with flex and solo tier', async ({
   }
   await Promise.all(promises);
 
-  const summonerName = 'RNS Hylen';
+  const summonerName = 'Ayanzera';
   const tierSolo = 'DIAMOND';
-  const tierFlex = 'DIAMOND';
+  const tierFlex = 'CHALLENGER';
   const region = 'br1';
 
   const response = await client
@@ -153,9 +153,10 @@ test('it should enter in the show and bring a summoner with his tier and matchs'
 
   const summonerMatchlist = await Factory.model('App/Models/Matchlist').make({
     summoner_id: summoner.id,
+    champion_id: champion.id,
   });
 
-  await summonerMatchlist.champion().save(champion);
+  await champion.matchlist().save(summonerMatchlist);
 
   const summonerMatchDto = await Factory.model('App/Models/MatchDto').make({
     matchlist_id: summonerMatchlist.id,
