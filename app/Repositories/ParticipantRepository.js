@@ -50,7 +50,7 @@ class ParticipantRepository {
       await match.participants().save(participant);
       await participant.participantdto().save(participantdto);
     } catch (err) {
-      console.log(err);
+      return err;
     }
   }
 }
