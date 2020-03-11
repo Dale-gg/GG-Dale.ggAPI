@@ -5,11 +5,6 @@ class ChampionSchema extends Schema {
   up() {
     this.create('champions', table => {
       table.increments();
-      table
-        .integer('matchlist_id')
-        .unsigned()
-        .references('id')
-        .inTable('matchlists');
       table.integer('key');
       table.string('name');
       table.string('title');

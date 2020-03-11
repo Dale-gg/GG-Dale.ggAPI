@@ -6,12 +6,12 @@ class Matchlist extends Model {
     return this.belongsTo('App/Models/Summoner');
   }
 
-  matchdto() {
-    return this.hasOne('App/Models/MatchDto');
+  champion() {
+    return this.belongsTo('App/Models/Champion');
   }
 
-  champion() {
-    return this.hasOne('App/Models/Champion');
+  matchdto() {
+    return this.hasOne('App/Models/MatchDto');
   }
 }
 

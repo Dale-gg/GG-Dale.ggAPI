@@ -4,7 +4,7 @@ const Summoner = use('App/Models/Summoner');
 class SummonerRepository {
   async show(region, summonerName) {
     const summoner = await Summoner.query()
-      .whereRaw(`summoner_name ILIKE ? AND region = '${region}'`, summonerName)
+      .whereRaw(`summoner_name LIKE ? AND region = '${region}'`, summonerName)
       .with('tiers')
       .with('matchs.champion')
       .with('matchs.matchdto.participants.participantdto')
