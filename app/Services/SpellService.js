@@ -3,7 +3,7 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Spell = use('App/Models/Spell');
 
-const SpellRepository = use('App/Services/SpellRepository');
+const SpellRepository = use('App/Repositories/SpellRepository');
 
 const getAllSpells = require('../Utils/RiotAPI/getAllSpells');
 

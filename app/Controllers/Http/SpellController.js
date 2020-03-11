@@ -74,7 +74,7 @@ class SpellController {
 
     return response.status(200).json({
       type: 'success-updated-allspells',
-      msg: Antl.formatMessage('response.success-update-allspells'),
+      msg: Antl.formatMessage('response.success-updated-allspells'),
       spells,
     });
   }

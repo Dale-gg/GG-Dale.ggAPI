@@ -6,7 +6,7 @@ class SpellSchema extends Schema {
     this.create('spells', table => {
       table.increments();
       table.string('name');
-      table.intager('key');
+      table.integer('key');
       table.string('spell_dd');
       table.string('description');
       table.string('group');
