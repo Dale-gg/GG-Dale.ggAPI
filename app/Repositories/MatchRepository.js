@@ -51,6 +51,8 @@ class MatchRepository {
       queue_id: matchDtoAPI.queueId,
       game_id: matchDtoAPI.gameId,
       platform_id: matchDtoAPI.platformId,
+      game_type: matchDtoAPI.gameType,
+      game_version: matchDtoAPI.gameVersion,
       game_duration: matchDtoAPI.gameDuration,
       game_creation: matchDtoAPI.gameCreation,
     });

@@ -8,21 +8,24 @@ class TierSchema extends Schema {
       table
         .integer('summoner_id')
         .unsigned()
+        .notNullable()
         .references('id')
-        .inTable('summoners');
-      table.string('league_id');
-      table.string('queue_type');
-      table.string('tier');
-      table.string('rank');
-      table.integer('pdl');
-      table.string('winrate');
-      table.integer('wins');
-      table.integer('losses');
-      table.boolean('inactive');
-      table.boolean('veteran');
-      table.boolean('hot_streak');
-      table.boolean('fresh_blood');
-      table.string('season');
+        .inTable('summoners')
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE');
+      table.string('league_id').notNullable();
+      table.string('queue_type').notNullable();
+      table.string('tier').notNullable();
+      table.string('rank').notNullable();
+      table.integer('pdl').notNullable();
+      table.string('winrate').notNullable();
+      table.integer('wins').notNullable();
+      table.integer('losses').notNullable();
+      table.boolean('inactive').notNullable();
+      table.boolean('veteran').notNullable();
+      table.boolean('hot_streak').notNullable();
+      table.boolean('fresh_blood').notNullable();
+      table.string('season').notNullable();
       table.timestamps();
     });
   }
