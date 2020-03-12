@@ -9,7 +9,6 @@ class MatchlistSchema extends Schema {
         .integer('summoner_id')
         .unsigned()
         .references('id')
-        .notNullable()
         .inTable('summoners')
         .onDelete('CASCADE')
         .onUpdate('CASCADE');
@@ -17,7 +16,6 @@ class MatchlistSchema extends Schema {
         .integer('champion_id')
         .unsigned()
         .references('id')
-        .notNullable()
         .inTable('champions')
         .onDelete('SET NULL')
         .onUpdate('CASCADE');
