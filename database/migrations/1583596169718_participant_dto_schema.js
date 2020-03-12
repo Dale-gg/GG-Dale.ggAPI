@@ -9,28 +9,31 @@ class ParticipantDtoSchema extends Schema {
         .integer('participant_id')
         .unsigned()
         .references('id')
-        .inTable('participants');
-      table.integer('perk0');
-      table.integer('perk1');
-      table.integer('perk2');
-      table.integer('perk3');
-      table.integer('perk4');
-      table.integer('perk5');
-      table.integer('item0');
-      table.integer('item1');
-      table.integer('item2');
-      table.integer('item3');
-      table.integer('item4');
-      table.integer('item5');
-      table.integer('kills');
-      table.integer('deaths');
-      table.integer('assists');
-      table.boolean('win');
-      table.integer('double_kills');
-      table.integer('triple_kills');
-      table.integer('quadra_kills');
-      table.integer('penta_kills');
-      table.integer('champ_level');
+        .notNullable()
+        .inTable('participants')
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE');
+      table.integer('perk0').notNullable();
+      table.integer('perk1').notNullable();
+      table.integer('perk2').notNullable();
+      table.integer('perk3').notNullable();
+      table.integer('perk4').notNullable();
+      table.integer('perk5').notNullable();
+      table.integer('item0').notNullable();
+      table.integer('item1').notNullable();
+      table.integer('item2').notNullable();
+      table.integer('item3').notNullable();
+      table.integer('item4').notNullable();
+      table.integer('item5').notNullable();
+      table.integer('kills').notNullable();
+      table.integer('deaths').notNullable();
+      table.integer('assists').notNullable();
+      table.boolean('win').notNullable();
+      table.integer('double_kills').notNullable();
+      table.integer('triple_kills').notNullable();
+      table.integer('quadra_kills').notNullable();
+      table.integer('penta_kills').notNullable();
+      table.integer('champ_level').notNullable();
       table.timestamps();
     });
   }
