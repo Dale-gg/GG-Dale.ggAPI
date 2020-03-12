@@ -18,7 +18,7 @@ class ChampionRepository {
       key: championAPI.key,
       name: championAPI.name,
       title: championAPI.title,
-      tags: championAPI.tags,
+      tags: championAPI.tags[0],
       image_full_url: image_full,
       image_splash_url: image_splash,
       image_loading_url: image_loading,
@@ -49,7 +49,7 @@ class ChampionRepository {
     champion.key = championAPI.key;
     champion.name = championAPI.name;
     champion.title = championAPI.title;
-    champion.tags = championAPI.tags;
+    champion.tags = championAPI.tags[0];
     champion.image_full_url = image_full;
     champion.image_splash_url = image_splash;
     champion.image_loading_url = image_loading;
@@ -68,7 +68,7 @@ class ChampionRepository {
       key: championsAPI.key,
       name: championsAPI.name,
       title: championsAPI.title,
-      tags: championsAPI.tags,
+      tags: championsAPI.tags[0],
       image_full_url: image_full,
       image_splash_url: image_splash,
       image_loading_url: image_loading,
@@ -88,7 +88,7 @@ class ChampionRepository {
         key: championsAPI.key,
         name: championsAPI.name,
         title: championsAPI.title,
-        tags: championsAPI.tags,
+        tags: championsAPI.tags[0],
         image_full_url: image_full,
         image_splash_url: image_splash,
         image_loading_url: image_loading,
