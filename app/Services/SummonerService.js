@@ -63,7 +63,8 @@ class SummonerService {
       .whereRaw(`summoner_name LIKE ? AND region = '${region}'`, summonerName)
       .with('tiers')
       .with('matchs.champion')
-      .with('participant.champion')
+      .with('matchs.matchdto.participants.spells')
+      .with('matchs.matchdto.participants.champion')
       .with('matchs.matchdto.participants.participantdto')
       .fetch();
 

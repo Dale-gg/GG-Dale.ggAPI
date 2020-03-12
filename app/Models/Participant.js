@@ -13,6 +13,10 @@ class Participant extends Model {
   participantdto() {
     return this.hasOne('App/Models/ParticipantDto');
   }
+
+  spells() {
+    return this.belongsToMany('App/Models/Spell');
+  }
 }
 
 module.exports = Participant;

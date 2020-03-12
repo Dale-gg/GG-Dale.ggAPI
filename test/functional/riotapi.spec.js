@@ -140,6 +140,10 @@ test('it should enter in the show and bring a summoner with his tier and matchs'
     name: 'Zed',
   });
 
+  const spell = await Factory.model('App/Models/Spell').create({
+    name: 'Flash',
+  });
+
   const summoner = await Factory.model('App/Models/Summoner').create({
     summoner_name: summonerName,
     region,
@@ -171,6 +175,7 @@ test('it should enter in the show and bring a summoner with his tier and matchs'
     participant_id: participant.id,
   });
 
+  await participant.spells().save(spell);
   await summoner.matchs().save(summonerMatchlist);
   await summonerMatchlist.matchdto().save(summonerMatchDto);
   await summonerMatchDto.participants().save(participant);
@@ -189,11 +194,15 @@ test('it should enter in the show and bring a summoner with his tier and matchs'
   assert.exists(response.body.summoner[0].matchs[0].matchdto);
   assert.exists(response.body.summoner[0].matchs[0].matchdto.participants);
   assert.exists(
-    response.body.summoner[0].matchs[0].matchdto.participants.champion
+    response.body.summoner[0].matchs[0].matchdto.participants[0].champion
   );
   assert.exists(
     response.body.summoner[0].matchs[0].matchdto.participants[0].participantdto
   );
   assert.equal(response.body.summoner[0].summoner_name, summonerName);
   assert.equal(response.body.summoner[0].matchs[0].champion.name, 'Zed');
+  assert.equal(
+    response.body.summoner[0].matchs[0].matchdto.participants[0].spells[0].name,
+    'Flash'
+  );
 });
