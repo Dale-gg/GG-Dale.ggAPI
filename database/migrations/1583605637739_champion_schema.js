@@ -5,15 +5,21 @@ class ChampionSchema extends Schema {
   up() {
     this.create('champions', table => {
       table.increments();
-      table.integer('key');
-      table.string('name');
-      table.string('title');
-      table.string('tags');
-      table.string('version');
-      table.string('image_full_url');
-      table.string('image_splash_url');
-      table.string('image_loading_url');
-      table.string('image_sprite_url');
+      table
+        .integer('key')
+        .notNullable()
+        .unique();
+      table
+        .string('name')
+        .notNullable()
+        .unique();
+      table.string('title').notNullable();
+      table.string('tags').notNullable();
+      table.string('version').notNullable();
+      table.string('image_full_url').notNullable();
+      table.string('image_splash_url').notNullable();
+      table.string('image_loading_url').notNullable();
+      table.string('image_sprite_url').notNullable();
       table.timestamps();
     });
   }
