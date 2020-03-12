@@ -9,12 +9,16 @@ class ParticipantSpellSchema extends Schema {
         .integer('participant_id')
         .unsigned()
         .references('id')
-        .inTable('participants');
+        .inTable('participants')
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE');
       table
         .integer('spell_id')
         .unsigned()
         .references('id')
-        .inTable('spells');
+        .inTable('spells')
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE');
       table.timestamps();
     });
   }
