@@ -9,7 +9,9 @@ class TierSchema extends Schema {
         .integer('summoner_id')
         .unsigned()
         .references('id')
-        .inTable('summoners');
+        .inTable('summoners')
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE');
       table.string('league_id');
       table.string('queue_type');
       table.string('tier');
