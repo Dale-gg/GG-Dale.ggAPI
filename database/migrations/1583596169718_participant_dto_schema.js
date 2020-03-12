@@ -9,7 +9,6 @@ class ParticipantDtoSchema extends Schema {
         .integer('participant_id')
         .unsigned()
         .references('id')
-        .notNullable()
         .inTable('participants')
         .onDelete('CASCADE')
         .onUpdate('CASCADE');

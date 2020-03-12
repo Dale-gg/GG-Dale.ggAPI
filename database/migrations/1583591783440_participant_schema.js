@@ -22,7 +22,6 @@ class ParticipantSchema extends Schema {
         .integer('match_dto_id')
         .unsigned()
         .references('id')
-        .notNullable()
         .inTable('match_dtos')
         .onDelete('CASCADE')
         .onUpdate('CASCADE');
