@@ -72,6 +72,7 @@ Factory.blueprint('App/Models/Matchlist', (faker, i, data = {}) => {
     queue: faker.integer(),
     role: faker.string(),
     season: faker.integer(),
+    timestamp: faker.integer(),
     ...data,
   };
 });
@@ -86,6 +87,9 @@ Factory.blueprint('App/Models/MatchDto', (faker, i, data = {}) => {
     game_mode: faker.string(),
     map_id: faker.integer(),
     game_type: faker.string(),
+    game_version: faker.string(),
+    game_creation: faker.string(),
+    game_duration: faker.string(),
     ...data,
   };
 });

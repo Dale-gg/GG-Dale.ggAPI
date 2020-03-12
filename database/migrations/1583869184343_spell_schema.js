@@ -5,10 +5,7 @@ class SpellSchema extends Schema {
   up() {
     this.create('spells', table => {
       table.increments();
-      table
-        .string('name')
-        .notNullable()
-        .unique();
+      table.string('name').notNullable();
       table
         .integer('key')
         .notNullable()
