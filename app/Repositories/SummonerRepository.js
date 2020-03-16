@@ -31,6 +31,20 @@ class SummonerRepository {
     });
     return summoner;
   }
+
+  async update(summonerAPI, region) {
+    const summoner = await Summoner.query()
+      .where('summoner_id', summonerAPI.id)
+      .update({
+        account_id: summonerAPI.accountId,
+        summoner_id: summonerAPI.id,
+        puuid: summonerAPI.puuid,
+        region,
+        summoner_name: summonerAPI.name,
+        revision_date: summonerAPI.revisionDate,
+      });
+    return summoner;
+  }
 }
 
 module.exports = SummonerRepository;

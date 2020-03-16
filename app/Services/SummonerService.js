@@ -78,7 +78,7 @@ class SummonerService {
       return null;
     }
 
-    const summoner = await this.summonerRepository.update(region, summonerName);
+    const summoner = await this.summonerRepository.update(summonerAPI, region);
 
     const tiers = await getTier(summonerAPI.id, region);
     const tierSolo = tiers[0];
