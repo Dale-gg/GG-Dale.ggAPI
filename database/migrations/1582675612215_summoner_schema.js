@@ -6,9 +6,15 @@ class SummonerSchema extends Schema {
     this.create('summoners', table => {
       table.increments();
       table.string('account_id').notNullable();
-      table.string('summoner_id').notNullable();
+      table
+        .string('summoner_id')
+        .notNullable()
+        .unique();
       table.string('puuid').notNullable();
-      table.string('summoner_name').notNullable();
+      table
+        .string('summoner_name')
+        .notNullable()
+        .unique();
       table.string('region').notNullable();
       table.string('revision_date').notNullable();
       table.timestamps();

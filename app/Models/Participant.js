@@ -6,8 +6,16 @@ class Participant extends Model {
     return this.belongsTo('App/Models/MatchDto');
   }
 
+  champion() {
+    return this.belongsTo('App/Models/Champion');
+  }
+
   participantdto() {
     return this.hasOne('App/Models/ParticipantDto');
+  }
+
+  spells() {
+    return this.belongsToMany('App/Models/Spell');
   }
 }
 

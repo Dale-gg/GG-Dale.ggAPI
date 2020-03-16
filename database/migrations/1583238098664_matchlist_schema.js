@@ -9,15 +9,27 @@ class MatchlistSchema extends Schema {
         .integer('summoner_id')
         .unsigned()
         .references('id')
-        .inTable('summoners');
-      table.string('game_id');
-      table.string('platform_id');
-      table.integer('champion_key');
-      table.string('lane');
-      table.integer('queue');
-      table.string('role');
-      table.bigInteger('timestamp');
-      table.integer('season');
+        .inTable('summoners')
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE');
+      table
+        .integer('champion_id')
+        .unsigned()
+        .references('id')
+        .inTable('champions')
+        .onDelete('SET NULL')
+        .onUpdate('CASCADE');
+      table.integer('champion_key').notNullable();
+      table
+        .string('game_id')
+        .notNullable()
+        .unique();
+      table.string('platform_id').notNullable();
+      table.string('lane').notNullable();
+      table.integer('queue').notNullable();
+      table.string('role').notNullable();
+      table.bigInteger('timestamp').notNullable();
+      table.integer('season').notNullable();
       table.timestamps();
     });
   }

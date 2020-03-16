@@ -64,13 +64,15 @@ Factory.blueprint('App/Models/Tier', (faker, i, data = {}) => {
 Factory.blueprint('App/Models/Matchlist', (faker, i, data = {}) => {
   return {
     summoner_id: data.id || faker.string(),
+    champion_id: data.champid || faker.integer(),
+    champion_key: faker.integer(),
     lane: faker.string(),
     game_id: faker.string(),
     platform_id: faker.string(),
     queue: faker.integer(),
     role: faker.string(),
     season: faker.integer(),
-    champion_key: faker.integer(),
+    timestamp: faker.integer(),
     ...data,
   };
 });
@@ -85,6 +87,9 @@ Factory.blueprint('App/Models/MatchDto', (faker, i, data = {}) => {
     game_mode: faker.string(),
     map_id: faker.integer(),
     game_type: faker.string(),
+    game_version: faker.string(),
+    game_creation: faker.string(),
+    game_duration: faker.string(),
     ...data,
   };
 });
@@ -93,7 +98,8 @@ Factory.blueprint('App/Models/Participant', (faker, i, data = {}) => {
   return {
     team_id: faker.integer(),
     game_id: faker.integer(),
-    champ_id: faker.integer(),
+    champion_id: data.champion_id || faker.integer(),
+    champion_key: faker.integer(),
     account_id: faker.string(),
     summoner_id: faker.string(),
     match_dto_id: data.id || faker.integer(),
@@ -132,7 +138,6 @@ Factory.blueprint('App/Models/ParticipantDto', (faker, i, data = {}) => {
 
 Factory.blueprint('App/Models/Champion', (faker, i, data = {}) => {
   return {
-    matchlist_id: data.matchlist_id || faker.string(),
     key: data.key || faker.integer(),
     name: data.name || faker.string(),
     title: faker.string(),
@@ -141,6 +146,20 @@ Factory.blueprint('App/Models/Champion', (faker, i, data = {}) => {
     image_full_url: faker.string(),
     image_loading_url: faker.string(),
     image_splash_url: faker.string(),
+    image_sprite_url: faker.string(),
+    ...data,
+  };
+});
+
+Factory.blueprint('App/Models/Spell', (faker, i, data = {}) => {
+  return {
+    name: data.name || faker.string(),
+    key: faker.integer(),
+    spell_dd: data.spell_dd || faker.string(),
+    description: faker.string(),
+    group: faker.string(),
+    modes: faker.string(),
+    image_full_url: faker.string(),
     image_sprite_url: faker.string(),
     ...data,
   };

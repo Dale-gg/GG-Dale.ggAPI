@@ -60,9 +60,11 @@ class SummonerService {
     await Promise.all(promises);
 
     const resSummoner = await Summoner.query()
-      .whereRaw(`summoner_name ILIKE ? AND region = '${region}'`, summonerName)
+      .whereRaw(`summoner_name LIKE ? AND region = '${region}'`, summonerName)
       .with('tiers')
       .with('matchs.champion')
+      .with('matchs.matchdto.participants.spells')
+      .with('matchs.matchdto.participants.champion')
       .with('matchs.matchdto.participants.participantdto')
       .fetch();
 

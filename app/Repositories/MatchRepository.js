@@ -38,6 +38,7 @@ class MatchRepository {
       queue: match.queue,
       season: match.season,
       summoner_id: summoner.id,
+      champion_id: champion.id,
       champion_key: match.champion,
     });
 
@@ -50,6 +51,8 @@ class MatchRepository {
       queue_id: matchDtoAPI.queueId,
       game_id: matchDtoAPI.gameId,
       platform_id: matchDtoAPI.platformId,
+      game_type: matchDtoAPI.gameType,
+      game_version: matchDtoAPI.gameVersion,
       game_duration: matchDtoAPI.gameDuration,
       game_creation: matchDtoAPI.gameCreation,
     });
@@ -61,7 +64,7 @@ class MatchRepository {
     }
     await Promise.all(promises);
 
-    await summonerMatchlist.champion().save(champion);
+    await champion.matchlist().save(summonerMatchlist);
     await summonerMatchlist.matchdto().save(matchDto);
     await summoner.matchs().save(summonerMatchlist);
   }

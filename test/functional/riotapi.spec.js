@@ -64,9 +64,9 @@ test('it should get some summoner and save it with flex and solo tier', async ({
   }
   await Promise.all(promises);
 
-  const summonerName = 'RNS Hylen';
+  const summonerName = 'Ayanzera';
   const tierSolo = 'DIAMOND';
-  const tierFlex = 'DIAMOND';
+  const tierFlex = 'CHALLENGER';
   const region = 'br1';
 
   const response = await client
@@ -140,6 +140,10 @@ test('it should enter in the show and bring a summoner with his tier and matchs'
     name: 'Zed',
   });
 
+  const spell = await Factory.model('App/Models/Spell').create({
+    name: 'Flash',
+  });
+
   const summoner = await Factory.model('App/Models/Summoner').create({
     summoner_name: summonerName,
     region,
@@ -153,9 +157,10 @@ test('it should enter in the show and bring a summoner with his tier and matchs'
 
   const summonerMatchlist = await Factory.model('App/Models/Matchlist').make({
     summoner_id: summoner.id,
+    champion_id: champion.id,
   });
 
-  await summonerMatchlist.champion().save(champion);
+  await champion.matchlist().save(summonerMatchlist);
 
   const summonerMatchDto = await Factory.model('App/Models/MatchDto').make({
     matchlist_id: summonerMatchlist.id,
@@ -163,16 +168,19 @@ test('it should enter in the show and bring a summoner with his tier and matchs'
 
   const participant = await Factory.model('App/Models/Participant').make({
     match_dto_id: summonerMatchDto.id,
+    champion_id: champion.id,
   });
 
   const participantDto = await Factory.model('App/Models/ParticipantDto').make({
     participant_id: participant.id,
   });
 
+  await participant.spells().save(spell);
   await summoner.matchs().save(summonerMatchlist);
   await summonerMatchlist.matchdto().save(summonerMatchDto);
   await summonerMatchDto.participants().save(participant);
   await participant.participantdto().save(participantDto);
+  await champion.participant().save(participant);
 
   const response = await client
     .get(`/summoner/?region=${region}&summonerName=${summoner.summoner_name}`)
@@ -186,8 +194,43 @@ test('it should enter in the show and bring a summoner with his tier and matchs'
   assert.exists(response.body.summoner[0].matchs[0].matchdto);
   assert.exists(response.body.summoner[0].matchs[0].matchdto.participants);
   assert.exists(
+    response.body.summoner[0].matchs[0].matchdto.participants[0].champion
+  );
+  assert.exists(
     response.body.summoner[0].matchs[0].matchdto.participants[0].participantdto
   );
   assert.equal(response.body.summoner[0].summoner_name, summonerName);
   assert.equal(response.body.summoner[0].matchs[0].champion.name, 'Zed');
+  assert.equal(
+    response.body.summoner[0].matchs[0].matchdto.participants[0].spells[0].name,
+    'Flash'
+  );
+});
+
+test('should delete old matchs from database', async ({ assert, client }) => {
+  const summonerName = 'iLenon7';
+  const region = 'br1';
+
+  const summoner = await Factory.model('App/Models/Summoner').create({
+    summoner_name: summonerName,
+    region,
+  });
+
+  const summonerMatchlist = await Factory.model(
+    'App/Models/Matchlist'
+  ).makeMany({
+    created_at: Date.now(),
+  });
+
+  await summoner.matchs().save(summonerMatchlist);
+
+  const response = await client
+    .get(`/summoner/?region=${region}&summonerName=${summoner.summoner_name}`)
+    .end();
+
+  response.assertStatus(200);
+
+  console.log(response);
+
+  assert.exists(response.body.summoner);
 });

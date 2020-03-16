@@ -8,18 +8,25 @@ class MatchDtoSchema extends Schema {
       table
         .integer('matchlist_id')
         .unsigned()
+        .notNullable()
+        .unique()
         .references('id')
-        .inTable('matchlists');
-      table.integer('map_id');
-      table.string('game_id');
-      table.integer('queue_id');
-      table.integer('season_id');
-      table.string('platform_id');
-      table.string('game_mode');
-      table.string('game_version');
-      table.string('game_type');
-      table.bigInteger('game_duration');
-      table.bigInteger('game_creation');
+        .inTable('matchlists')
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE');
+      table.integer('map_id').notNullable();
+      table
+        .string('game_id')
+        .notNullable()
+        .unique();
+      table.integer('queue_id').notNullable();
+      table.integer('season_id').notNullable();
+      table.string('platform_id').notNullable();
+      table.string('game_mode').notNullable();
+      table.string('game_version').notNullable();
+      table.string('game_type').notNullable();
+      table.bigInteger('game_duration').notNullable();
+      table.bigInteger('game_creation').notNullable();
       table.timestamps();
     });
   }

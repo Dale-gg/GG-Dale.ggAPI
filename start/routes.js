@@ -52,6 +52,14 @@ Route.put(
   'ChampionController.updateAll'
 );
 
+// Spells
+Route.get('/spells/index', 'SpellController.index');
+Route.get('/spells/:spellName/show', 'SpellController.show');
+
+// Spell Script
+Route.post('/spells/:language/:version/storeAll', 'SpellController.storeAll');
+Route.put('/spells/:language/:version/updateAll', 'SpellController.updateAll');
+
 // JWT Middleware
 Route.group(() => {
   Route.put('/profile', 'Auth/ProfileController.update').validator('Profile');
