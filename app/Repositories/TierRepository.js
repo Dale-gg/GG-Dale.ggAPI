@@ -19,9 +19,12 @@ class TierRepository {
       pdl: tier.leaguePoints,
       wins: tier.wins,
       losses: tier.losses,
+      winrate: tier.wins,
       inactive: tier.inactive,
       fresh_blood: tier.freshBlood,
       hot_streak: tier.hotStreak,
+      veteran: tier.veteran,
+      season: 10,
     });
 
     await summoner.tiers().save(summonerTier);

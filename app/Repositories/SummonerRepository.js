@@ -1,8 +1,13 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Summoner = use('App/Models/Summoner');
 
+const deleteOldMatchs = require('../Utils/RiotAPI/deleteOldMatchs');
+
 class SummonerRepository {
   async show(region, summonerName) {
+    const deleteMatchs = await deleteOldMatchs();
+    console.log(deleteMatchs);
+
     const summoner = await Summoner.query()
       .whereRaw(`summoner_name LIKE ? AND region = '${region}'`, summonerName)
       .with('tiers')
