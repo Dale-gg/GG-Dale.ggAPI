@@ -40,13 +40,24 @@ class SummonerController {
       msg: Antl.formatMessage('response.get-summoner'),
       summoner,
     });
+  }
 
-    // Nível banco de dados
-    // for(var game in games) {
-    //   const matchDto = await Axios.get(
-    //       `https://${region}${getMatchDto}${games[game].gameId}${Env.get('RIOT_KEY')}`
-    //   );
-    // }
+  async update({ request, response }) {
+    const summoner = await this.summonerService.update(request.get());
+
+    if (!summoner) {
+      return response.status(404).json({
+        type: 'not-found-summoner',
+        msg: Antl.formatMessage('response.not-found-summoner'),
+        summoner,
+      });
+    }
+
+    return response.status(200).json({
+      type: 'updated-summoner-profile',
+      msg: Antl.formatMessage('response.updated-summoner-profile'),
+      summoner,
+    });
   }
 }
 

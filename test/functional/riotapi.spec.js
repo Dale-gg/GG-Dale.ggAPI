@@ -206,31 +206,3 @@ test('it should enter in the show and bring a summoner with his tier and matchs'
     'Flash'
   );
 });
-
-test('should delete old matchs from database', async ({ assert, client }) => {
-  const summonerName = 'iLenon7';
-  const region = 'br1';
-
-  const summoner = await Factory.model('App/Models/Summoner').create({
-    summoner_name: summonerName,
-    region,
-  });
-
-  const summonerMatchlist = await Factory.model(
-    'App/Models/Matchlist'
-  ).makeMany({
-    created_at: Date.now(),
-  });
-
-  await summoner.matchs().save(summonerMatchlist);
-
-  const response = await client
-    .get(`/summoner/?region=${region}&summonerName=${summoner.summoner_name}`)
-    .end();
-
-  response.assertStatus(200);
-
-  console.log(response);
-
-  assert.exists(response.body.summoner);
-});
