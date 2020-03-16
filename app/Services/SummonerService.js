@@ -70,6 +70,52 @@ class SummonerService {
 
     return resSummoner;
   }
+
+  async update({ region, summonerName }) {
+    const summonerAPI = await getSummoner(region, summonerName);
+
+    if (summonerAPI.name == null || summonerAPI.name === 'Error') {
+      return null;
+    }
+
+    const summoner = await this.summonerRepository.update(region, summonerName);
+
+    const tiers = await getTier(summonerAPI.id, region);
+    const tierSolo = tiers[0];
+    const tierFlex = tiers[1];
+
+    if (tierSolo) {
+      this.tierRepository.update(summoner.id, region, tierSolo);
+    }
+    if (tierFlex) {
+      this.tierRepository.update(summoner.id, region, tierFlex);
+    }
+
+    const matchListAPI = await getMatchs(region, summonerAPI.accountId);
+
+    const promises = [];
+    for (const match in matchListAPI) {
+      promises.push(
+        this.matchRepository.update(
+          summonerAPI.accountId,
+          region,
+          matchListAPI[match]
+        )
+      );
+    }
+    await Promise.all(promises);
+
+    const resSummoner = await Summoner.query()
+      .whereRaw(`summoner_name LIKE ? AND region = '${region}'`, summonerName)
+      .with('tiers')
+      .with('matchs.champion')
+      .with('matchs.matchdto.participants.spells')
+      .with('matchs.matchdto.participants.champion')
+      .with('matchs.matchdto.participants.participantdto')
+      .fetch();
+
+    return resSummoner;
+  }
 }
 
 module.exports = SummonerService;
