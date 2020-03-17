@@ -5,8 +5,7 @@ const deleteOldMatchs = require('../Utils/RiotAPI/deleteOldMatchs');
 
 class SummonerRepository {
   async show(region, summonerName) {
-    const deleteMatchs = await deleteOldMatchs();
-    console.log(deleteMatchs);
+    await deleteOldMatchs();
 
     const summoner = await Summoner.query()
       .whereRaw(`summoner_name LIKE ? AND region = '${region}'`, summonerName)
