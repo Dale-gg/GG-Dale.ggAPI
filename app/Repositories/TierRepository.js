@@ -29,6 +29,27 @@ class TierRepository {
 
     await summoner.tiers().save(summonerTier);
   }
+
+  async update(summonerId, summonerRegion, tier) {
+    await Tier.query()
+      .where({ summoner_id: summonerId, region: summonerRegion })
+      .update({
+        summoner_id: summonerId,
+        league_id: tier.leagueId,
+        queue_type: tier.queueType,
+        tier: tier.tier,
+        rank: tier.rank,
+        pdl: tier.leaguePoints,
+        wins: tier.wins,
+        losses: tier.losses,
+        winrate: tier.wins,
+        inactive: tier.inactive,
+        fresh_blood: tier.freshBlood,
+        hot_streak: tier.hotStreak,
+        veteran: tier.veteran,
+        season: 10,
+      });
+  }
 }
 
 module.exports = TierRepository;

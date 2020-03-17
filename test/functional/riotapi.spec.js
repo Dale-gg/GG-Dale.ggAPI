@@ -44,6 +44,37 @@ test('it should get some summoner and save it in the database', async ({
   assert.equal(response.body.summoner[0].tiers[0].tier, tier);
 }).timeout(30000);
 
+test('it should update an summoner in database', async ({ assert, client }) => {
+  const language1 = 'pt_BR';
+  const version1 = '10.5.1';
+
+  const championsAPI = await getAllChampions(version1, language1);
+
+  const promises = [];
+  for (const champion in championsAPI) {
+    promises.push(
+      Factory.model('App/Models/Champion').create({
+        name: championsAPI[champion].name,
+        key: championsAPI[champion].key,
+      })
+    );
+  }
+  await Promise.all(promises);
+
+  const summonerName = 'iLenon7';
+  const region = 'br1';
+  const tier = 'GOLD';
+
+  const response = await client
+    .get(`/summoner/update?region=${region}&summonerName=${summonerName}`)
+    .end();
+
+  response.assertStatus(200);
+
+  assert.equal(response.body.summoner[0].summoner_name, summonerName);
+  assert.equal(response.body.summoner[0].tiers[0].tier, tier);
+}).timeout(30000);
+
 test('it should get some summoner and save it with flex and solo tier', async ({
   assert,
   client,
@@ -205,32 +236,4 @@ test('it should enter in the show and bring a summoner with his tier and matchs'
     response.body.summoner[0].matchs[0].matchdto.participants[0].spells[0].name,
     'Flash'
   );
-});
-
-test('should delete old matchs from database', async ({ assert, client }) => {
-  const summonerName = 'iLenon7';
-  const region = 'br1';
-
-  const summoner = await Factory.model('App/Models/Summoner').create({
-    summoner_name: summonerName,
-    region,
-  });
-
-  const summonerMatchlist = await Factory.model(
-    'App/Models/Matchlist'
-  ).makeMany({
-    created_at: Date.now(),
-  });
-
-  await summoner.matchs().save(summonerMatchlist);
-
-  const response = await client
-    .get(`/summoner/?region=${region}&summonerName=${summoner.summoner_name}`)
-    .end();
-
-  response.assertStatus(200);
-
-  console.log(response);
-
-  assert.exists(response.body.summoner);
 });

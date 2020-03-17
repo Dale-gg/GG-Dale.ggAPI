@@ -22,5 +22,6 @@
  "user-soft-restored": "The User number {id}, has been successfully restored.",
  "success-profile-update": "Your profile has been successfully updated.",
  "not-found-summoner": "Summoner not found.",
- "get-summoner": "Summoner found."
+ "get-summoner": "Summoner found.",
+ "updated-summoner-profile": "Summoner successfully updated"
 }

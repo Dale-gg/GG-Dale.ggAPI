@@ -22,6 +22,7 @@ Route.group(() => {
 }).middleware('summoner');
 
 Route.get('/summoner/store', 'SummonerController.store');
+Route.get('/summoner/update', 'SummonerController.update');
 
 // User
 Route.get('/users', 'UserController.index');
