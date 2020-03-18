@@ -8,9 +8,10 @@ async function deleteOldMatchs() {
     const time = days - 2628000000; // 1 Month miliseconds
     const date = new Date(time);
 
-    await Database.from('matchlists')
+    const oi = await Database.from('matchlists')
       .where('created_at', '<', date)
       .delete();
+    return oi;
   } catch (err) {
     return err;
   }

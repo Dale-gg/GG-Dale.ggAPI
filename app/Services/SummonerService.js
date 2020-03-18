@@ -91,13 +91,13 @@ class SummonerService {
       this.tierRepository.update(summoner.id, region, tierFlex);
     }
 
-    const matchListAPI = await getMatchs(region, summonerAPI.accountId);
+    const matchListAPI = await getMatchs(region, summoner.account_id);
 
     const promises = [];
     for (const match in matchListAPI) {
       promises.push(
         this.matchRepository.update(
-          summonerAPI.accountId,
+          summoner.account_id,
           region,
           matchListAPI[match]
         )

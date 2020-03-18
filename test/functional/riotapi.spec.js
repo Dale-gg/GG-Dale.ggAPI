@@ -44,37 +44,6 @@ test('it should get some summoner and save it in the database', async ({
   assert.equal(response.body.summoner[0].tiers[0].tier, tier);
 }).timeout(30000);
 
-test('it should update an summoner in database', async ({ assert, client }) => {
-  const language1 = 'pt_BR';
-  const version1 = '10.5.1';
-
-  const championsAPI = await getAllChampions(version1, language1);
-
-  const promises = [];
-  for (const champion in championsAPI) {
-    promises.push(
-      Factory.model('App/Models/Champion').create({
-        name: championsAPI[champion].name,
-        key: championsAPI[champion].key,
-      })
-    );
-  }
-  await Promise.all(promises);
-
-  const summonerName = 'iLenon7';
-  const region = 'br1';
-  const tier = 'GOLD';
-
-  const response = await client
-    .get(`/summoner/update?region=${region}&summonerName=${summonerName}`)
-    .end();
-
-  response.assertStatus(200);
-
-  assert.equal(response.body.summoner[0].summoner_name, summonerName);
-  assert.equal(response.body.summoner[0].tiers[0].tier, tier);
-}).timeout(30000);
-
 test('it should get some summoner and save it with flex and solo tier', async ({
   assert,
   client,
@@ -237,3 +206,70 @@ test('it should enter in the show and bring a summoner with his tier and matchs'
     'Flash'
   );
 });
+
+test('it should update a summoner in database', async ({ assert, client }) => {
+  const summonerName = 'iLenon7';
+  const summonerId = 'q7kJ4LOHcfyzVsBLSlgPo1K6_zAIH3HLsMRTpVtxOzLFPZ8';
+  const region = 'br1';
+  const language1 = 'pt_BR';
+  const version1 = '10.5.1';
+
+  const spell = await Factory.model('App/Models/Spell').create({
+    name: 'Flash',
+  });
+
+  const summoner = await Factory.model('App/Models/Summoner').create({
+    summoner_name: summonerName,
+    summoner_id: summonerId,
+    region,
+  });
+
+  const summonerTier = await Factory.model('App/Models/Tier').make({
+    summoner_id: summoner.id,
+  });
+
+  await summoner.tiers().save(summonerTier);
+
+  const summonerMatchlist = await Factory.model('App/Models/Matchlist').make({
+    summoner_id: summoner.id,
+  });
+
+  const summonerMatchDto = await Factory.model('App/Models/MatchDto').make({
+    matchlist_id: summonerMatchlist.id,
+  });
+
+  const participant = await Factory.model('App/Models/Participant').make({
+    match_dto_id: summonerMatchDto.id,
+  });
+
+  const participantDto = await Factory.model('App/Models/ParticipantDto').make({
+    participant_id: participant.id,
+  });
+
+  const championsAPI = await getAllChampions(version1, language1);
+
+  const promises = [];
+  for (const champion in championsAPI) {
+    promises.push(
+      Factory.model('App/Models/Champion').create({
+        name: championsAPI[champion].name,
+        key: championsAPI[champion].key,
+      })
+    );
+  }
+  await Promise.all(promises);
+
+  await participant.spells().save(spell);
+  await summoner.matchs().save(summonerMatchlist);
+  await summonerMatchlist.matchdto().save(summonerMatchDto);
+  await summonerMatchDto.participants().save(participant);
+  await participant.participantdto().save(participantDto);
+
+  const response = await client
+    .get(`/summoner/update?region=${region}&summonerName=${summonerName}`)
+    .end();
+
+  response.assertStatus(200);
+
+  assert.equal(response.body.summoner[0].summoner_name, summonerName);
+}).timeout(30000);

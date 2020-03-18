@@ -51,8 +51,10 @@ class MatchRepository {
       season_id: matchDtoAPI.seasonId,
       queue_id: matchDtoAPI.queueId,
       game_id: matchDtoAPI.gameId,
+      map_id: matchDtoAPI.mapId,
       platform_id: matchDtoAPI.platformId,
       game_type: matchDtoAPI.gameType,
+      game_mode: matchDtoAPI.gameMode,
       game_version: matchDtoAPI.gameVersion,
       game_duration: matchDtoAPI.gameDuration,
       game_creation: matchDtoAPI.gameCreation,
@@ -72,7 +74,7 @@ class MatchRepository {
 
   async update(accountId, summonerRegion, match) {
     const deleteMatchs = await deleteOldMatchs();
-    console.log(deleteMatchs);
+    console.log('oie', deleteMatchs);
 
     const champion = await Champion.findByOrFail({
       key: match.champion,
@@ -99,16 +101,15 @@ class MatchRepository {
       champion_key: match.champion,
     });
 
-    // const time = new Date(match.timestamp);
-    // console.log(time);
-
     const matchDto = await MatchDto.create({
       matchlist_id: summonerMatchlist.id,
       season_id: matchDtoAPI.seasonId,
       queue_id: matchDtoAPI.queueId,
       game_id: matchDtoAPI.gameId,
+      map_id: matchDtoAPI.mapId,
       platform_id: matchDtoAPI.platformId,
       game_type: matchDtoAPI.gameType,
+      game_mode: matchDtoAPI.gameMode,
       game_version: matchDtoAPI.gameVersion,
       game_duration: matchDtoAPI.gameDuration,
       game_creation: matchDtoAPI.gameCreation,

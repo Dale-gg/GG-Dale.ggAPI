@@ -14,7 +14,7 @@ class ParticipantRepository {
     });
 
     const champion = await Champion.findByOrFail({
-      key: participantapi.champId,
+      key: participantapi.championId,
     });
 
     try {
@@ -22,7 +22,7 @@ class ParticipantRepository {
         team_id: participantapi.teamId,
         game_id: participantapi.gameId,
         champion_id: champion.id,
-        champion_key: participantapi.champId,
+        champion_key: participantapi.championId,
         account_id: participantapi.accountId,
         summoner_id: participantapi.summonerId,
         match_dto_id: matchDto.id,
