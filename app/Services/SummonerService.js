@@ -96,7 +96,7 @@ class SummonerService {
     const promises = [];
     for (const match in matchListAPI) {
       promises.push(
-        this.matchRepository.update(
+        this.matchRepository.store(
           summoner.account_id,
           region,
           matchListAPI[match]
