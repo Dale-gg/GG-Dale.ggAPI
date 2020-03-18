@@ -32,7 +32,7 @@ Factory.blueprint('App/Models/Token', (faker, i, data = {}) => {
 Factory.blueprint('App/Models/Summoner', (faker, i, data = {}) => {
   return {
     account_id: faker.string(),
-    summoner_id: faker.string(),
+    summoner_id: data.summoner_id || faker.string(),
     puuid: faker.string(),
     summoner_name: faker.name(),
     region: faker.string(),

@@ -32,7 +32,7 @@ class SummonerRepository {
   }
 
   async update(summonerAPI, summonerRegion) {
-    const summoner = await Summoner.query()
+    await Summoner.query()
       .where({ summoner_id: summonerAPI.id, region: summonerRegion })
       .update({
         account_id: summonerAPI.accountId,
@@ -42,6 +42,11 @@ class SummonerRepository {
         summoner_name: summonerAPI.name,
         revision_date: summonerAPI.revisionDate,
       });
+
+    const summoner = await Summoner.query()
+      .where('summoner_id', summonerAPI.id)
+      .first();
+
     return summoner;
   }
 }

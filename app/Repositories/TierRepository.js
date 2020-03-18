@@ -30,11 +30,10 @@ class TierRepository {
     await summoner.tiers().save(summonerTier);
   }
 
-  async update(summonerId, summonerRegion, tier) {
+  async update(summonerId, tier) {
     await Tier.query()
-      .where({ summoner_id: summonerId, region: summonerRegion })
+      .where('summoner_id', summonerId)
       .update({
-        summoner_id: summonerId,
         league_id: tier.leagueId,
         queue_type: tier.queueType,
         tier: tier.tier,
