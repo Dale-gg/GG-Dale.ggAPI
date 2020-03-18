@@ -1,3 +1,4 @@
+/* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Summoner = use('App/Models/Summoner');
@@ -32,7 +33,7 @@ class MatchRepository {
     });
 
     const matchDtoAPI = await getMatchDto(summonerRegion, match.gameId);
-    const { participants } = matchDtoAPI;
+    const { participantIdentities, participants } = matchDtoAPI;
 
     const summonerMatchlist = await Matchlist.create({
       lane: match.lane,
@@ -62,8 +63,16 @@ class MatchRepository {
     });
 
     const promises = [];
-    for (const participant of participants) {
-      promises.push(this.participantRepository.store(participant, matchDto.id));
+    for (const participant in participants) {
+      promises.push(
+        this.participantRepository.store(
+          participants[participant],
+          participantIdentities,
+          matchDto.id,
+          matchDto.game_id,
+          participant
+        )
+      );
     }
     await Promise.all(promises);
 
