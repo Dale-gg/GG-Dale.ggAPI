@@ -38,6 +38,7 @@ class ParticipantRepository {
       highest_achieved_season_tier: 'rev',
     });
 
+    // feat/GG26
     const participantdto = await ParticipantDto.create({
       participant_id: participant.id,
       perk0: participantapi.stats.perk0,
