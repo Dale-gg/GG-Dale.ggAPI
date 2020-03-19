@@ -27,6 +27,7 @@ class ParticipantRepository {
       key: participantapi.spell2Id,
     });
 
+    // champion logo
     const participant = await Participant.create({
       team_id: participantapi.teamId,
       game_id: gameId,
@@ -38,7 +39,6 @@ class ParticipantRepository {
       highest_achieved_season_tier: 'rev',
     });
 
-    // champ_level
     const participantdto = await ParticipantDto.create({
       participant_id: participant.id,
       participant_api_id: participantapi.participantId,
@@ -72,6 +72,8 @@ class ParticipantRepository {
     await participant.spells().save(spell1);
     await participant.spells().save(spell2);
     await participant.participantdto().save(participantdto);
+
+    // relation
     await champion.participant().save(participant);
   }
 }
