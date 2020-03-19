@@ -38,6 +38,7 @@ class ParticipantRepository {
       highest_achieved_season_tier: 'rev',
     });
 
+    // champ_level
     const participantdto = await ParticipantDto.create({
       participant_id: participant.id,
       participant_api_id: participantapi.participantId,
