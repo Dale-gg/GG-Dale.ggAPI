@@ -9,6 +9,9 @@ class ParticipantSchema extends Schema {
       table.bigInteger('game_id').notNullable();
       table.string('account_id').notNullable();
       table.string('summoner_id').notNullable();
+      table.string('summoner_name').notNullable();
+      table.integer('profile_icon').notNullable();
+      table.integer('participant_api_id').notNullable();
       table
         .integer('champion_id')
         .unsigned()
