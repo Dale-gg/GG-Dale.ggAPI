@@ -38,9 +38,9 @@ class ParticipantRepository {
       highest_achieved_season_tier: 'rev',
     });
 
-    // feat/GG26
     const participantdto = await ParticipantDto.create({
       participant_id: participant.id,
+      participant_api_id: participantapi.participantId,
       perk0: participantapi.stats.perk0,
       perk1: participantapi.stats.perk1,
       perk2: participantapi.stats.perk2,
@@ -62,6 +62,9 @@ class ParticipantRepository {
       quadra_kills: participantapi.stats.quadraKills,
       penta_kills: participantapi.stats.pentaKills,
       champ_level: participantapi.stats.champLevel,
+      turret_kills: participantapi.stats.turretKills,
+      gold_earned: participantapi.stats.goldEarned,
+      cs: participantapi.stats.totalMinionsKilled,
     });
 
     await match.participants().save(participant);
