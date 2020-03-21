@@ -19,17 +19,19 @@ class RuneController {
     });
   }
 
-  async store ({ request, response }) {
+  async storeAll({ response, params }) {
+    const runes = await this.runeService.storeAll(params);
+
+    return response.status(200).json({
+      type: 'success-created-allspells',
+      msg: Antl.formatMessage('response.success-created-allspells'),
+      runes,
+    });
   }
 
-  async show ({ params, request, response, view }) {
+  async updateAll({ params, request, response }) {
   }
 
-  async update ({ params, request, response }) {
-  }
-
-  async destroy ({ params, request, response }) {
-  }
 }
 
 module.exports = RuneController;
