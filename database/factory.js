@@ -168,3 +168,14 @@ Factory.blueprint('App/Models/Spell', (faker, i, data = {}) => {
     ...data,
   };
 });
+
+Factory.blueprint('App/Models/Rune', (faker, i, data = {}) => {
+  return {
+    id_api: faker.integer(),
+    key: faker.string(),
+    icon: faker.string(),
+    name: faker.string(),
+    slots_id: data.slots || faker.integer(),
+    ...data,
+  };
+});
