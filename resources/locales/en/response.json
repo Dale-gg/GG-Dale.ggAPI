@@ -16,6 +16,7 @@
  "success-updated-spell": "{name} hass been successfully updated.",
  "success-created-allchampions": "ALL FUCKING CHAMPIONS CREATED IN DATABASE",
  "success-created-allspells": "ALL FUCKING SPELLS CREATED IN DATABASE",
+ "success-created-allrunes": "ALL FUCKING RUNES CREATED IN DATABASE", 
  "success-register": "The User {name}, has been successfully registered, check your e-mail box",
  "success-updated-allchampions": "ALL FUCKING CHAMPIONS UPDATED IN DATABASE",
  "success-updated-allspells": "ALL FUCKING SPELLS UPDATED IN DATABASE",
