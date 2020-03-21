@@ -18,3 +18,19 @@ test('it should get all the runes of db', async ({ assert, client }) => {
 
   assert.exists(response.body.runes);
 });
+
+test('it should store all of the league of legends runes', async ({
+  assert,
+  client,
+}) => {
+  const language = 'pt_BR';
+  const version = '10.5.1';
+
+  const response = await client
+    .post(`/runes/${language}/${version}/storeAll`)
+    .end();
+
+  response.assertStatus(200);
+
+  assert.exists(response.body.runes);
+});

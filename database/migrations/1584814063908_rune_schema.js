@@ -1,15 +1,15 @@
 /** @type {import('@adonisjs/lucid/src/Schema')} */
 const Schema = use('Schema');
 
-class RuneSchema extends Schema {
+class TreeSchema extends Schema {
   up() {
-    this.create('runes', table => {
+    this.create('trees', table => {
       table.increments();
       table.integer('id_api').notNullable();
       table.string('key').notNullable();
       table.string('icon').notNullable();
       table.string('name').notNullable();
-      table.integer('slots_id');
+      table.integer('runes_id');
       table.timestamps();
     });
   }
@@ -19,4 +19,4 @@ class RuneSchema extends Schema {
   }
 }
 
-module.exports = RuneSchema;
+module.exports = TreeSchema;
