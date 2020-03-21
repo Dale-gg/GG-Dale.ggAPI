@@ -61,6 +61,9 @@ Route.get('/spells/:spellName/show', 'SpellController.show');
 Route.post('/spells/:language/:version/storeAll', 'SpellController.storeAll');
 Route.put('/spells/:language/:version/updateAll', 'SpellController.updateAll');
 
+// Runes
+Route.get('/runes/index', 'RuneController.index');
+
 // JWT Middleware
 Route.group(() => {
   Route.put('/profile', 'Auth/ProfileController.update').validator('Profile');
