@@ -6,9 +6,10 @@ class RuneSchema extends Schema {
     this.create('runes', table => {
       table.increments();
       table.integer('id_api').notNullable();
+      table.string('key').notNullable();
       table.string('icon').notNullable();
       table.string('name').notNullable();
-      table.integer('slots');
+      table.integer('slots_id');
       table.timestamps();
     });
   }

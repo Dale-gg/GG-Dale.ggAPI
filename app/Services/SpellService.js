@@ -15,9 +15,9 @@ class SpellService {
   }
 
   async index() {
-    const champions = await this.spellRepository.index();
+    const spells = await this.spellRepository.index();
 
-    return champions;
+    return spells;
   }
 
   async store({ gamePatch, language, spellName }) {
