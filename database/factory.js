@@ -171,3 +171,26 @@ Factory.blueprint('App/Models/Spell', (faker, i, data = {}) => {
     ...data,
   };
 });
+
+Factory.blueprint('App/Models/Rune', (faker, i, data = {}) => {
+  return {
+    id_api: faker.integer(),
+    key: faker.string(),
+    icon: faker.string(),
+    name: faker.string(),
+    shortDesc: faker.string(),
+    longDesc: faker.string(),
+    ...data,
+  };
+});
+
+Factory.blueprint('App/Models/Tree', (faker, i, data = {}) => {
+  return {
+    id_api: faker.integer(),
+    key: faker.string(),
+    icon: faker.string(),
+    name: faker.string(),
+    runes_id: data.runes || faker.integer(),
+    ...data,
+  };
+});
