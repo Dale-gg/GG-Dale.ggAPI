@@ -56,9 +56,9 @@ Você pode conferir nossa documentação completa aqui na nossa branch [docs](ht
 
 ## 🔖 Layout
 
-Você pode baixar o layout do projeto no formato `.sketch` através [desse link](.github/Dalegg.sketch).
+Você pode baixar o layout do projeto no formato `.sketch` ou `.fig` através [desse link](.github/Screens/Duozada/Duozada.fig).
 
-Para abrir o arquivo no formato `.sketch` em qualquer sistema operacional utilize a ferramenta [Figma](https://figma.com).
+Para abrir o arquivo no formato `.sketch` ou `.fig` em qualquer sistema operacional utilize a ferramenta [Figma](https://figma.com).
 
 ## 🤔 Como contribuir
 
