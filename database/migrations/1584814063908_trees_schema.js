@@ -9,7 +9,6 @@ class TreeSchema extends Schema {
       table.string('key').notNullable();
       table.string('icon').notNullable();
       table.string('name').notNullable();
-      table.integer('runes_id');
       table.timestamps();
     });
   }

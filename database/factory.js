@@ -175,7 +175,19 @@ Factory.blueprint('App/Models/Rune', (faker, i, data = {}) => {
     key: faker.string(),
     icon: faker.string(),
     name: faker.string(),
-    slots_id: data.slots || faker.integer(),
+    shortDesc: faker.string(),
+    longDesc: faker.string(),
+    ...data,
+  };
+});
+
+Factory.blueprint('App/Models/Tree', (faker, i, data = {}) => {
+  return {
+    id_api: faker.integer(),
+    key: faker.string(),
+    icon: faker.string(),
+    name: faker.string(),
+    runes_id: data.runes || faker.integer(),
     ...data,
   };
 });

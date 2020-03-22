@@ -63,6 +63,7 @@ Route.put('/spells/:language/:version/updateAll', 'SpellController.updateAll');
 
 // Runes
 Route.get('/runes/index', 'RuneController.index');
+Route.post('/runes/storeAll', 'RuneController.storeAll');
 
 // JWT Middleware
 Route.group(() => {

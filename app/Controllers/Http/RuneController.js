@@ -23,8 +23,8 @@ class RuneController {
     const runes = await this.runeService.storeAll(params);
 
     return response.status(200).json({
-      type: 'success-created-allspells',
-      msg: Antl.formatMessage('response.success-created-allspells'),
+      type: 'success-created-allrunes',
+      msg: Antl.formatMessage('response.success-created-allrunes'),
       runes,
     });
   }

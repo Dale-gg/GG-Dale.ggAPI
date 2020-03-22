@@ -10,7 +10,10 @@ trait('Auth/Client');
 trait('DatabaseTransactions');
 
 test('it should get all the runes of db', async ({ assert, client }) => {
-  await Factory.model('App/Models/Rune').createMany(10);
+  const tree = await Factory.model('App/Models/Tree').create();
+  const rune = await Factory.model('App/Models/Rune').create();
+
+  await tree.runes().save(rune);
 
   const response = await client.get('/runes/index').end();
 
@@ -23,12 +26,9 @@ test('it should store all of the league of legends runes', async ({
   assert,
   client,
 }) => {
-  const language = 'pt_BR';
-  const version = '10.5.1';
+  const response = await client.post(`/runes/storeAll`).end();
 
-  const response = await client
-    .post(`/runes/${language}/${version}/storeAll`)
-    .end();
+  console.log(response)
 
   response.assertStatus(200);
 
