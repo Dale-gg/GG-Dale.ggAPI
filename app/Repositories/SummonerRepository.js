@@ -5,8 +5,7 @@ const deleteOldMatchs = require('../Utils/RiotAPI/deleteOldMatchs');
 
 class SummonerRepository {
   async show(region, summonerName) {
-    const deleteMatchs = await deleteOldMatchs();
-    console.log(deleteMatchs);
+    await deleteOldMatchs();
 
     const summoner = await Summoner.query()
       .whereRaw(`summoner_name LIKE ? AND region = '${region}'`, summonerName)
@@ -29,6 +28,25 @@ class SummonerRepository {
       summoner_name: summonerAPI.name,
       revision_date: summonerAPI.revisionDate,
     });
+    return summoner;
+  }
+
+  async update(summonerAPI, summonerRegion) {
+    await Summoner.query()
+      .where({ summoner_id: summonerAPI.id, region: summonerRegion })
+      .update({
+        account_id: summonerAPI.accountId,
+        summoner_id: summonerAPI.id,
+        puuid: summonerAPI.puuid,
+        region: summonerRegion,
+        summoner_name: summonerAPI.name,
+        revision_date: summonerAPI.revisionDate,
+      });
+
+    const summoner = await Summoner.query()
+      .where('summoner_id', summonerAPI.id)
+      .first();
+
     return summoner;
   }
 }

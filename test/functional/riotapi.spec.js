@@ -2,6 +2,7 @@
 /* eslint-disable no-restricted-syntax */
 const { test, trait } = use('Test/Suite')('RiotAPI');
 const getAllChampions = require('../../app/Utils/RiotAPI/getAllChampions');
+const getAllSpells = require('../../app/Utils/RiotAPI/getAllSpells');
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory');
@@ -30,6 +31,19 @@ test('it should get some summoner and save it in the database', async ({
   }
   await Promise.all(promises);
 
+  const spellsAPI = await getAllSpells(version1, language1);
+
+  const promises2 = [];
+  for (const spell in spellsAPI) {
+    promises2.push(
+      Factory.model('App/Models/Spell').create({
+        name: spellsAPI[spell].name,
+        key: spellsAPI[spell].key,
+      })
+    );
+  }
+  await Promise.all(promises2);
+
   const summonerName = 'iLenon7';
   const region = 'br1';
   const tier = 'GOLD';
@@ -42,6 +56,10 @@ test('it should get some summoner and save it in the database', async ({
 
   assert.equal(response.body.summoner[0].summoner_name, summonerName);
   assert.equal(response.body.summoner[0].tiers[0].tier, tier);
+  assert.equal(
+    response.body.summoner[0].matchs[0].matchdto.participants[0].spells[0].name,
+    'Flash'
+  );
 }).timeout(30000);
 
 test('it should get some summoner and save it with flex and solo tier', async ({
@@ -63,6 +81,19 @@ test('it should get some summoner and save it with flex and solo tier', async ({
     );
   }
   await Promise.all(promises);
+
+  const spellsAPI = await getAllSpells(version1, language1);
+
+  const promises2 = [];
+  for (const spell in spellsAPI) {
+    promises2.push(
+      Factory.model('App/Models/Spell').create({
+        name: spellsAPI[spell].name,
+        key: spellsAPI[spell].key,
+      })
+    );
+  }
+  await Promise.all(promises2);
 
   const summonerName = 'Ayanzera';
   const tierSolo = 'DIAMOND';
@@ -99,6 +130,19 @@ test('it should get ten matchs from the summoner', async ({
     );
   }
   await Promise.all(promises);
+
+  const spellsAPI = await getAllSpells(version1, language1);
+
+  const promises2 = [];
+  for (const spell in spellsAPI) {
+    promises2.push(
+      Factory.model('App/Models/Spell').create({
+        name: spellsAPI[spell].name,
+        key: spellsAPI[spell].key,
+      })
+    );
+  }
+  await Promise.all(promises2);
 
   const summonerName = 'iLenon7';
   const tierSolo = 'GOLD';
@@ -207,30 +251,77 @@ test('it should enter in the show and bring a summoner with his tier and matchs'
   );
 });
 
-test('should delete old matchs from database', async ({ assert, client }) => {
+test('it should update a summoner in database', async ({ assert, client }) => {
   const summonerName = 'iLenon7';
+  const summonerId = 'q7kJ4LOHcfyzVsBLSlgPo1K6_zAIH3HLsMRTpVtxOzLFPZ8';
   const region = 'br1';
+  const language1 = 'pt_BR';
+  const version1 = '10.5.1';
+
+  const spellsAPI = await getAllSpells(version1, language1);
+
+  const promises2 = [];
+  for (const spell in spellsAPI) {
+    promises2.push(
+      Factory.model('App/Models/Spell').create({
+        name: spellsAPI[spell].name,
+        key: spellsAPI[spell].key,
+      })
+    );
+  }
+  await Promise.all(promises2);
 
   const summoner = await Factory.model('App/Models/Summoner').create({
     summoner_name: summonerName,
+    summoner_id: summonerId,
     region,
   });
 
-  const summonerMatchlist = await Factory.model(
-    'App/Models/Matchlist'
-  ).makeMany({
-    created_at: Date.now(),
+  const summonerTier = await Factory.model('App/Models/Tier').make({
+    summoner_id: summoner.id,
   });
 
+  await summoner.tiers().save(summonerTier);
+
+  const summonerMatchlist = await Factory.model('App/Models/Matchlist').make({
+    summoner_id: summoner.id,
+  });
+
+  const summonerMatchDto = await Factory.model('App/Models/MatchDto').make({
+    matchlist_id: summonerMatchlist.id,
+  });
+
+  const participant = await Factory.model('App/Models/Participant').make({
+    match_dto_id: summonerMatchDto.id,
+  });
+
+  const participantDto = await Factory.model('App/Models/ParticipantDto').make({
+    participant_id: participant.id,
+  });
+
+  const championsAPI = await getAllChampions(version1, language1);
+
+  const promises = [];
+  for (const champion in championsAPI) {
+    promises.push(
+      Factory.model('App/Models/Champion').create({
+        name: championsAPI[champion].name,
+        key: championsAPI[champion].key,
+      })
+    );
+  }
+  await Promise.all(promises);
+
   await summoner.matchs().save(summonerMatchlist);
+  await summonerMatchlist.matchdto().save(summonerMatchDto);
+  await summonerMatchDto.participants().save(participant);
+  await participant.participantdto().save(participantDto);
 
   const response = await client
-    .get(`/summoner/?region=${region}&summonerName=${summoner.summoner_name}`)
+    .get(`/summoner/update?region=${region}&summonerName=${summonerName}`)
     .end();
 
   response.assertStatus(200);
 
-  console.log(response);
-
-  assert.exists(response.body.summoner);
-});
+  assert.equal(response.body.summoner[0].summoner_name, summonerName);
+}).timeout(30000);

@@ -1,3 +1,5 @@
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Summoner = use('App/Models/Summoner');
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
@@ -10,6 +12,7 @@ const MatchDto = use('App/Models/MatchDto');
 const ParticipantRepository = use('App/Repositories/ParticipantRepository');
 
 const getMatchDto = require('../Utils/RiotAPI/getMatchDto');
+const deleteOldMatchs = require('../Utils/RiotAPI/deleteOldMatchs');
 
 class MatchRepository {
   constructor() {
@@ -17,6 +20,9 @@ class MatchRepository {
   }
 
   async store(accountId, summonerRegion, match) {
+    const deleteMatchs = await deleteOldMatchs();
+    console.log('oie', deleteMatchs);
+
     const champion = await Champion.findByOrFail({
       key: match.champion,
     });
@@ -27,7 +33,7 @@ class MatchRepository {
     });
 
     const matchDtoAPI = await getMatchDto(summonerRegion, match.gameId);
-    const { participants } = matchDtoAPI;
+    const { participantIdentities, participants } = matchDtoAPI;
 
     const summonerMatchlist = await Matchlist.create({
       lane: match.lane,
@@ -42,25 +48,31 @@ class MatchRepository {
       champion_key: match.champion,
     });
 
-    // const time = new Date(match.timestamp);
-    // console.log(time);
-
     const matchDto = await MatchDto.create({
       matchlist_id: summonerMatchlist.id,
       season_id: matchDtoAPI.seasonId,
       queue_id: matchDtoAPI.queueId,
       game_id: matchDtoAPI.gameId,
+      map_id: matchDtoAPI.mapId,
       platform_id: matchDtoAPI.platformId,
       game_type: matchDtoAPI.gameType,
+      game_mode: matchDtoAPI.gameMode,
       game_version: matchDtoAPI.gameVersion,
       game_duration: matchDtoAPI.gameDuration,
       game_creation: matchDtoAPI.gameCreation,
     });
 
     const promises = [];
-    // eslint-disable-next-line no-restricted-syntax
-    for (const participant of participants) {
-      promises.push(this.participantRepository.store(participant, matchDto.id));
+    for (const participant in participants) {
+      promises.push(
+        this.participantRepository.store(
+          participants[participant],
+          participantIdentities,
+          matchDto.id,
+          matchDto.game_id,
+          participant
+        )
+      );
     }
     await Promise.all(promises);
 

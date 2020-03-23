@@ -22,6 +22,7 @@ Route.group(() => {
 }).middleware('summoner');
 
 Route.get('/summoner/store', 'SummonerController.store');
+Route.get('/summoner/update', 'SummonerController.update');
 
 // User
 Route.get('/users', 'UserController.index');
@@ -59,6 +60,10 @@ Route.get('/spells/:spellName/show', 'SpellController.show');
 // Spell Script
 Route.post('/spells/:language/:version/storeAll', 'SpellController.storeAll');
 Route.put('/spells/:language/:version/updateAll', 'SpellController.updateAll');
+
+// Runes
+Route.get('/runes/index', 'RuneController.index');
+Route.post('/runes/storeAll', 'RuneController.storeAll');
 
 // JWT Middleware
 Route.group(() => {

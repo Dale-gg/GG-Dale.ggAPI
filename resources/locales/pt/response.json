@@ -6,15 +6,17 @@
   "password-reset": "Sua senha foi redefinida.",
   "success-all-users": "Listando todos os usuários.",
   "success-all-champions": "Listando todos os campeões.",
-  "success-all-spells": "Listando todas as spells",
+  "success-all-spells": "Listando todas as spells.",
+  "success-all-runes": "Listando todas as runas.",
   "success-created-champion": "{name} foi encontrado, e foi cadastrado com sucesso.",
-  "success-created-spell": "{name} foi encontrado, e foi cadastrado com sucesso",
+  "success-created-spell": "{name} foi encontrado, e foi cadastrado com sucesso.",
   "success-found-champion": "{name} foi encontrado.",
   "success-found-spell": "{name} foi encontrado.",
   "success-updated-champion": "{name} foi atualizado com sucesso.",
   "success-updated-spell": "{name} foi atualizado com sucesso.",
   "success-created-allchampions": "TODOS OS FODENDOS CAMPEÕES CRIADOS NA PORRA DO BANCO",
   "success-created-allspells": "TODAS AS FODENDOS SPELLS CRIADAS NA PORRA DO BANCO",
+  "success-created-allrunes": "TODAS AS FODENDOS RUNAS CRIADAS NA PORRA DO BANCO",
   "success-register": "O Usuário {name}, foi registrado com sucesso, cheque sua caixa de e-mail",
   "success-updated-allchampions": "TODOS OS FODENDOS CAMPEÕES ATUALIZADOS NA PORRA DO BANCO",
   "success-updated-allspells": "TODAS AS FODENDOS SPELLS ATUALIZADAS NA PORRA DO BANCO",
@@ -22,5 +24,6 @@
   "user-soft-restored": "O Usuário numero {id}, foi restaurado com sucesso.",
   "success-profile-update": "Seu perfil foi atualizado com sucesso.",
   "not-found-summoner": "Invocador não encontrado.",
-  "get-summoner": "Invocador encontrado."
+  "get-summoner": "Invocador encontrado.",
+  "updated-summoner-profile": "Invocador atualizado com sucesso."
  }

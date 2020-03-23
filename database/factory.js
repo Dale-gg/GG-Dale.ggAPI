@@ -32,7 +32,7 @@ Factory.blueprint('App/Models/Token', (faker, i, data = {}) => {
 Factory.blueprint('App/Models/Summoner', (faker, i, data = {}) => {
   return {
     account_id: faker.string(),
-    summoner_id: faker.string(),
+    summoner_id: data.summoner_id || faker.string(),
     puuid: faker.string(),
     summoner_name: faker.name(),
     region: faker.string(),
@@ -102,6 +102,9 @@ Factory.blueprint('App/Models/Participant', (faker, i, data = {}) => {
     champion_key: faker.integer(),
     account_id: faker.string(),
     summoner_id: faker.string(),
+    summoner_name: faker.string(),
+    profile_icon: faker.integer(),
+    participant_api_id: faker.integer(),
     match_dto_id: data.id || faker.integer(),
     highest_achieved_season_tier: faker.string(),
     ...data,
@@ -111,6 +114,7 @@ Factory.blueprint('App/Models/Participant', (faker, i, data = {}) => {
 Factory.blueprint('App/Models/ParticipantDto', (faker, i, data = {}) => {
   return {
     participant_id: data.id || faker.integer(),
+    participant_api_id: faker.integer(),
     perk0: faker.integer(),
     perk1: faker.integer(),
     perk2: faker.integer(),
@@ -132,6 +136,9 @@ Factory.blueprint('App/Models/ParticipantDto', (faker, i, data = {}) => {
     quadra_kills: faker.integer(),
     penta_kills: faker.integer(),
     champ_level: faker.integer(),
+    turret_kills: faker.integer(),
+    gold_earned: faker.integer(),
+    cs: faker.integer(),
     ...data,
   };
 });
@@ -161,6 +168,29 @@ Factory.blueprint('App/Models/Spell', (faker, i, data = {}) => {
     modes: faker.string(),
     image_full_url: faker.string(),
     image_sprite_url: faker.string(),
+    ...data,
+  };
+});
+
+Factory.blueprint('App/Models/Rune', (faker, i, data = {}) => {
+  return {
+    id_api: faker.integer(),
+    key: faker.string(),
+    icon: faker.string(),
+    name: faker.string(),
+    shortDesc: faker.string(),
+    longDesc: faker.string(),
+    ...data,
+  };
+});
+
+Factory.blueprint('App/Models/Tree', (faker, i, data = {}) => {
+  return {
+    id_api: faker.integer(),
+    key: faker.string(),
+    icon: faker.string(),
+    name: faker.string(),
+    runes_id: data.runes || faker.integer(),
     ...data,
   };
 });

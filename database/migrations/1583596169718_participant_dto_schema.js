@@ -12,6 +12,7 @@ class ParticipantDtoSchema extends Schema {
         .inTable('participants')
         .onDelete('CASCADE')
         .onUpdate('CASCADE');
+      table.integer('participant_api_id').notNullable();
       table.integer('perk0').notNullable();
       table.integer('perk1').notNullable();
       table.integer('perk2').notNullable();
@@ -33,6 +34,9 @@ class ParticipantDtoSchema extends Schema {
       table.integer('quadra_kills').notNullable();
       table.integer('penta_kills').notNullable();
       table.integer('champ_level').notNullable();
+      table.integer('turret_kills').notNullable();
+      table.integer('gold_earned').notNullable();
+      table.integer('cs').notNullable();
       table.timestamps();
     });
   }
