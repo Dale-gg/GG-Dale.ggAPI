@@ -25,6 +25,7 @@ class ParticipantDtoSchema extends Schema {
       table.integer('item3').notNullable();
       table.integer('item4').notNullable();
       table.integer('item5').notNullable();
+      table.integer('item6').notNullable();
       table.integer('kills').notNullable();
       table.integer('deaths').notNullable();
       table.integer('assists').notNullable();
