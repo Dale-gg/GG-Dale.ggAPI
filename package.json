@@ -33,6 +33,7 @@
     "@radmen/adonis-lucid-soft-deletes": "^0.2.0",
     "axios": "^0.19.2",
     "date-fns": "^2.9.0",
+    "eventemitter2": "^6.2.1",
     "pg": "^7.18.1",
     "sqlite3": "^4.1.1"
   },

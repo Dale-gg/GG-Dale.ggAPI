@@ -3,6 +3,7 @@ const UserRepository = use('App/Repositories/UserRepository');
 const Mail = use('Mail');
 const Env = use('Env');
 const Antl = use('Antl');
+const Event = use('Event');
 
 const { randomBytes } = require('crypto');
 const { promisify } = require('util');
@@ -29,19 +30,7 @@ class UserService {
       type: 'confirmaccount',
     });
 
-    const confirmAccountUrl = `${Env.get('APP_URL')}/confirm?token=${token}`;
-    const subject = Antl.formatMessage('response.welcome');
-
-    await Mail.send(
-      'emails.confirm',
-      { name: user.name, confirmAccountUrl },
-      message => {
-        message
-          .to(user.email)
-          .from('Dale.gg')
-          .subject(subject);
-      }
-    );
+    Event.fire('new::user', user, token);
   }
 
   async destroy({ id }) {

@@ -28,8 +28,6 @@ test('it should store all of the league of legends runes', async ({
 }) => {
   const response = await client.post(`/runes/storeAll`).end();
 
-  console.log(response)
-
   response.assertStatus(200);
 
   assert.exists(response.body.runes);
