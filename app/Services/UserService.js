@@ -1,8 +1,5 @@
 const UserRepository = use('App/Repositories/UserRepository');
 
-const Mail = use('Mail');
-const Env = use('Env');
-const Antl = use('Antl');
 const Event = use('Event');
 
 const { randomBytes } = require('crypto');
@@ -31,6 +28,8 @@ class UserService {
     });
 
     Event.fire('new::user', user, token);
+
+    return user;
   }
 
   async destroy({ id }) {
