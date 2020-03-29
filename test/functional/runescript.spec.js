@@ -31,4 +31,4 @@ test('it should store all of the league of legends runes', async ({
   response.assertStatus(200);
 
   assert.exists(response.body.runes);
-});
+}).timeout(30000);

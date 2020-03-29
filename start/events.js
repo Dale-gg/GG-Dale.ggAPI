@@ -6,6 +6,7 @@ const Event = use('Event');
 const Mail = use('Mail');
 const Env = use('Env');
 const Antl = use('Antl');
+
 class Events {
   async newUser(user, token) {
     const confirmAccountUrl = `${Env.get('APP_URL')}/confirm?token=${token}`;
