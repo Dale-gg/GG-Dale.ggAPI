@@ -28,14 +28,16 @@ class ChampionService {
     return champion;
   }
 
-  async update(championName, { gamePatch, language }) {
-    const championAPI = await getChampion(gamePatch, language, championName);
+  async update(championName) {
+    const { data } = await this.api.DataDragon.getChampion();
 
-    if (championAPI.id == null || championAPI.id === 'Error') {
+    const champion = data[championName];
+
+    if (data.id == null || data.id === 'Error') {
       return null;
     }
 
-    await this.championRepository.update(championName, championAPI, gamePatch);
+    await this.championRepository.update(championName, champion);
 
     const resChampion = await Champion.findBy({ name: championName });
 
