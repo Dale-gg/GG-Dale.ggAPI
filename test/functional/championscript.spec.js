@@ -21,25 +21,6 @@ test('it should get all the champions of db', async ({ assert, client }) => {
   assert.exists(response.body.champions);
 });
 
-test('it should store one of the league of legends champions', async ({
-  assert,
-  client,
-}) => {
-  const championName = 'Zed';
-  const gamePatch = '10.5.1';
-  const language = 'pt_BR';
-
-  const response = await client
-    .post('/champions/store')
-    .send({ gamePatch, language, championName })
-    .end();
-
-  response.assertStatus(200);
-
-  assert.exists(response.body.champion);
-  assert.equal(response.body.champion.name, championName);
-});
-
 test('it should update one of the league of legends champions', async ({
   assert,
   client,
@@ -87,12 +68,7 @@ test('it should store all of the league of legends champions', async ({
   assert,
   client,
 }) => {
-  const language = 'pt_BR';
-  const version = '10.5.1';
-
-  const response = await client
-    .post(`/champions/${language}/${version}/storeAll`)
-    .end();
+  const response = await client.post(`/champions/storeAll`).end();
 
   response.assertStatus(200);
 

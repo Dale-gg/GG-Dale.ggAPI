@@ -44,14 +44,8 @@ Route.get('/champions/:championName/show', 'ChampionController.show');
 Route.put('/champions/:championName/update', 'ChampionController.update');
 
 // Champion Script
-Route.post(
-  '/champions/:language/:version/storeAll',
-  'ChampionController.storeAll'
-);
-Route.put(
-  '/champions/:language/:version/updateAll',
-  'ChampionController.updateAll'
-);
+Route.post('/champions/storeAll', 'ChampionController.storeAll');
+Route.put('/champions/updateAll', 'ChampionController.updateAll');
 
 // Spells
 Route.get('/spells/index', 'SpellController.index');
