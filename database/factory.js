@@ -127,6 +127,7 @@ Factory.blueprint('App/Models/ParticipantDto', (faker, i, data = {}) => {
     item3: faker.integer(),
     item4: faker.integer(),
     item5: faker.integer(),
+    item6: faker.integer(),
     kills: faker.integer(),
     deaths: faker.integer(),
     assists: faker.integer(),
@@ -190,7 +191,6 @@ Factory.blueprint('App/Models/Tree', (faker, i, data = {}) => {
     key: faker.string(),
     icon: faker.string(),
     name: faker.string(),
-    runes_id: data.runes || faker.integer(),
     ...data,
   };
 });

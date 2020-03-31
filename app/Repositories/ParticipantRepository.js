@@ -56,6 +56,7 @@ class ParticipantRepository {
       item3: participantapi.stats.item3,
       item4: participantapi.stats.item4,
       item5: participantapi.stats.item5,
+      item6: participantapi.stats.item6,
       kills: participantapi.stats.kills,
       deaths: participantapi.stats.deaths,
       assists: participantapi.stats.assists,
