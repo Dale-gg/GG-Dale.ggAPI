@@ -20,8 +20,7 @@ class MatchRepository {
   }
 
   async store(accountId, summonerRegion, match) {
-    const deleteMatchs = await deleteOldMatchs();
-    console.log('oie', deleteMatchs);
+    await deleteOldMatchs();
 
     const champion = await Champion.findByOrFail({
       key: match.champion,
