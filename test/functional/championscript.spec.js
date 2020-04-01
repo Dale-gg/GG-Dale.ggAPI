@@ -31,19 +31,13 @@ test('it should update one of the league of legends champions', async ({
   });
 
   const championName = 'Zed';
-  const gamePatch = '10.5.1';
-  const language = 'pt_BR';
 
-  const response = await client
-    .put(`/champions/${championName}`)
-    .send({ gamePatch, language })
-    .end();
+  const response = await client.put(`/champions/${championName}`).end();
 
   response.assertStatus(200);
 
   assert.exists(response.body.champion);
   assert.equal(response.body.champion.name, championName);
-  assert.equal(response.body.champion.version, gamePatch);
 });
 
 test('it should not update one of the league of legends champions', async ({
@@ -59,10 +53,7 @@ test('it should not update one of the league of legends champions', async ({
 
   const response = await client.put(`/champions/${championName}`).end();
 
-  response.assertStatus(200);
-
-  assert.exists(response.body.champion);
-  assert.equal(response.body.champion.name, championName);
+  response.assertStatus(404);
 });
 
 test('it should show one of the league of legends champions', async ({
