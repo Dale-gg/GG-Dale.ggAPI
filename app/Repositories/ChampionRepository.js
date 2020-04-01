@@ -19,12 +19,12 @@ class ChampionRepository {
     return champion;
   }
 
-  async update(championName, championAPI, gamePatch) {
-    const image_full = `http://ddragon.leagueoflegends.com/cdn/${gamePatch}/img/champion/${championAPI.image.full}`;
+  async update(championAPI) {
+    const image_full = `http://ddragon.leagueoflegends.com/cdn/${championAPI.version}/img/champion/${championAPI.image.full}`;
     const image_splash = `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championAPI.name}_0.jpg`;
     const image_loading = `http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${championAPI.name}_0.jpg`;
 
-    const champion = await Champion.findBy({ name: championName });
+    const champion = await Champion.findBy({ name: championAPI.name });
 
     champion.key = championAPI.key;
     champion.name = championAPI.name;
@@ -34,7 +34,7 @@ class ChampionRepository {
     champion.image_splash_url = image_splash;
     champion.image_loading_url = image_loading;
     champion.image_sprite_url = championAPI.image.sprite;
-    champion.version = gamePatch;
+    champion.version = championAPI.version;
 
     await champion.save();
   }
