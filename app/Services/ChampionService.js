@@ -56,14 +56,12 @@ class ChampionService {
     return resChampions;
   }
 
-  async updateAll({ version, language }) {
-    const championsAPI = await getAllChampions(version, language);
+  async updateAll() {
+    const { data } = await this.api.DataDragon.getChampion();
 
     const promises = [];
-    for (const champion in championsAPI) {
-      promises.push(
-        this.championRepository.updateAll(championsAPI[champion], version)
-      );
+    for (const champion in data) {
+      promises.push(this.championRepository.updateAll(data[champion]));
     }
     await Promise.all(promises);
 
