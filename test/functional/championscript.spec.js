@@ -2,7 +2,7 @@
 /* eslint-disable no-restricted-syntax */
 const { test, trait } = use('Test/Suite')('Champions');
 
-const getAllChampions = require('../../app/Utils/RiotAPI/getAllChampions');
+const { LolApi } = use('@jlenon7/zedjs');
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory');
@@ -38,7 +38,7 @@ test('it should update one of the league of legends champions', async ({
 
   assert.exists(response.body.champion);
   assert.equal(response.body.champion.name, championName);
-});
+}).timeout(99999);
 
 test('it should not update one of the league of legends champions', async ({
   assert,
@@ -89,16 +89,15 @@ test('it should update all of the league of legends champions', async ({
   assert,
   client,
 }) => {
-  const language1 = 'pt_BR';
-  const version1 = '9.24.1';
+  const api = new LolApi();
 
-  const championsAPI = await getAllChampions(version1, language1);
+  const { data } = await api.DataDragon.getChampion();
 
   const promises = [];
-  for (const champion in championsAPI) {
+  for (const champion in data) {
     promises.push(
       Factory.model('App/Models/Champion').create({
-        name: championsAPI[champion].name,
+        name: data[champion].name,
       })
     );
   }
