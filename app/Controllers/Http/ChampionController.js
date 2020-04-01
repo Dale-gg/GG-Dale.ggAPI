@@ -19,6 +19,14 @@ class ChampionController {
   async show({ params, response }) {
     const champion = await this.championService.show(params.championName);
 
+    if (!champion) {
+      return response.status(404).json({
+        type: 'api-not-found-champion',
+        msg: Antl.formatMessage('response.api-not-found-champion'),
+        champion,
+      });
+    }
+
     return response.status(200).json({
       type: 'success-found-champion',
       msg: Antl.formatMessage('response.success-found-champion', {
@@ -30,6 +38,13 @@ class ChampionController {
 
   async update({ params, request, response }) {
     const champion = await this.championService.update(params.championName);
+
+    if (!champion) {
+      return response.status(404).json({
+        type: 'api-not-found',
+        msg: Antl.formatMessage('response.api-not-found'),
+      });
+    }
 
     return response.status(200).json({
       type: 'success-updated-champion',
