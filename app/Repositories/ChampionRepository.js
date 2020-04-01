@@ -57,8 +57,8 @@ class ChampionRepository {
     });
   }
 
-  async updateAll(championsAPI, gamePatch) {
-    const image_full = `http://ddragon.leagueoflegends.com/cdn/${gamePatch}/img/champion/${championsAPI.image.full}`;
+  async updateAll(championsAPI) {
+    const image_full = `http://ddragon.leagueoflegends.com/cdn/${championsAPI.version}/img/champion/${championsAPI.image.full}`;
     const image_splash = `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championsAPI.name}_0.jpg`;
     const image_loading = `http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${championsAPI.name}_0.jpg`;
 
@@ -73,7 +73,7 @@ class ChampionRepository {
         image_splash_url: image_splash,
         image_loading_url: image_loading,
         image_sprite_url: championsAPI.image.sprite,
-        version: gamePatch,
+        version: championsAPI.version,
       });
   }
 }
