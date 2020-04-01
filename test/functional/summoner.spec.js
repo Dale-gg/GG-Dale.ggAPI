@@ -1,6 +1,7 @@
 /* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
-const { test, trait } = use('Test/Suite')('RiotAPI');
+const { test, trait } = use('Test/Suite')('Summoner');
+
 const getAllChampions = require('../../app/Utils/RiotAPI/getAllChampions');
 const getAllSpells = require('../../app/Utils/RiotAPI/getAllSpells');
 
