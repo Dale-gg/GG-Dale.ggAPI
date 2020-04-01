@@ -31,13 +31,11 @@ class ChampionService {
   async update(championName) {
     const { data } = await this.api.DataDragon.getChampion();
 
-    const champion = data[championName];
-
-    if (data.id == null || data.id === 'Error') {
+    if (!data[championName]) {
       return null;
     }
 
-    await this.championRepository.update(championName, champion);
+    await this.championRepository.update(data[championName]);
 
     const resChampion = await Champion.findBy({ name: championName });
 
