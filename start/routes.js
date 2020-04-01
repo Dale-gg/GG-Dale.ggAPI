@@ -38,14 +38,11 @@ Route.post('/reset', 'Auth/ResetPasswordController.store').validator('Reset');
 Route.put('/user/:id', 'UserController.restore');
 
 // Champion
-Route.get('/champions/index', 'ChampionController.index');
-Route.post('/champions/store', 'ChampionController.store');
-Route.get('/champions/:championName/show', 'ChampionController.show');
-Route.put('/champions/:championName/update', 'ChampionController.update');
-
-// Champion Script
-Route.post('/champions/storeAll', 'ChampionController.storeAll');
-Route.put('/champions/updateAll', 'ChampionController.updateAll');
+Route.get('/champions', 'ChampionController.index');
+Route.post('/champions', 'ChampionController.storeAll');
+Route.put('/champions', 'ChampionController.updateAll');
+Route.get('/champions/:championName', 'ChampionController.show');
+Route.put('/champions/:championName', 'ChampionController.update');
 
 // Spells
 Route.get('/spells/index', 'SpellController.index');

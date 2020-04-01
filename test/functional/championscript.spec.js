@@ -14,7 +14,7 @@ trait('DatabaseTransactions');
 test('it should get all the champions of db', async ({ assert, client }) => {
   await Factory.model('App/Models/Champion').createMany(10);
 
-  const response = await client.get('/champions/index').end();
+  const response = await client.get('/champions').end();
 
   response.assertStatus(200);
 
@@ -35,7 +35,7 @@ test('it should update one of the league of legends champions', async ({
   const language = 'pt_BR';
 
   const response = await client
-    .put(`/champions/${championName}/update`)
+    .put(`/champions/${championName}`)
     .send({ gamePatch, language })
     .end();
 
@@ -44,6 +44,25 @@ test('it should update one of the league of legends champions', async ({
   assert.exists(response.body.champion);
   assert.equal(response.body.champion.name, championName);
   assert.equal(response.body.champion.version, gamePatch);
+});
+
+test('it should not update one of the league of legends champions', async ({
+  assert,
+  client,
+}) => {
+  await Factory.model('App/Models/Champion').create({
+    name: 'Zed',
+    version: '9.24.1',
+  });
+
+  const championName = 'Zeed';
+
+  const response = await client.put(`/champions/${championName}`).end();
+
+  response.assertStatus(200);
+
+  assert.exists(response.body.champion);
+  assert.equal(response.body.champion.name, championName);
 });
 
 test('it should show one of the league of legends champions', async ({
@@ -56,7 +75,7 @@ test('it should show one of the league of legends champions', async ({
 
   const championName = 'Zed';
 
-  const response = await client.get(`/champions/${championName}/show`).end();
+  const response = await client.get(`/champions/${championName}`).end();
 
   response.assertStatus(200);
 
@@ -68,7 +87,7 @@ test('it should store all of the league of legends champions', async ({
   assert,
   client,
 }) => {
-  const response = await client.post(`/champions/storeAll`).end();
+  const response = await client.post(`/champions`).end();
 
   response.assertStatus(200);
 
@@ -94,12 +113,7 @@ test('it should update all of the league of legends champions', async ({
   }
   await Promise.all(promises);
 
-  const language = 'pt_BR';
-  const version = '10.5.1';
-
-  const response = await client
-    .put(`/champions/${language}/${version}/updateAll`)
-    .end();
+  const response = await client.put(`/champions`).end();
 
   response.assertStatus(200);
 
