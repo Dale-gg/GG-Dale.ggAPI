@@ -10,7 +10,7 @@ class RunesSchema extends Schema {
         .integer('tree_id')
         .unsigned()
         .references('id')
-        .inTable('tree')
+        .inTable('trees')
         .onDelete('CASCADE')
         .onUpdate('CASCADE');
       table.string('key');

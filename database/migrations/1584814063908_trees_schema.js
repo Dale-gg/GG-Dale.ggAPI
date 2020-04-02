@@ -14,7 +14,7 @@ class TreeSchema extends Schema {
   }
 
   down() {
-    this.drop('runes');
+    this.drop('trees');
   }
 }
 
