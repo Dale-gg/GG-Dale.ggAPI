@@ -56,6 +56,11 @@ Route.put('/spells/:language/:version/updateAll', 'SpellController.updateAll');
 Route.get('/runes/index', 'RuneController.index');
 Route.post('/runes/storeAll', 'RuneController.storeAll');
 
+// Welcome
+Route.get('/', () => {
+  return '<h1>Welcome to Dale.gg dev API</h1>';
+});
+
 // JWT Middleware
 Route.group(() => {
   Route.put('/profile', 'Auth/ProfileController.update').validator('Profile');
