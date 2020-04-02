@@ -11,12 +11,14 @@ const MatchDto = use('App/Models/MatchDto');
 
 const ParticipantRepository = use('App/Repositories/ParticipantRepository');
 
-const getMatchDto = require('../Utils/RiotAPI/getMatchDto');
+const { LolApi } = use('@jlenon7/zedjs');
+
 const deleteOldMatchs = require('../Utils/RiotAPI/deleteOldMatchs');
 
 class MatchRepository {
   constructor() {
     this.participantRepository = new ParticipantRepository();
+    this.api = new LolApi();
   }
 
   async store(accountId, summonerRegion, match) {
@@ -31,7 +33,11 @@ class MatchRepository {
       region: summonerRegion,
     });
 
-    const matchDtoAPI = await getMatchDto(summonerRegion, match.gameId);
+    const { response: matchDtoAPI } = await this.api.Match.get(
+      match.gameId,
+      summonerRegion
+    );
+
     const { participantIdentities, participants } = matchDtoAPI;
 
     const summonerMatchlist = await Matchlist.create({
