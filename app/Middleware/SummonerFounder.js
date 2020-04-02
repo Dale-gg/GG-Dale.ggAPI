@@ -14,7 +14,7 @@ class SummonerFounder {
     const { region, summonerName } = request.get();
 
     const summoner = await Summoner.query()
-      .whereRaw(`summoner_name LIKE ? AND region = '${region}'`, summonerName)
+      .whereRaw(`summoner_name ILIKE ? AND region = '${region}'`, summonerName)
       .first();
 
     if (summoner) {
