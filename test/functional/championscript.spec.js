@@ -38,7 +38,7 @@ test('it should update one of the league of legends champions', async ({
 
   assert.exists(response.body.champion);
   assert.equal(response.body.champion.name, championName);
-}).timeout(99999);
+}).timeout(30000);
 
 test('it should not update one of the league of legends champions', async ({
   assert,
@@ -54,7 +54,7 @@ test('it should not update one of the league of legends champions', async ({
   const response = await client.put(`/champions/${championName}`).end();
 
   response.assertStatus(404);
-});
+}).timeout(30000);
 
 test('it should show one of the league of legends champions', async ({
   assert,
@@ -72,7 +72,7 @@ test('it should show one of the league of legends champions', async ({
 
   assert.exists(response.body.champion);
   assert.equal(response.body.champion.name, championName);
-});
+}).timeout(30000);
 
 test('it should store all of the league of legends champions', async ({
   assert,
@@ -83,7 +83,7 @@ test('it should store all of the league of legends champions', async ({
   response.assertStatus(200);
 
   assert.exists(response.body.champions);
-}).timeout(99999);
+}).timeout(30000);
 
 test('it should update all of the league of legends champions', async ({
   assert,
@@ -108,4 +108,4 @@ test('it should update all of the league of legends champions', async ({
   response.assertStatus(200);
 
   assert.exists(response.body.champions[0]);
-}).timeout(99999);
+}).timeout(30000);

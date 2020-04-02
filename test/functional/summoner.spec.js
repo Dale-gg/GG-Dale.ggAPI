@@ -3,7 +3,6 @@
 const { test, trait } = use('Test/Suite')('Summoner');
 
 const { LolApi } = use('@jlenon7/zedjs');
-const getAllChampions = require('../../app/Utils/RiotAPI/getAllChampions');
 const getAllSpells = require('../../app/Utils/RiotAPI/getAllSpells');
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
