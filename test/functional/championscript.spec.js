@@ -2,7 +2,7 @@
 /* eslint-disable no-restricted-syntax */
 const { test, trait } = use('Test/Suite')('Champions');
 
-const getAllChampions = require('../../app/Utils/RiotAPI/getAllChampions');
+const { LolApi } = use('@jlenon7/zedjs');
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory');
@@ -14,30 +14,11 @@ trait('DatabaseTransactions');
 test('it should get all the champions of db', async ({ assert, client }) => {
   await Factory.model('App/Models/Champion').createMany(10);
 
-  const response = await client.get('/champions/index').end();
+  const response = await client.get('/champions').end();
 
   response.assertStatus(200);
 
   assert.exists(response.body.champions);
-});
-
-test('it should store one of the league of legends champions', async ({
-  assert,
-  client,
-}) => {
-  const championName = 'Zed';
-  const gamePatch = '10.5.1';
-  const language = 'pt_BR';
-
-  const response = await client
-    .post('/champions/store')
-    .send({ gamePatch, language, championName })
-    .end();
-
-  response.assertStatus(200);
-
-  assert.exists(response.body.champion);
-  assert.equal(response.body.champion.name, championName);
 });
 
 test('it should update one of the league of legends champions', async ({
@@ -50,20 +31,30 @@ test('it should update one of the league of legends champions', async ({
   });
 
   const championName = 'Zed';
-  const gamePatch = '10.5.1';
-  const language = 'pt_BR';
 
-  const response = await client
-    .put(`/champions/${championName}/update`)
-    .send({ gamePatch, language })
-    .end();
+  const response = await client.put(`/champions/${championName}`).end();
 
   response.assertStatus(200);
 
   assert.exists(response.body.champion);
   assert.equal(response.body.champion.name, championName);
-  assert.equal(response.body.champion.version, gamePatch);
-});
+}).timeout(30000);
+
+test('it should not update one of the league of legends champions', async ({
+  assert,
+  client,
+}) => {
+  await Factory.model('App/Models/Champion').create({
+    name: 'Zed',
+    version: '9.24.1',
+  });
+
+  const championName = 'Zeed';
+
+  const response = await client.put(`/champions/${championName}`).end();
+
+  response.assertStatus(404);
+}).timeout(30000);
 
 test('it should show one of the league of legends champions', async ({
   assert,
@@ -75,57 +66,46 @@ test('it should show one of the league of legends champions', async ({
 
   const championName = 'Zed';
 
-  const response = await client.get(`/champions/${championName}/show`).end();
+  const response = await client.get(`/champions/${championName}`).end();
 
   response.assertStatus(200);
 
   assert.exists(response.body.champion);
   assert.equal(response.body.champion.name, championName);
-});
+}).timeout(30000);
 
 test('it should store all of the league of legends champions', async ({
   assert,
   client,
 }) => {
-  const language = 'pt_BR';
-  const version = '10.5.1';
-
-  const response = await client
-    .post(`/champions/${language}/${version}/storeAll`)
-    .end();
+  const response = await client.post(`/champions`).end();
 
   response.assertStatus(200);
 
   assert.exists(response.body.champions);
-}).timeout(99999);
+}).timeout(30000);
 
 test('it should update all of the league of legends champions', async ({
   assert,
   client,
 }) => {
-  const language1 = 'pt_BR';
-  const version1 = '9.24.1';
+  const api = new LolApi();
 
-  const championsAPI = await getAllChampions(version1, language1);
+  const { data } = await api.DataDragon.getChampion();
 
   const promises = [];
-  for (const champion in championsAPI) {
+  for (const champion in data) {
     promises.push(
       Factory.model('App/Models/Champion').create({
-        name: championsAPI[champion].name,
+        name: data[champion].name,
       })
     );
   }
   await Promise.all(promises);
 
-  const language = 'pt_BR';
-  const version = '10.5.1';
-
-  const response = await client
-    .put(`/champions/${language}/${version}/updateAll`)
-    .end();
+  const response = await client.put(`/champions`).end();
 
   response.assertStatus(200);
 
   assert.exists(response.body.champions[0]);
-}).timeout(99999);
+}).timeout(30000);

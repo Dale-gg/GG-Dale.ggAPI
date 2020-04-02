@@ -37,7 +37,7 @@ test('it should show one of the league of legends spells', async ({
 
   assert.exists(response.body.spell);
   assert.equal(response.body.spell.name, spellName);
-});
+}).timeout(30000);
 
 test('it should store all of the league of legends spells', async ({
   assert,
@@ -53,7 +53,7 @@ test('it should store all of the league of legends spells', async ({
   response.assertStatus(200);
 
   assert.exists(response.body.spells);
-});
+}).timeout(30000);
 
 test('it should update all of the league of legends spells', async ({
   assert,
@@ -84,4 +84,4 @@ test('it should update all of the league of legends spells', async ({
   response.assertStatus(200);
 
   assert.exists(response.body.spells[0]);
-});
+}).timeout(30000);
