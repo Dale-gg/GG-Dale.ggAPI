@@ -57,8 +57,21 @@ Route.get('/runes/index', 'RuneController.index');
 Route.post('/runes/storeAll', 'RuneController.storeAll');
 
 // Welcome
-Route.get('/', response => {
-  return response.json({ msg: 'Welcome to Dale.gg DevAPI!' });
+Route.get('/', ({ response }) => {
+  response.json({
+    type: 'Dale.gg',
+    msg: 'Welcome to Dale.gg DevAPI at Heroku!',
+    Withlove: {
+      contributor1: {
+        nickname: 'jlenon7',
+        repo: 'https://github.com/jlenon7',
+      },
+      contributor2: {
+        nickname: 'Adryell',
+        repo: 'https://github.com/Adryell',
+      },
+    },
+  });
 });
 
 // JWT Middleware
