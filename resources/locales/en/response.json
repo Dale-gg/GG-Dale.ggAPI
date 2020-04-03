@@ -26,5 +26,6 @@
   "not-found-summoner": "Summoner not found.",
   "get-summoner": "Summoner found.",
   "updated-summoner-profile": "Summoner successfully updated.",
-  "api-not-found": "Nothing found in the Riot Games database."
+  "api-not-found": "Nothing found in the Riot Games database.",
+  "riot-api-offline": "Sorry, Riot API is offline for this region."
 }

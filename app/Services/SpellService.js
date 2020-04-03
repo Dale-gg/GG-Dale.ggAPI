@@ -6,7 +6,6 @@ const Spell = use('App/Models/Spell');
 const SpellRepository = use('App/Repositories/SpellRepository');
 
 const getAllSpells = require('../Utils/RiotAPI/getAllSpells');
-
 const getSpell = require('../Utils/RiotAPI/getSpell');
 
 class SpellService {

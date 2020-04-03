@@ -3,9 +3,6 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Champion = use('App/Models/Champion');
 
-// const getChampion = require('../Utils/RiotAPI/getChampion');
-// const getAllChampions = require('../Utils/RiotAPI/getAllChampions');
-
 const { LolApi } = use('@jlenon7/zedjs');
 
 const ChampionRepository = use('App/Repositories/ChampionRepository');
