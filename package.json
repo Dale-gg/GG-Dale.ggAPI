@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "migrate": "ENV_SILENT=true node ace migration:run --force",
+    "migrate": "ENV_SILENT=true node ace migration:refresh --force",
     "test": "node ace test"
   },
   "keywords": [
