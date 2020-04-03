@@ -1,1 +1,1 @@
-release: npm migrate --force web: npm start
+release: npm run migrate --force web: npm run start
