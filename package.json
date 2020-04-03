@@ -5,7 +5,7 @@
   "description": "Adonisjs boilerplate for API server with pre-configured JWT",
   "main": "index.js",
   "scripts": {
-    "start": "ENV_SILENT=true node server.js",
+    "start": "node server.js",
     "migrate": "ENV_SILENT=true node ace migration:run --force",
     "test": "node ace test"
   },
