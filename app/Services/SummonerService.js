@@ -4,7 +4,7 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Summoner = use('App/Models/Summoner');
 
-const { LolApi } = use('@jlenon7/zedjs');
+const { LolApi, Regions } = use('@jlenon7/zedjs');
 
 const getMatchs = use('App/Utils/RiotAPI/getMatchs');
 
@@ -27,63 +27,71 @@ class SummonerService {
   }
 
   async store({ region, summonerName }) {
-    const { response: summonerAPI } = await this.api.Summoner.getByName(
-      summonerName,
-      region
-    );
-
-    if (summonerAPI.name == null || summonerAPI.name === 'Error') {
-      return null;
-    }
-
-    const summoner = await this.summonerRepository.store(summonerAPI, region);
-
-    const { response: tiers } = await this.api.League.bySummoner(
-      summonerAPI.id,
-      region
-    );
-
-    const tierSolo = tiers[0];
-    const tierFlex = tiers[1];
-
-    if (tierSolo) {
-      this.tierRepository.store(summoner.id, region, tierSolo);
-    }
-    if (tierFlex) {
-      this.tierRepository.store(summoner.id, region, tierFlex);
-    }
-
-    // PRODUCTION
-    //
-    // const matchListAPI = await this.api.Match.list(
-    //   summonerAPI.accountId,
-    //   region
-    // );
-
-    const matchListAPI = await getMatchs(summonerAPI.accountId, region);
-
-    const promises = [];
-    for (const match in matchListAPI) {
-      promises.push(
-        this.matchRepository.store(
-          summonerAPI.accountId,
-          region,
-          matchListAPI[match]
-        )
+    try {
+      const { response: summonerAPI } = await this.api.Summoner.getByName(
+        summonerName,
+        region
       );
+
+      if (summonerAPI.name == null || summonerAPI.name === 'Error') {
+        return null;
+      }
+
+      const summoner = await this.summonerRepository.store(summonerAPI, region);
+
+      const { response: tiers } = await this.api.League.bySummoner(
+        summonerAPI.id,
+        region
+      );
+
+      const tierSolo = tiers[0];
+      const tierFlex = tiers[1];
+
+      if (tierSolo) {
+        this.tierRepository.store(summoner.id, region, tierSolo);
+      }
+      if (tierFlex) {
+        this.tierRepository.store(summoner.id, region, tierFlex);
+      }
+
+      // PRODUCTION
+      //
+      // const matchListAPI = await this.api.Match.list(
+      //   summonerAPI.accountId,
+      //   region
+      // );
+
+      const matchListAPI = await getMatchs(summonerAPI.accountId, region);
+
+      const promises = [];
+      for (const match in matchListAPI) {
+        promises.push(
+          this.matchRepository.store(
+            summonerAPI.accountId,
+            region,
+            matchListAPI[match]
+          )
+        );
+      }
+      await Promise.all(promises);
+
+      const resSummoner = await Summoner.query()
+        .whereRaw(
+          `summoner_name ILIKE ? AND region = '${region}'`,
+          summonerName
+        )
+        .with('tiers')
+        .with('matchs.champion')
+        .with('matchs.matchdto.participants.spells')
+        .with('matchs.matchdto.participants.champion')
+        .with('matchs.matchdto.participants.participantdto')
+        .fetch();
+
+      console.log(resSummoner);
+      return resSummoner;
+    } catch (err) {
+      return err;
     }
-    await Promise.all(promises);
-
-    const resSummoner = await Summoner.query()
-      .whereRaw(`summoner_name ILIKE ? AND region = '${region}'`, summonerName)
-      .with('tiers')
-      .with('matchs.champion')
-      .with('matchs.matchdto.participants.spells')
-      .with('matchs.matchdto.participants.champion')
-      .with('matchs.matchdto.participants.participantdto')
-      .fetch();
-
-    return resSummoner;
   }
 
   async update({ region, summonerName }) {
