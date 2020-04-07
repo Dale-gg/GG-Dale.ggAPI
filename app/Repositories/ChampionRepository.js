@@ -9,26 +9,6 @@ class ChampionRepository {
     return champions;
   }
 
-  async store(championAPI, gamePatch) {
-    const image_full = `http://ddragon.leagueoflegends.com/cdn/${gamePatch}/img/champion/${championAPI.image.full}`;
-    const image_splash = `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championAPI.name}_0.jpg`;
-    const image_loading = `http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${championAPI.name}_0.jpg`;
-
-    const champion = await Champion.create({
-      key: championAPI.key,
-      name: championAPI.name,
-      title: championAPI.title,
-      tags: championAPI.tags[0],
-      image_full_url: image_full,
-      image_splash_url: image_splash,
-      image_loading_url: image_loading,
-      image_sprite_url: championAPI.image.sprite,
-      version: gamePatch,
-    });
-
-    return champion;
-  }
-
   async show(championName) {
     const champion = await Champion.findBy({ name: championName });
 
@@ -39,12 +19,12 @@ class ChampionRepository {
     return champion;
   }
 
-  async update(championName, championAPI, gamePatch) {
-    const image_full = `http://ddragon.leagueoflegends.com/cdn/${gamePatch}/img/champion/${championAPI.image.full}`;
+  async update(championAPI) {
+    const image_full = `http://ddragon.leagueoflegends.com/cdn/${championAPI.version}/img/champion/${championAPI.image.full}`;
     const image_splash = `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championAPI.name}_0.jpg`;
     const image_loading = `http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${championAPI.name}_0.jpg`;
 
-    const champion = await Champion.findBy({ name: championName });
+    const champion = await Champion.findBy({ name: championAPI.name });
 
     champion.key = championAPI.key;
     champion.name = championAPI.name;
@@ -54,13 +34,13 @@ class ChampionRepository {
     champion.image_splash_url = image_splash;
     champion.image_loading_url = image_loading;
     champion.image_sprite_url = championAPI.image.sprite;
-    champion.version = gamePatch;
+    champion.version = championAPI.version;
 
     await champion.save();
   }
 
-  async storeAll(championsAPI, gamePatch) {
-    const image_full = `http://ddragon.leagueoflegends.com/cdn/${gamePatch}/img/champion/${championsAPI.image.full}`;
+  async storeAll(championsAPI) {
+    const image_full = `http://ddragon.leagueoflegends.com/cdn/${championsAPI.version}/img/champion/${championsAPI.image.full}`;
     const image_splash = `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championsAPI.name}_0.jpg`;
     const image_loading = `http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${championsAPI.name}_0.jpg`;
 
@@ -73,12 +53,12 @@ class ChampionRepository {
       image_splash_url: image_splash,
       image_loading_url: image_loading,
       image_sprite_url: championsAPI.image.sprite,
-      version: gamePatch,
+      version: championsAPI.version,
     });
   }
 
-  async updateAll(championsAPI, gamePatch) {
-    const image_full = `http://ddragon.leagueoflegends.com/cdn/${gamePatch}/img/champion/${championsAPI.image.full}`;
+  async updateAll(championsAPI) {
+    const image_full = `http://ddragon.leagueoflegends.com/cdn/${championsAPI.version}/img/champion/${championsAPI.image.full}`;
     const image_splash = `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championsAPI.name}_0.jpg`;
     const image_loading = `http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${championsAPI.name}_0.jpg`;
 
@@ -93,7 +73,7 @@ class ChampionRepository {
         image_splash_url: image_splash,
         image_loading_url: image_loading,
         image_sprite_url: championsAPI.image.sprite,
-        version: gamePatch,
+        version: championsAPI.version,
       });
   }
 }

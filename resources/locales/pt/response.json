@@ -25,5 +25,7 @@
   "success-profile-update": "Seu perfil foi atualizado com sucesso.",
   "not-found-summoner": "Invocador não encontrado.",
   "get-summoner": "Invocador encontrado.",
-  "updated-summoner-profile": "Invocador atualizado com sucesso."
- }
+  "updated-summoner-profile": "Invocador atualizado com sucesso.",
+  "api-not-found": "Nada encontrado na base de dados da Riot Games.",
+  "riot-api-offline": "Desculpe, A API da Riot esta offline nessa região."
+}

@@ -38,20 +38,11 @@ Route.post('/reset', 'Auth/ResetPasswordController.store').validator('Reset');
 Route.put('/user/:id', 'UserController.restore');
 
 // Champion
-Route.get('/champions/index', 'ChampionController.index');
-Route.post('/champions/store', 'ChampionController.store');
-Route.get('/champions/:championName/show', 'ChampionController.show');
-Route.put('/champions/:championName/update', 'ChampionController.update');
-
-// Champion Script
-Route.post(
-  '/champions/:language/:version/storeAll',
-  'ChampionController.storeAll'
-);
-Route.put(
-  '/champions/:language/:version/updateAll',
-  'ChampionController.updateAll'
-);
+Route.get('/champions', 'ChampionController.index');
+Route.post('/champions', 'ChampionController.storeAll');
+Route.put('/champions', 'ChampionController.updateAll');
+Route.get('/champions/:championName', 'ChampionController.show');
+Route.put('/champions/:championName', 'ChampionController.update');
 
 // Spells
 Route.get('/spells/index', 'SpellController.index');
@@ -64,6 +55,24 @@ Route.put('/spells/:language/:version/updateAll', 'SpellController.updateAll');
 // Runes
 Route.get('/runes/index', 'RuneController.index');
 Route.post('/runes/storeAll', 'RuneController.storeAll');
+
+// Welcome
+Route.get('/', ({ response }) => {
+  response.json({
+    type: 'Dale.gg',
+    msg: 'Welcome to Dale.gg DevAPI at Heroku!',
+    Withlove: {
+      contributor1: {
+        nickname: 'jlenon7',
+        repo: 'https://github.com/jlenon7',
+      },
+      contributor2: {
+        nickname: 'Adryell',
+        repo: 'https://github.com/Adryell',
+      },
+    },
+  });
+});
 
 // JWT Middleware
 Route.group(() => {

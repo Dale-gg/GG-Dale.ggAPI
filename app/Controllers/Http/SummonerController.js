@@ -35,6 +35,13 @@ class SummonerController {
       });
     }
 
+    if (summoner.status === 403) {
+      return response.status(403).json({
+        type: 'riot-api-offline',
+        msg: Antl.formatMessage('response.riot-api-offline'),
+      });
+    }
+
     return response.status(200).json({
       type: 'get-summoner',
       msg: Antl.formatMessage('response.get-summoner'),

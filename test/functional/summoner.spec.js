@@ -1,7 +1,8 @@
 /* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
-const { test, trait } = use('Test/Suite')('RiotAPI');
-const getAllChampions = require('../../app/Utils/RiotAPI/getAllChampions');
+const { test, trait } = use('Test/Suite')('Summoner');
+
+const { LolApi } = use('@jlenon7/zedjs');
 const getAllSpells = require('../../app/Utils/RiotAPI/getAllSpells');
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
@@ -18,14 +19,15 @@ test('it should get some summoner and save it in the database', async ({
   const language1 = 'pt_BR';
   const version1 = '10.5.1';
 
-  const championsAPI = await getAllChampions(version1, language1);
+  const api = new LolApi();
+  const { data } = await api.DataDragon.getChampion();
 
   const promises = [];
-  for (const champion in championsAPI) {
+  for (const champion in data) {
     promises.push(
       Factory.model('App/Models/Champion').create({
-        name: championsAPI[champion].name,
-        key: championsAPI[champion].key,
+        name: data[champion].name,
+        key: data[champion].key,
       })
     );
   }
@@ -69,14 +71,15 @@ test('it should get some summoner and save it with flex and solo tier', async ({
   const language1 = 'pt_BR';
   const version1 = '10.5.1';
 
-  const championsAPI = await getAllChampions(version1, language1);
+  const api = new LolApi();
+  const { data } = await api.DataDragon.getChampion();
 
   const promises = [];
-  for (const champion in championsAPI) {
+  for (const champion in data) {
     promises.push(
       Factory.model('App/Models/Champion').create({
-        name: championsAPI[champion].name,
-        key: championsAPI[champion].key,
+        name: data[champion].name,
+        key: data[champion].key,
       })
     );
   }
@@ -118,14 +121,15 @@ test('it should get ten matchs from the summoner', async ({
   const language1 = 'pt_BR';
   const version1 = '10.5.1';
 
-  const championsAPI = await getAllChampions(version1, language1);
+  const api = new LolApi();
+  const { data } = await api.DataDragon.getChampion();
 
   const promises = [];
-  for (const champion in championsAPI) {
+  for (const champion in data) {
     promises.push(
       Factory.model('App/Models/Champion').create({
-        name: championsAPI[champion].name,
-        key: championsAPI[champion].key,
+        name: data[champion].name,
+        key: data[champion].key,
       })
     );
   }
@@ -299,14 +303,15 @@ test('it should update a summoner in database', async ({ assert, client }) => {
     participant_id: participant.id,
   });
 
-  const championsAPI = await getAllChampions(version1, language1);
+  const api = new LolApi();
+  const { data } = await api.DataDragon.getChampion();
 
   const promises = [];
-  for (const champion in championsAPI) {
+  for (const champion in data) {
     promises.push(
       Factory.model('App/Models/Champion').create({
-        name: championsAPI[champion].name,
-        key: championsAPI[champion].key,
+        name: data[champion].name,
+        key: data[champion].key,
       })
     );
   }
