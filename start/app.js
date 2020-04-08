@@ -25,6 +25,7 @@ const providers = [
 
   '@radmen/adonis-lucid-soft-deletes/providers/SoftDeletesProvider',
   path.join(__dirname, '..', 'providers', 'CustomValidatorProvider'),
+  '@rocketseat/adonis-bull/providers/Bull',
 ];
 
 /*
