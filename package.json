@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ENV_SILENT=true node server.js",
-    "migrate": "ENV_SILENT=true node ace migration:refresh --force",
+    "migrate": "ENV_SILENT=true node ace migration:run --force",
     "test": "node ace test"
   },
   "keywords": [
@@ -32,6 +32,7 @@
     "@adonisjs/vow": "^1.0.17",
     "@jlenon7/zedjs": "^1.0.3",
     "@radmen/adonis-lucid-soft-deletes": "^0.2.0",
+    "@rocketseat/adonis-bull": "^0.2.2",
     "axios": "^0.19.2",
     "date-fns": "^2.9.0",
     "eventemitter2": "^6.2.1",

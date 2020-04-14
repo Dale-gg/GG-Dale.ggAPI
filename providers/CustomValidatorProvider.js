@@ -1,10 +1,10 @@
-const { ServiceProvider } = require('@adonisjs/fold')
+const { ServiceProvider } = require('@adonisjs/fold');
 
 class CustomValidatorProvider extends ServiceProvider {
-  async existsFn (data, field, message, args, get) {
+  async existsFn(data, field, message, args, get) {
     const Database = use('Database');
-    
-    const value = get(data, field)
+
+    const value = get(data, field);
     if (!value) {
       /**
        * skip validation if value is not defined, 'required' rule
@@ -24,7 +24,7 @@ class CustomValidatorProvider extends ServiceProvider {
     }
   }
 
-  boot () {
+  boot() {
     const Validator = use('Validator');
 
     Validator.extend('exists', this.existsFn.bind(this));

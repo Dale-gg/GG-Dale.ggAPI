@@ -1,23 +1,19 @@
-/* eslint-disable no-await-in-loop */
-/* eslint-disable guard-for-in */
-/* eslint-disable no-restricted-syntax */
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Summoner = use('App/Models/Summoner');
 
-const { LolApi, Regions } = use('@jlenon7/zedjs');
+const { LolApi } = use('@jlenon7/zedjs');
 
-const getMatchs = use('App/Utils/RiotAPI/getMatchs');
+const Bull = use('Rocketseat/Bull');
+const Job = use('App/Jobs/SummonerMatchlist');
 
 const SummonerRepository = use('App/Repositories/SummonerRepository');
 const TierRepository = use('App/Repositories/TierRepository');
-const MatchRepository = use('App/Repositories/MatchRepository');
 
 class SummonerService {
   constructor() {
     this.api = new LolApi();
     this.summonerRepository = new SummonerRepository();
     this.tierRepository = new TierRepository();
-    this.matchRepository = new MatchRepository();
   }
 
   async show({ region, summonerName }) {
@@ -48,32 +44,14 @@ class SummonerService {
       const tierFlex = tiers[1];
 
       if (tierSolo) {
-        this.tierRepository.store(summoner.id, region, tierSolo);
+        await this.tierRepository.store(summoner.id, region, tierSolo);
       }
       if (tierFlex) {
-        this.tierRepository.store(summoner.id, region, tierFlex);
+        await this.tierRepository.store(summoner.id, region, tierFlex);
       }
 
-      // PRODUCTION
-      //
-      // const matchListAPI = await this.api.Match.list(
-      //   summonerAPI.accountId,
-      //   region
-      // );
-
-      const matchListAPI = await getMatchs(summonerAPI.accountId, region);
-
-      const promises = [];
-      for (const match in matchListAPI) {
-        promises.push(
-          this.matchRepository.store(
-            summonerAPI.accountId,
-            region,
-            matchListAPI[match]
-          )
-        );
-      }
-      await Promise.all(promises);
+      // Call to matchlist queue
+      Bull.add(Job.key, { summonerAPI, region });
 
       const resSummoner = await Summoner.query()
         .whereRaw(
@@ -87,7 +65,6 @@ class SummonerService {
         .with('matchs.matchdto.participants.participantdto')
         .fetch();
 
-      console.log(resSummoner);
       return resSummoner;
     } catch (err) {
       return err;
@@ -121,26 +98,8 @@ class SummonerService {
       this.tierRepository.update(summoner.id, region, tierFlex);
     }
 
-    // PRODUCTION
-    //
-    // const { response: matchListAPI } = await this.api.Match.list(
-    //   summonerAPI.accountId,
-    //   region
-    // );
-
-    const matchListAPI = await getMatchs(summonerAPI.accountId, region);
-
-    const promises = [];
-    for (const match in matchListAPI) {
-      promises.push(
-        this.matchRepository.store(
-          summoner.account_id,
-          region,
-          matchListAPI[match]
-        )
-      );
-    }
-    await Promise.all(promises);
+    // Call to matchlist queue
+    Bull.add(Job.key, { summonerAPI, region });
 
     const resSummoner = await Summoner.query()
       .whereRaw(`summoner_name ILIKE ? AND region = '${region}'`, summonerName)

@@ -6,19 +6,19 @@
   🚀 Dale.gg 🎮
 </h4>
 <p align="center">
-  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/jlenon7/dale.gg">
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/jlenon7/dale.gg?style=for-the-badge&logo=appveyor">
 
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/jlenon7/dale.gg">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/jlenon7/dale.gg?style=for-the-badge&logo=appveyor">
   
   <a href="https://github.com/jlenon7/dale.gg/commits/master">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/jlenon7/dale.gg">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/jlenon7/dale.gg?style=for-the-badge&logo=appveyor">
   </a>
 
   <a href="https://github.com/jlenon7/dale.gg/issues">
-    <img alt="Repository issues" src="https://img.shields.io/github/issues/jlenon7/dale.gg">
+    <img alt="Repository issues" src="https://img.shields.io/github/issues/jlenon7/dale.gg?style=for-the-badge&logo=appveyor">
   </a>
 
-  <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen">
+  <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen?style=for-the-badge&logo=appveyor">
 </p>
 
 <p align="center">
