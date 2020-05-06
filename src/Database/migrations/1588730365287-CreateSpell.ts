@@ -1,11 +1,11 @@
 import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
-export default class CreateChampion1588731770534 implements MigrationInterface {
+export default class CreateSpell1588730365287 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
       await queryRunner.createTable(
         new Table({
-          name: 'champions',
+          name: 'spells',
           columns: [
             {
               name: 'id',
@@ -15,33 +15,31 @@ export default class CreateChampion1588731770534 implements MigrationInterface {
               default: 'uuid_generate_v4()',
             },
             {
-              name: 'key',
-              type: 'integer',
-              isUnique: true,
-            },
-            {
               name: 'name',
               type: 'varchar',
-              isUnique: true,
             },
             {
-              name: 'title',
+              name: 'key',
+              type: 'integer',
+            },
+            {
+              name: 'spell_dd',
               type: 'varchar',
             },
             {
-              name: 'tags',
-              type: 'varchar[]',
+              name: 'description',
+              type: 'varchar',
             },
             {
-              name: 'version',
+              name: 'group',
+              type: 'varchar',
+            },
+            {
+              name: 'modes',
               type: 'varchar',
             },
             {
               name: 'image_full_url',
-              type: 'varchar',
-            },
-            {
-              name: 'image_loading_url',
               type: 'varchar',
             },
             {
@@ -64,7 +62,7 @@ export default class CreateChampion1588731770534 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-      await queryRunner.dropTable('champions');
+      await queryRunner.dropTable('participants');
     }
 
 }

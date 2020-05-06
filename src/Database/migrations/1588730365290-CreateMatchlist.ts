@@ -1,6 +1,6 @@
 import {MigrationInterface, QueryRunner, Table, TableForeignKey} from "typeorm";
 
-export default class CreateMatchlist1588730365288 implements MigrationInterface {
+export default class CreateMatchlist1588730365290 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
       await queryRunner.createTable(
@@ -70,19 +70,19 @@ export default class CreateMatchlist1588730365288 implements MigrationInterface 
           columnNames: ['summoner_id'],
           referencedColumnNames: ['id'],
           referencedTableName: 'summoners',
-          name: 'SummonerMatchlist',
+          name: 'SummonersMatchlists',
           onUpdate: 'CASCADE',
           onDelete: 'CASCADE',
         }),
       );
 
       await queryRunner.createForeignKey(
-        'champions',
+        'matchlists',
         new TableForeignKey({
           columnNames: ['champion_id'],
           referencedColumnNames: ['id'],
           referencedTableName: 'champions',
-          name: 'SummonerMatchlist',
+          name: 'ChampionsMatchlists',
           onUpdate: 'CASCADE',
           onDelete: 'SET NULL',
         }),

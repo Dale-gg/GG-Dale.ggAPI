@@ -1,11 +1,11 @@
 import {MigrationInterface, QueryRunner, Table, TableForeignKey} from "typeorm";
 
-export default class CreateParticipantlist1588732140893 implements MigrationInterface {
+export default class CreateRune1588730365286 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
       await queryRunner.createTable(
         new Table({
-          name: 'participantlists',
+          name: 'runes',
           columns: [
             {
               name: 'id',
@@ -15,49 +15,32 @@ export default class CreateParticipantlist1588732140893 implements MigrationInte
               default: 'uuid_generate_v4()',
             },
             {
-              name: 'champion_id',
+              name: 'id_api',
+              type: 'integer',
+            },
+            {
+              name: 'tree_id',
               type: 'uuid',
               isNullable: true,
             },
             {
-              name: 'match_id',
-              type: 'uuid',
-              isNullable: true,
-            },
-            {
-              name: 'team_id',
+              name: 'key',
               type: 'integer',
             },
             {
-              name: 'game_id',
-              type: 'bigint',
-            },
-            {
-              name: 'account_id',
+              name: 'icon',
               type: 'varchar',
             },
             {
-              name: 'summoner_id',
+              name: 'name',
               type: 'varchar',
             },
             {
-              name: 'summoner_name',
+              name: 'shortDesc',
               type: 'varchar',
             },
             {
-              name: 'profile_icon',
-              type: 'integer',
-            },
-            {
-              name: 'participant_api_id',
-              type: 'integer',
-            },
-            {
-              name: 'champion_key',
-              type: 'varchar',
-            },
-            {
-              name: 'highest_achieved_season_tier',
+              name: 'longDesc',
               type: 'varchar',
             },
             {
@@ -75,24 +58,12 @@ export default class CreateParticipantlist1588732140893 implements MigrationInte
       );
 
       await queryRunner.createForeignKey(
-        'participantlists',
+        'runes',
         new TableForeignKey({
-          columnNames: ['champion_id'],
+          columnNames: ['tree_id'],
           referencedColumnNames: ['id'],
-          referencedTableName: 'champions',
-          name: 'ParticipantlistsChampion',
-          onUpdate: 'CASCADE',
-          onDelete: 'CASCADE',
-        }),
-      );
-
-      await queryRunner.createForeignKey(
-        'participantlists',
-        new TableForeignKey({
-          columnNames: ['match_id'],
-          referencedColumnNames: ['id'],
-          referencedTableName: 'matchs',
-          name: 'ParticipantlistsMatchs',
+          referencedTableName: 'trees',
+          name: 'RunesTress',
           onUpdate: 'CASCADE',
           onDelete: 'CASCADE',
         }),
@@ -100,7 +71,7 @@ export default class CreateParticipantlist1588732140893 implements MigrationInte
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-      await queryRunner.dropTable('champions');
+      await queryRunner.dropTable('runes');
     }
 
 }

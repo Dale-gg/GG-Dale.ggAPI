@@ -85,7 +85,7 @@ export default class CreateTier1588256770501 implements MigrationInterface {
     );
 
     await queryRunner.createForeignKey(
-      'transactions',
+      'tiers',
       new TableForeignKey({
         columnNames: ['summoner_id'],
         referencedColumnNames: ['id'],

@@ -134,7 +134,7 @@ export default class CreateParticipant1588732481056 implements MigrationInterfac
       );
 
       await queryRunner.createForeignKey(
-        'participant',
+        'participants',
         new TableForeignKey({
           columnNames: ['participant_id'],
           referencedColumnNames: ['id'],

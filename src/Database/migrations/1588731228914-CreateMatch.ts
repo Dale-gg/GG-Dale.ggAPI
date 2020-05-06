@@ -48,11 +48,11 @@ export default class CreateMatch1588731228914 implements MigrationInterface {
             },
             {
               name: 'game_duration',
-              type: 'bigInteger',
+              type: 'bigint',
             },
             {
               name: 'game_creation',
-              type: 'bigInteger',
+              type: 'bigint',
             },
             {
               name: 'created_at',
