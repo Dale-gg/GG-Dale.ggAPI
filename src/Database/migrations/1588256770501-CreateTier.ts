@@ -1,10 +1,10 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm';
 
 export default class CreateTier1588256770501 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'summoners',
+        name: 'tiers',
         columns: [
           {
             name: 'id',
@@ -12,6 +12,11 @@ export default class CreateTier1588256770501 implements MigrationInterface {
             isPrimary: true,
             generationStrategy: 'uuid',
             default: 'uuid_generate_v4()',
+          },
+          {
+            name: 'summoner_id',
+            type: 'uuid',
+            isNullable: true,
           },
           {
             name: 'league_id',
@@ -78,9 +83,21 @@ export default class CreateTier1588256770501 implements MigrationInterface {
         ],
       }),
     );
+
+    await queryRunner.createForeignKey(
+      'transactions',
+      new TableForeignKey({
+        columnNames: ['summoner_id'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'summoners',
+        name: 'SummonerTier',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      }),
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('summoners');
+    await queryRunner.dropTable('tiers');
   }
 }
