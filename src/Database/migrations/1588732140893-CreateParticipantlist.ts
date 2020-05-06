@@ -30,7 +30,7 @@ export default class CreateParticipantlist1588732140893 implements MigrationInte
             },
             {
               name: 'game_id',
-              type: 'bigInteger',
+              type: 'bigint',
             },
             {
               name: 'account_id',
