@@ -23,7 +23,7 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
     });
   }
 
-  if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'dev') {
+  if (process.env.NODE_ENV === 'testing' || process.env.NODE_ENV === 'development') {
     return response.status(500).json({
       status: 'error',
       message: err.message,
