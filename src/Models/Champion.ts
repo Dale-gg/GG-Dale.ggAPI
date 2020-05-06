@@ -20,7 +20,11 @@ class Champion {
   @Column()
   title: string;
 
-  @Column()
+  @Column("varchar", {
+    array: true,
+    default: ()=>'array[]::varchar[]',
+    nullable: true
+  })
   tags: string[];
 
   @Column()
