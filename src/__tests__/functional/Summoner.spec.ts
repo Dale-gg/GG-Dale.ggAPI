@@ -1,30 +1,26 @@
-// Database stuffs
 import createConnection from '../../database'
-import { Connection, getRepository, getConnection } from 'typeorm'
+import Factory from '../../Database/Factory'
+import { Connection, getConnection } from 'typeorm'
+import { LolApi } from '@jlenon7/zedjs'
 
-// Japa for testing supertest to make requests
 import test from 'japa'
+import app from '../../app'
 import request from 'supertest'
 
-// Models
-import Summoner from '../../Models/Summoner'
-
-// Import app to run and make requests
-import app from '../../app'
-
 let connection: Connection
+const factory = new Factory()
 
- // Run this test with the command:
- //  ts-node src/__tests__/functional/Summoner.spec.ts
- // Or run all tests with node japaFile.js
+const region = 'br1'
+const summonerName = 'iLenon7'
 
-test.group('Summoner Tests', (group) => {
+test.group('Summoner', (group) => {
   group.before(async () => {
     connection = await createConnection('test-connection');
     await connection.runMigrations();
   });
 
   group.beforeEach(async () => {
+    await connection.query('DELETE FROM champions');
     await connection.query('DELETE FROM summoners');
   });
 
@@ -35,14 +31,22 @@ test.group('Summoner Tests', (group) => {
     await mainConnection.close();
   });
 
-  const region = 'br1'
-  const summoner = 'iLenon7'
+  test('A) it should create a summoner', async (assert) => {
+    const api = new LolApi()
+    const { data } = await api.DataDragon.getChampion()
 
-  test('create ilenon7', async (assert) => {
-    const response = await request(app).post(`/gg/v1/summoners?region=${region}&summonerName=${summoner}`)
+    const promises = [];
+    for (const champion in data) {
+      promises.push(
+        factory.Champion(data[champion])
+      )
+    }
+    await Promise.all(promises)
 
+    const response = await request(app).post(`${process.env.APP_PREFIX}/summoners?region=${region}&summonerName=${summonerName}`)
+console.log(response)
     assert.exists(response.body.summoner)
-  })
+  }).timeout(30000)
 })
 
 
