@@ -16,7 +16,7 @@ export default class CreateChampion1588730365289 implements MigrationInterface {
             },
             {
               name: 'key',
-              type: 'integer',
+              type: 'varchar',
               isUnique: true,
             },
             {
@@ -38,6 +38,10 @@ export default class CreateChampion1588730365289 implements MigrationInterface {
             },
             {
               name: 'image_full_url',
+              type: 'varchar',
+            },
+            {
+              name: 'image_splash_url',
               type: 'varchar',
             },
             {
