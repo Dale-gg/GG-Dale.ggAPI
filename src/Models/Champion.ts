@@ -12,7 +12,7 @@ class Champion {
   id: string;
 
   @Column()
-  key: number;
+  key: string;
 
   @Column()
   name: string;
