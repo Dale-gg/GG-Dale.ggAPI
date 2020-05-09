@@ -1,6 +1,5 @@
 import { Request, Response } from 'express'
 import CreateSummonerService from "../../Services/CreateSummonerService";
-import Summoner from '../../Models/Summoner'
 
 interface IRequest {
   region?: string
@@ -8,13 +7,13 @@ interface IRequest {
 }
 
 class SummonerController {
-  public async store(request: Request, response: Response): Promise<any> {
+  public async store(request: Request, response: Response): Promise<object> {
+    const create = new CreateSummonerService()
     const { region, summonerName }: IRequest =  request.query
-    const service = new CreateSummonerService()
 
-    const summoner = await service.execute({ region, summonerName })
+    const summoner = await create.execute({ region, summonerName })
 
-    return response.json({summoner})
+    return response.json({ summoner })
   }
 
   public async show(): Promise<void> {
