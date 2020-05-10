@@ -2,7 +2,7 @@ import { EntityRepository, Repository } from 'typeorm';
 import { Regions } from "@jlenon7/zedjs/dist/constants"
 
 import Summoner from '../Models/Summoner';
-import AppError from '../errors/AppError';
+import AppError from '../Errors/AppError';
 
 @EntityRepository(Summoner)
 class SummonerRepository extends Repository<Summoner> {

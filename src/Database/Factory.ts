@@ -2,8 +2,8 @@ import faker from 'faker'
 import { getRepository } from 'typeorm'
 
 import { IFactory, IChampion, ISummoner } from './Types'
-import Summoner from '../Models/Summoner'
-import Champion from '../Models/Champion'
+import Summoner from '../App/Models/Summoner'
+import Champion from '../App/Models/Champion'
 
 export default class Factory implements IFactory {
   public async Summoner (data: ISummoner = {}): Promise<void> {
