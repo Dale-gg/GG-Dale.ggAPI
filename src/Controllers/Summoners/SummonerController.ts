@@ -1,23 +1,29 @@
 import { Request, Response } from 'express'
-import CreateSummonerService from "../../Services/CreateSummonerService";
+import { SecResponse } from '@jlenon7/dedsec/build/Responses'
+import CreateSummonerService from '../../Services/CreateSummonerService'
+import SummonerRepository from '../../Repositories/SummonerRepository'
 
-interface IRequest {
-  region?: string
-  summonerName?: string
-}
+const dedSec = new SecResponse()
 
 class SummonerController {
   public async store(request: Request, response: Response): Promise<object> {
     const create = new CreateSummonerService()
-    const { region, summonerName }: IRequest =  request.query
+    const { region, summonerName }: any =  request.query
 
-    const summoner = await create.execute({ region, summonerName })
+    const summoner = await create.execute(summonerName, region)
 
-    return response.json({ summoner })
+    const res = dedSec.withOne(summoner, 'Summoner founded')
+    return response.json(res)
   }
 
-  public async show(): Promise<void> {
-    console.log('I entered in show')
+  public async show(request: Request, response: Response): Promise<object>  {
+    const repository = new SummonerRepository()
+    const { region, summonerName }: any = request.query
+
+    const summoner = await repository.getByName(summonerName, region)
+
+    const res = dedSec.withOne(summoner, 'Summoner founded')
+    return response.json(res)
   }
 
   public async update(): Promise<void> {}
