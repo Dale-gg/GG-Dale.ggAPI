@@ -21,7 +21,13 @@ class Summoner {
   puuid: string
 
   @Column()
+  profile_icon: number
+
+  @Column()
   summoner_name: string
+
+  @Column()
+  summoner_level: number
 
   @Column()
   region: string

@@ -12,6 +12,8 @@ export default class Factory implements IFactory {
     const summoner = repository.create({
       account_id: faker.random.uuid(),
       summoner_id: faker.random.uuid(),
+      profile_icon: faker.random.number(),
+      summoner_level: faker.random.number(),
       puuid: faker.random.uuid(),
       revision_date: faker.date.recent(),
       region: data.region || 'br1',

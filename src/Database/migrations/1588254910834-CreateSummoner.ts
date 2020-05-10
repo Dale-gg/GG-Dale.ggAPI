@@ -23,11 +23,19 @@ export default class CreateSummoner1588254910834 implements MigrationInterface {
           },
           {
             name: 'puuid',
-            type: 'uuid',
+            type: 'varchar',
+          },
+          {
+            name: 'profile_icon',
+            type: 'integer',
           },
           {
             name: 'summoner_name',
             type: 'varchar',
+          },
+          {
+            name: 'summoner_level',
+            type: 'integer',
           },
           {
             name: 'region',
