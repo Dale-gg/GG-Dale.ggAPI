@@ -17,7 +17,7 @@ class SummonerFounder {
 
     if (summoner) {
       return response.redirect(
-        `/gg/v1/summoners?region=${region}&summonerName=${summonerName}`,
+        `${process.env.APP_PREFIX}/summoners?region=${region}&summonerName=${summonerName}`,
       )
     }
 
