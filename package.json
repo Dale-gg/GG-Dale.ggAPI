@@ -9,12 +9,15 @@
     "start": "ts-node src/index.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
     "test": "cross-env NODE_ENV=test node japaFile.js",
-    "test:summoner": "yarn ts-node src/__tests__/functional/Summoner.spec.ts"
+    "test:summoner": "yarn ts-node src/__tests__/functional/Summoner.spec.ts --env=testing"
   },
   "dependencies": {
+    "@jlenon7/dedsec": "^1.1.6",
+    "@jlenon7/zedjs": "^1.0.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
+    "faker": "^4.1.0",
     "pg": "^8.0.0",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.24"
@@ -22,6 +25,7 @@
   "devDependencies": {
     "@types/express": "4.17.3",
     "@types/express-serve-static-core": "4.17.2",
+    "@types/faker": "^4.1.11",
     "@types/supertest": "^2.0.9",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
     "@typescript-eslint/parser": "^2.30.0",
