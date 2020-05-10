@@ -1,4 +1,4 @@
-import { EntityRepository, Repository } from 'typeorm'
+import { EntityRepository, Repository, getRepository } from 'typeorm'
 import { Regions } from '@jlenon7/zedjs/dist/constants'
 
 import Summoner from '../Models/Summoner'
@@ -10,8 +10,10 @@ class SummonerRepository extends Repository<Summoner> {
     summonerName: string,
     region: Regions,
   ): Promise<Summoner> {
-    const summoner = await this.findOne({
-      where: { region, summoner_name: summonerName },
+    const repository = getRepository(Summoner)
+
+    const summoner = await repository.findOne({
+      where: { region, summonerName },
     })
 
     if (!summoner) {
