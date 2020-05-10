@@ -1,26 +1,24 @@
 import { getRepository } from "typeorm"
 import Summoner from "../Models/Summoner"
 import { LolApi } from '@jlenon7/zedjs/dist'
-
-interface IRequest {
-  region: any
-  summonerName: string
-}
+import { Regions } from "@jlenon7/zedjs/dist/constants"
 
 class CreateSummonerService {
-  public async execute({ region, summonerName }: IRequest): Promise<Summoner> {
+  public async execute(summonerName: string, region: Regions) {
     const api = new LolApi()
     const repository = getRepository(Summoner)
 
-    const S = await api.Summoner.getByName(summonerName, region)
+    const { response: S } = await api.Summoner.getByName(summonerName, region)
 
     const summoner = repository.create({
+      summoner_id: S.id,
       account_id: S.accountId,
-      summoner_id: '123132321321',
-      puuid: '95256456-9077-11ea-bb37-0242ac130002',
-      revision_date: '213213231321',
+      puuid: S.puuid,
+      summoner_name: S.name,
+      profile_icon: S.profileIconId,
+      revision_date: S.revisionDate,
+      summoner_level: S.summonerLevel,
       region,
-      summoner_name: summonerName,
     })
 
     await repository.save(summoner)
