@@ -13,18 +13,19 @@ const factory = new Factory()
 const region = 'br1'
 const summonerName = 'iLenon7'
 
-test.group('Summoner', (group) => {
+test.group('1 - Summoner', (group) => {
   group.before(async () => {
     connection = await createConnection('test-connection');
     await connection.runMigrations();
   });
 
   group.beforeEach(async () => {
-    await connection.query('DELETE FROM champions');
     await connection.query('DELETE FROM summoners');
+    await connection.query('DELETE FROM champions');
   });
 
   group.after(async () => {
+    await connection.dropDatabase();
     const mainConnection = getConnection();
 
     await connection.close();
@@ -44,8 +45,8 @@ test.group('Summoner', (group) => {
     await Promise.all(promises)
 
     const response = await request(app).post(`${process.env.APP_PREFIX}/summoners?region=${region}&summonerName=${summonerName}`)
-console.log(response)
-    assert.exists(response.body.summoner)
+
+    assert.exists(response.body.data.summoner_name)
   }).timeout(30000)
 })
 
