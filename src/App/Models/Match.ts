@@ -6,56 +6,56 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
-} from 'typeorm';
+} from 'typeorm'
 
-import Matchlist from './Matchlist';
+import Matchlist from './Matchlist'
 
 @Entity('matchs')
 class Match {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: string
 
   @ManyToOne(() => Matchlist)
   @JoinColumn({ name: 'matchlist_id' })
-  matchlist: Matchlist;
+  matchlist: Matchlist
 
   @Column()
-  matchlist_id: string;
+  matchlist_id: string
 
   @Column()
-  map_id: number;
+  map_id: number
 
   @Column()
-  game_id: string;
+  game_id: string
 
   @Column()
-  queue_id: number;
+  queue_id: number
 
   @Column()
-  platform_id: string;
+  platform_id: string
 
   @Column()
-  game_mode: string;
+  game_mode: string
 
   @Column()
-  game_version: string;
+  game_version: string
 
   @Column()
-  game_type: string;
+  game_type: string
 
   @Column()
-  game_duration: number;
+  game_duration: number
 
   @Column()
-  game_creation: number;
+  game_creation: number
 
   @CreateDateColumn()
-  created_at: Date;
+  created_at: Date
 
   @UpdateDateColumn()
-  updated_at: Date;
+  updated_at: Date
 
   // Relations -> Matchlist, Participants
 }
 
-export default Match;
+export default Match

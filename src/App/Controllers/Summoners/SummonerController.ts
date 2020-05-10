@@ -8,7 +8,7 @@ const dedSec = new SecResponse()
 class SummonerController {
   public async store(request: Request, response: Response): Promise<object> {
     const create = new CreateSummonerService()
-    const { region, summonerName }: any =  request.query
+    const { region, summonerName }: any = request.query
 
     const summoner = await create.execute(summonerName, region)
 
@@ -16,7 +16,7 @@ class SummonerController {
     return response.json(res)
   }
 
-  public async show(request: Request, response: Response): Promise<object>  {
+  public async show(request: Request, response: Response): Promise<object> {
     const repository = new SummonerRepository()
     const { region, summonerName }: any = request.query
 
@@ -29,4 +29,4 @@ class SummonerController {
   public async update(): Promise<void> {}
 }
 
-export default SummonerController;
+export default SummonerController

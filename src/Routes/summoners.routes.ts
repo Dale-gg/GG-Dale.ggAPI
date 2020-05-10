@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
-import SummonerController from '../Controllers/Summoners/SummonerController'
-import SummonerFounder from '../Middlewares/SummonerFounder'
+import SummonerController from '../App/Controllers/Summoners/SummonerController'
+import SummonerFounder from '../App/Middlewares/SummonerFounder'
 
 const summonerRouter = Router()
 const Controller = new SummonerController()

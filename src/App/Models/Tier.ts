@@ -6,29 +6,29 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
-} from 'typeorm';
+} from 'typeorm'
 
 import Summoner from './Summoner'
 
 @Entity('tiers')
 class Tier {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: string
 
   @ManyToOne(() => Summoner)
   @JoinColumn({ name: 'summoner_id' })
-  summoner: Summoner;
+  summoner: Summoner
 
   @Column()
-  summoner_id: string;
+  summoner_id: string
 
   @CreateDateColumn()
-  created_at: Date;
+  created_at: Date
 
   @UpdateDateColumn()
-  updated_at: Date;
+  updated_at: Date
 
   // Relations -> Summoner
 }
 
-export default Tier;
+export default Tier

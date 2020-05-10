@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import { MigrationInterface, QueryRunner, Table } from 'typeorm'
 
 export default class CreateSummoner1588254910834 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -57,10 +57,10 @@ export default class CreateSummoner1588254910834 implements MigrationInterface {
           },
         ],
       }),
-    );
+    )
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('summoners');
+    await queryRunner.dropTable('summoners')
   }
 }

@@ -4,51 +4,51 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-} from 'typeorm';
+} from 'typeorm'
 
 @Entity('champions')
 class Champion {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: string
 
   @Column()
-  key: string;
+  key: string
 
   @Column()
-  name: string;
+  name: string
 
   @Column()
-  title: string;
+  title: string
 
-  @Column("varchar", {
+  @Column('varchar', {
     array: true,
-    default: ()=>'array[]::varchar[]',
-    nullable: true
+    default: () => 'array[]::varchar[]',
+    nullable: true,
   })
-  tags: string[];
+  tags: string[]
 
   @Column()
-  version: string;
+  version: string
 
   @Column()
-  image_full_url: string;
+  image_full_url: string
 
   @Column()
-  image_splash_url: string;
+  image_splash_url: string
 
   @Column()
-  image_loading_url: string;
+  image_loading_url: string
 
   @Column()
-  image_sprite_url: string;
+  image_sprite_url: string
 
   @CreateDateColumn()
-  created_at: Date;
+  created_at: Date
 
   @UpdateDateColumn()
-  updated_at: Date;
+  updated_at: Date
 
   // Relations -> Matchlist, Participant
 }
 
-export default Champion;
+export default Champion

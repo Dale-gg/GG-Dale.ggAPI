@@ -6,64 +6,64 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
-} from 'typeorm';
+} from 'typeorm'
 
-import Champion from './Champion';
-import Match from './Match';
+import Champion from './Champion'
+import Match from './Match'
 
 @Entity('participantlist')
 class Participantlist {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: string
 
   @ManyToOne(() => Champion)
   @JoinColumn({ name: 'champion_id' })
-  champion: Champion;
+  champion: Champion
 
   @Column()
-  champion_id: string;
+  champion_id: string
 
   @ManyToOne(() => Match)
   @JoinColumn({ name: 'match_id' })
-  match: Match;
+  match: Match
 
   @Column()
-  match_id: string;
+  match_id: string
 
   @Column()
-  team_id: number;
+  team_id: number
 
   @Column()
-  game_id: number;
+  game_id: number
 
   @Column()
-  account_id: string;
+  account_id: string
 
   @Column()
-  summoner_id: string;
+  summoner_id: string
 
   @Column()
-  summoner_name: string;
+  summoner_name: string
 
   @Column()
-  profile_icon: number;
+  profile_icon: number
 
   @Column()
-  participant_api_id: number;
+  participant_api_id: number
 
   @Column()
-  champion_key: number;
+  champion_key: number
 
   @Column()
-  highest_achieved_season_tier: string;
+  highest_achieved_season_tier: string
 
   @CreateDateColumn()
-  created_at: Date;
+  created_at: Date
 
   @UpdateDateColumn()
-  updated_at: Date;
+  updated_at: Date
 
   // Relations -> Match, Champion, Participant, Spells
 }
 
-export default Participantlist;
+export default Participantlist

@@ -1,10 +1,13 @@
-import { getRepository } from "typeorm"
-import Summoner from "../Models/Summoner"
+import { getRepository } from 'typeorm'
+import Summoner from '../Models/Summoner'
 import { LolApi } from '@jlenon7/zedjs/dist'
-import { Regions } from "@jlenon7/zedjs/dist/constants"
+import { Regions } from '@jlenon7/zedjs/dist/constants'
 
 class CreateSummonerService {
-  public async execute(summonerName: string, region: Regions) {
+  public async execute(
+    summonerName: string,
+    region: Regions,
+  ): Promise<Summoner> {
     const api = new LolApi()
     const repository = getRepository(Summoner)
 

@@ -13,41 +13,39 @@ const factory = new Factory()
 const region = 'br1'
 const summonerName = 'iLenon7'
 
-test.group('1 - Summoner', (group) => {
+test.group('1 - Summoner', group => {
   group.before(async () => {
-    connection = await createConnection('test-connection');
-    await connection.runMigrations();
-  });
+    connection = await createConnection('test-connection')
+    await connection.runMigrations()
+  })
 
   group.beforeEach(async () => {
-    await connection.query('DELETE FROM summoners');
-    await connection.query('DELETE FROM champions');
-  });
+    await connection.query('DELETE FROM summoners')
+    await connection.query('DELETE FROM champions')
+  })
 
   group.after(async () => {
-    await connection.dropDatabase();
-    const mainConnection = getConnection();
+    await connection.dropDatabase()
+    const mainConnection = getConnection()
 
-    await connection.close();
-    await mainConnection.close();
-  });
+    await connection.close()
+    await mainConnection.close()
+  })
 
-  test('A) it should create a summoner', async (assert) => {
+  test('A) it should create a summoner', async assert => {
     const api = new LolApi()
     const { data } = await api.DataDragon.getChampion()
 
-    const promises = [];
+    const promises = []
     for (const champion in data) {
-      promises.push(
-        factory.Champion(data[champion])
-      )
+      promises.push(factory.Champion(data[champion]))
     }
     await Promise.all(promises)
 
-    const response = await request(app).post(`${process.env.APP_PREFIX}/summoners?region=${region}&summonerName=${summonerName}`)
+    const response = await request(app).post(
+      `${process.env.APP_PREFIX}/summoners?region=${region}&summonerName=${summonerName}`,
+    )
 
     assert.exists(response.body.data.summoner_name)
   }).timeout(30000)
 })
-
-

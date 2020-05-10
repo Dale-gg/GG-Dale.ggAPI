@@ -6,47 +6,47 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
-} from 'typeorm';
+} from 'typeorm'
 
-import Tree from './Tree';
+import Tree from './Tree'
 
 @Entity('runes')
 class Rune {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: string
 
   @ManyToOne(() => Tree)
   @JoinColumn({ name: 'tree_id' })
-  tree: Tree;
+  tree: Tree
 
   @Column()
-  tree_id: string;
+  tree_id: string
 
   @Column()
-  id_api: number;
+  id_api: number
 
   @Column()
-  key: string;
+  key: string
 
   @Column()
-  icon: string;
+  icon: string
 
   @Column()
-  name: string;
+  name: string
 
   @Column()
-  shortDesc: string;
+  shortDesc: string
 
   @Column()
-  longDesc: string;
+  longDesc: string
 
   @CreateDateColumn()
-  created_at: Date;
+  created_at: Date
 
   @UpdateDateColumn()
-  updated_at: Date;
+  updated_at: Date
 
   // Relations -> Tree
 }
 
-export default Rune;
+export default Rune

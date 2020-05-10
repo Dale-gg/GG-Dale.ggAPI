@@ -4,18 +4,18 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-} from 'typeorm';
+} from 'typeorm'
 
 @Entity('summoners')
 class Summoner {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: string
 
   @Column()
-  account_id: string;
+  account_id: string
 
   @Column()
-  summoner_id: string;
+  summoner_id: string
 
   @Column()
   puuid: string
@@ -36,12 +36,12 @@ class Summoner {
   revision_date: Date
 
   @CreateDateColumn()
-  created_at: Date;
+  created_at: Date
 
   @UpdateDateColumn()
-  updated_at: Date;
+  updated_at: Date
 
   // Relations -> Tiers, Matchs
 }
 
-export default Summoner;
+export default Summoner
