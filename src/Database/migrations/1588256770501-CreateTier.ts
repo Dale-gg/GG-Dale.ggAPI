@@ -1,4 +1,9 @@
-import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm';
+import {
+  MigrationInterface,
+  QueryRunner,
+  Table,
+  TableForeignKey,
+} from 'typeorm'
 
 export default class CreateTier1588256770501 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -82,7 +87,7 @@ export default class CreateTier1588256770501 implements MigrationInterface {
           },
         ],
       }),
-    );
+    )
 
     await queryRunner.createForeignKey(
       'tiers',
@@ -94,10 +99,10 @@ export default class CreateTier1588256770501 implements MigrationInterface {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       }),
-    );
+    )
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('tiers');
+    await queryRunner.dropTable('tiers')
   }
 }

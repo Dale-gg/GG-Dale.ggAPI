@@ -1,9 +1,9 @@
-import { Router } from 'express';
+import { Router } from 'express'
 
-import summoners from './summoners.routes';
+import summoners from './summoners.routes'
 
-const routes = Router();
+const routes = Router()
 
-routes.use('/gg/v1/summoners', summoners);
+routes.use(`${process.env.APP_PREFIX}/summoners`, summoners)
 
-export default routes;
+export default routes

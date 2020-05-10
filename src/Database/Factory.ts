@@ -6,8 +6,8 @@ import Summoner from '../App/Models/Summoner'
 import Champion from '../App/Models/Champion'
 
 export default class Factory implements IFactory {
-  public async Summoner (data: ISummoner = {}): Promise<void> {
-    const repository = getRepository(Summoner);
+  public async Summoner(data: ISummoner = {}): Promise<void> {
+    const repository = getRepository(Summoner)
 
     const summoner = repository.create({
       account_id: faker.random.uuid(),
@@ -24,10 +24,13 @@ export default class Factory implements IFactory {
     await repository.save(summoner)
   }
 
-  public async ManySummoners (value: number, data: ISummoner = {}): Promise<void> {
-    const repository = getRepository(Summoner);
+  public async ManySummoners(
+    value: number,
+    data: ISummoner = {},
+  ): Promise<void> {
+    const repository = getRepository(Summoner)
 
-    for (let i=1; i<=value; i++) {
+    for (let i = 1; i <= value; i++) {
       const summoner = repository.create({
         account_id: faker.random.uuid(),
         summoner_id: faker.random.uuid(),
@@ -42,8 +45,8 @@ export default class Factory implements IFactory {
     }
   }
 
-  public async Champion (data: IChampion): Promise<void> {
-    const repository = getRepository(Champion);
+  public async Champion(data: IChampion): Promise<void> {
+    const repository = getRepository(Champion)
 
     const champion = repository.create({
       name: data.name,

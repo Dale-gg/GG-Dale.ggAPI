@@ -3,7 +3,11 @@ import Summoner from '../Models/Summoner'
 import { getRepository } from 'typeorm'
 
 class SummonerFounder {
-  public async handle(request: Request, response: Response, next: NextFunction): Promise<void> {
+  public async handle(
+    request: Request,
+    response: Response,
+    next: NextFunction,
+  ): Promise<void> {
     const { region, summonerName } = request.query
     const summonerRepository = getRepository(Summoner)
 
@@ -12,7 +16,9 @@ class SummonerFounder {
     })
 
     if (summoner) {
-      return response.redirect(`/gg/v1/summoners?region=${region}&summonerName=${summonerName}`)
+      return response.redirect(
+        `${process.env.APP_PREFIX}/summoners?region=${region}&summonerName=${summonerName}`,
+      )
     }
 
     return next()

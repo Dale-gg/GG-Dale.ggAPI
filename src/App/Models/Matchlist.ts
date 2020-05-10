@@ -7,61 +7,61 @@ import {
   ManyToOne,
   JoinColumn,
   OneToOne,
-} from 'typeorm';
+} from 'typeorm'
 
-import Summoner from './Summoner';
-import Champion from './Champion';
+import Summoner from './Summoner'
+import Champion from './Champion'
 
 @Entity('matchlists')
 class Matchlist {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: string
 
   @ManyToOne(() => Summoner)
   @JoinColumn({ name: 'summoner_id' })
-  summoner: Summoner;
+  summoner: Summoner
 
   @Column()
-  summoner_id: string;
+  summoner_id: string
 
   @OneToOne(() => Champion)
   @JoinColumn({ name: 'champion_id' })
-  champion: Champion;
+  champion: Champion
 
   @Column()
-  champion_id: string;
+  champion_id: string
 
   @Column()
-  champion_key: string;
+  champion_key: string
 
   @Column()
-  game_id: string;
+  game_id: string
 
   @Column()
-  platform_id: string;
+  platform_id: string
 
   @Column()
-  lane: string;
+  lane: string
 
   @Column()
-  queue: number;
+  queue: number
 
   @Column()
-  role: string;
+  role: string
 
   @Column()
-  timestamp: number;
+  timestamp: number
 
   @Column()
-  season: number;
+  season: number
 
   @CreateDateColumn()
-  created_at: Date;
+  created_at: Date
 
   @UpdateDateColumn()
-  updated_at: Date;
+  updated_at: Date
 
   // Relations -> Summoner, Champion, Match
 }
 
-export default Matchlist;
+export default Matchlist

@@ -8,112 +8,112 @@ import {
   JoinColumn,
   ManyToMany,
   JoinTable,
-} from 'typeorm';
+} from 'typeorm'
 
-import Participantlist from './Participantlist';
-import Spell from './Spell';
+import Participantlist from './Participantlist'
+import Spell from './Spell'
 
 @Entity('participants')
 class Participant {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: string
 
   @ManyToOne(() => Participantlist)
   @JoinColumn({ name: 'participantlist_id' })
-  participantlist: Participantlist;
+  participantlist: Participantlist
 
   @ManyToMany(() => Spell)
   @JoinTable()
   spells: Spell[]
 
   @Column()
-  participantlist_id: string;
+  participantlist_id: string
 
   @Column()
-  participant_api_id: number;
+  participant_api_id: number
 
   @Column()
-  kills: number;
+  kills: number
 
   @Column()
-  deaths: number;
+  deaths: number
 
   @Column()
-  assists: number;
+  assists: number
 
   @Column()
-  win: boolean;
+  win: boolean
 
   @Column()
-  double_kills: number;
+  double_kills: number
 
   @Column()
-  triple_kills: number;
+  triple_kills: number
 
   @Column()
-  quadra_kills: number;
+  quadra_kills: number
 
   @Column()
-  penta_kills: number;
+  penta_kills: number
 
   @Column()
-  champ_level: number;
+  champ_level: number
 
   @Column()
-  turret_kills: number;
+  turret_kills: number
 
   @Column()
-  gold_earned: number;
+  gold_earned: number
 
   @Column()
-  cs: number;
+  cs: number
 
   @Column()
-  perk0: number;
+  perk0: number
 
   @Column()
-  perk1: number;
+  perk1: number
 
   @Column()
-  perk2: number;
+  perk2: number
 
   @Column()
-  perk3: number;
+  perk3: number
 
   @Column()
-  perk4: number;
+  perk4: number
 
   @Column()
-  perk5: number;
+  perk5: number
 
   @Column()
-  item0: number;
+  item0: number
 
   @Column()
-  item1: number;
+  item1: number
 
   @Column()
-  item2: number;
+  item2: number
 
   @Column()
-  item3: number;
+  item3: number
 
   @Column()
-  item4: number;
+  item4: number
 
   @Column()
-  item5: number;
+  item5: number
 
   @Column()
-  item6: number;
+  item6: number
 
   @CreateDateColumn()
-  created_at: Date;
+  created_at: Date
 
   @UpdateDateColumn()
-  updated_at: Date;
+  updated_at: Date
 
   // Relations -> Participantlist
 }
 
-export default Participant;
+export default Participant

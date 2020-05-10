@@ -4,44 +4,44 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-} from 'typeorm';
+} from 'typeorm'
 
 @Entity('spells')
 class Spell {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: string
 
   @Column()
-  name: string;
+  name: string
 
   @Column()
-  key: number;
+  key: number
 
   @Column()
-  spell_dd: string;
+  spell_dd: string
 
   @Column()
-  description: string;
+  description: string
 
   @Column()
-  group: string;
+  group: string
 
   @Column()
-  modes: string;
+  modes: string
 
   @Column()
-  image_full_url: string;
+  image_full_url: string
 
   @Column()
-  image_sprite_url: string;
+  image_sprite_url: string
 
   @CreateDateColumn()
-  created_at: Date;
+  created_at: Date
 
   @UpdateDateColumn()
-  updated_at: Date;
+  updated_at: Date
 
   // Relations -> Participants
 }
 
-export default Spell;
+export default Spell

@@ -4,32 +4,32 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-} from 'typeorm';
+} from 'typeorm'
 
 @Entity('trees')
 class Tree {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: string
 
   @Column()
-  id_api: number;
+  id_api: number
 
   @Column()
-  key: string;
+  key: string
 
   @Column()
-  icon: string;
+  icon: string
 
   @Column()
-  name: string;
+  name: string
 
   @CreateDateColumn()
-  created_at: Date;
+  created_at: Date
 
   @UpdateDateColumn()
-  updated_at: Date;
+  updated_at: Date
 
   // Relations -> Runes
 }
 
-export default Tree;
+export default Tree
