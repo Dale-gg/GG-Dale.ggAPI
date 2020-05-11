@@ -19,7 +19,7 @@ export default class Factory implements IFactory {
       puuid: faker.random.uuid(),
       revision_date: faker.random.number(),
       region: data.region || 'br1',
-      summoner_name: data.summonerName || 'iLenon7',
+      summoner_name: data.summoner_name || 'iLenon7',
       ...data,
     })
 
@@ -39,7 +39,7 @@ export default class Factory implements IFactory {
         puuid: faker.random.uuid(),
         revision_date: faker.random.number(),
         region: `${data.region}:${value}` || `br1:${value}`,
-        summoner_name: `${data.summonerName}:${value}` || `'iLenon7:${value}'`,
+        summoner_name: `${data.summoner_name}:${value}` || `'iLenon7:${value}'`,
         ...data,
       })
 
