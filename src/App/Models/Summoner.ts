@@ -33,7 +33,7 @@ class Summoner {
   region: string
 
   @Column()
-  revision_date: Date
+  revision_date: number
 
   @CreateDateColumn()
   created_at: Date
