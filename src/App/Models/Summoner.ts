@@ -1,3 +1,5 @@
+import { ISummonerObject } from '../../@types/ISummoner'
+
 import {
   Entity,
   Column,
@@ -7,7 +9,7 @@ import {
 } from 'typeorm'
 
 @Entity('summoners')
-class Summoner {
+class Summoner implements ISummonerObject {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
@@ -33,7 +35,7 @@ class Summoner {
   region: string
 
   @Column()
-  revision_date: Date
+  revision_date: number | Date
 
   @CreateDateColumn()
   created_at: Date

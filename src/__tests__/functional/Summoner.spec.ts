@@ -59,7 +59,7 @@ test.group('1 - Summoner', group => {
     }
     await Promise.all(promises)
 
-    await factory.Summoner({ summonerName: 'iLenon7', region: 'br1' })
+    await factory.Summoner({ summoner_name: 'iLenon7', region: 'br1' })
 
     const response = await request(app).get(
       `${process.env.APP_PREFIX}/summoners?region=${region}&summonerName=${summonerName}`,

@@ -65,7 +65,7 @@ Libs and Utils
 
 - [ZedJS](https://github.com/Dale-gg/dale.gg)
 - [Docker](https://www.docker.com/)
-- [Makebase](https://github.com/makeproteam/makebase)
+- [dedSec](https://github.com/jlenon7/dedSec)
 
 ## 💻 Project
 

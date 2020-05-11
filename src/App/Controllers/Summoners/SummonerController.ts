@@ -1,13 +1,15 @@
 import { Request, Response } from 'express'
 import { SecResponse } from '@jlenon7/dedsec/build/Responses'
 import CreateSummonerService from '../../Services/CreateSummonerService'
+import CreateTierService from '../../Services/CreateTierService'
 import SummonerRepository from '../../Repositories/SummonerRepository'
 
 const dedSec = new SecResponse()
+const create = new CreateSummonerService()
+const tier = new CreateTierService(create)
 
 class SummonerController {
   public async store(request: Request, response: Response): Promise<object> {
-    const create = new CreateSummonerService()
     const { region, summonerName }: any = request.query
 
     const summoner = await create.execute(summonerName, region)

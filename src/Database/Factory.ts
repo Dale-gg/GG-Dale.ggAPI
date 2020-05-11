@@ -1,7 +1,9 @@
 import faker from 'faker'
 import { getRepository } from 'typeorm'
 
-import { IFactory, IChampion, ISummoner } from './Types'
+import IFactory from '../@types/IFactory'
+import ISummoner from '../@types/ISummoner'
+import IChampion from '../@types/IChampion'
 import Summoner from '../App/Models/Summoner'
 import Champion from '../App/Models/Champion'
 
@@ -15,9 +17,9 @@ export default class Factory implements IFactory {
       profile_icon: faker.random.number(),
       summoner_level: faker.random.number(),
       puuid: faker.random.uuid(),
-      revision_date: faker.date.recent(),
+      revision_date: faker.random.number(),
       region: data.region || 'br1',
-      summoner_name: data.summonerName || 'iLenon7',
+      summoner_name: data.summoner_name || 'iLenon7',
       ...data,
     })
 
@@ -35,9 +37,9 @@ export default class Factory implements IFactory {
         account_id: faker.random.uuid(),
         summoner_id: faker.random.uuid(),
         puuid: faker.random.uuid(),
-        revision_date: faker.date.recent(),
+        revision_date: faker.random.number(),
         region: `${data.region}:${value}` || `br1:${value}`,
-        summoner_name: `${data.summonerName}:${value}` || `'iLenon7:${value}'`,
+        summoner_name: `${data.summoner_name}:${value}` || `'iLenon7:${value}'`,
         ...data,
       })
 

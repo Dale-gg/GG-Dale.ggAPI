@@ -2,16 +2,20 @@ import { getRepository } from 'typeorm'
 import Summoner from '../Models/Summoner'
 import { LolApi } from '@jlenon7/zedjs/dist'
 import { Regions } from '@jlenon7/zedjs/dist/constants'
+import { ISubject, IObserver } from '../../@types/IObserver'
 
-class CreateSummonerService {
-  public async execute(
-    summonerName: string,
-    region: Regions,
-  ): Promise<Summoner> {
+class CreateSummonerService implements ISubject {
+  private observers: IObserver[] = []
+  private summoner: Summoner
+
+  public async execute(sname: string, region: Regions): Promise<Summoner> {
     const api = new LolApi()
     const repository = getRepository(Summoner)
 
-    const { response: S } = await api.Summoner.getByName(summonerName, region)
+    const { response: S }: any = await api.Summoner.getByName(sname, region)
+
+    this.summoner = S
+    this.notifyObservers()
 
     const summoner = repository.create({
       summoner_id: S.id,
@@ -27,6 +31,21 @@ class CreateSummonerService {
     await repository.save(summoner)
 
     return summoner
+  }
+
+  registerObserver(o: IObserver): void {
+    this.observers.push(o)
+  }
+
+  removeObserver(o: IObserver): void {
+    const index = this.observers.indexOf(o)
+    this.observers.splice(index, 1)
+  }
+
+  notifyObservers(): void {
+    for (const observer of this.observers) {
+      observer.updateSummoner(this.summoner)
+    }
   }
 }
 
