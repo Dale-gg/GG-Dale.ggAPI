@@ -1,3 +1,5 @@
+import { IChampionObject } from '../../@types/IChampion'
+
 import {
   Entity,
   Column,
@@ -7,15 +9,15 @@ import {
 } from 'typeorm'
 
 @Entity('champions')
-class Champion {
+class Champion implements IChampionObject {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
   @Column()
-  key: string
+  name: string
 
   @Column()
-  name: string
+  key: string
 
   @Column()
   title: string
