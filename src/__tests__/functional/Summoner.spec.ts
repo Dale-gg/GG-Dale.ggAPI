@@ -1,10 +1,10 @@
 import createConnection from '../../Database'
-import Factory from '../../Database/Factory'
+import Factory from '../../Database/factory'
 import { Connection, getConnection } from 'typeorm'
 import { LolApi } from '@jlenon7/zedjs'
 
 import test from 'japa'
-import app from '../../app'
+import app from '../../server'
 import request from 'supertest'
 
 let connection: Connection

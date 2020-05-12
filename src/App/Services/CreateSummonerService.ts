@@ -3,6 +3,7 @@ import Summoner from '../Models/Summoner'
 import { LolApi } from '@jlenon7/zedjs/dist'
 import { Regions } from '@jlenon7/zedjs/dist/constants'
 import { ISubject, IObserver } from '../../@types/IObserver'
+import AppError from '../Errors/AppError'
 
 class CreateSummonerService implements ISubject {
   private observers: IObserver[] = []
@@ -12,25 +13,29 @@ class CreateSummonerService implements ISubject {
     const api = new LolApi()
     const repository = getRepository(Summoner)
 
-    const { response: S }: any = await api.Summoner.getByName(sname, region)
+    try {
+      const { response: S }: any = await api.Summoner.getByName(sname, region)
 
-    this.summoner = S
-    this.notifyObservers()
+      this.summoner = S
+      this.notifyObservers()
 
-    const summoner = repository.create({
-      summoner_id: S.id,
-      account_id: S.accountId,
-      puuid: S.puuid,
-      summoner_name: S.name,
-      profile_icon: S.profileIconId,
-      revision_date: S.revisionDate,
-      summoner_level: S.summonerLevel,
-      region,
-    })
+      const summoner = repository.create({
+        summoner_id: S.id,
+        account_id: S.accountId,
+        puuid: S.puuid,
+        summoner_name: S.name,
+        profile_icon: S.profileIconId,
+        revision_date: S.revisionDate,
+        summoner_level: S.summonerLevel,
+        region,
+      })
 
-    await repository.save(summoner)
+      await repository.save(summoner)
 
-    return summoner
+      return summoner
+    } catch (error) {
+      throw new AppError(error, 400)
+    }
   }
 
   registerObserver(o: IObserver): void {
