@@ -6,7 +6,7 @@ export default interface ISummoner {
   summoner_name?: string
   summoner_level?: number
   region?: string
-  revision_date?: number | Date
+  revision_date?: number
 }
 
 export interface ISummonerObject {
@@ -18,7 +18,7 @@ export interface ISummonerObject {
   summoner_name: string
   summoner_level: number
   region: string
-  revision_date: number | Date
+  revision_date: number
   created_at: Date
   updated_at: Date
 }
