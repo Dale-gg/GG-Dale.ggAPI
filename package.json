@@ -8,8 +8,9 @@
     "dev:server": "ts-node-dev --inspect --transpileOnly --ignore-watch node_modules src/server.ts",
     "start": "ts-node src/index.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
-    "test": "cross-env NODE_ENV=test node japaFile.js",
-    "test:summoner": "yarn ts-node src/__tests__/functional/Summoner.spec.ts --env=testing",
+    "test": "cross-env NODE_ENV=testing node japaFile.js",
+    "test:summoner": "cross-env NODE_ENV=testing yarn ts-node src/__tests__/functional/Summoner.spec.ts",
+    "test:unit": "cross-env NODE_ENV=unitTesting yarn ts-node src/__tests__/unit/*.ts",
     "lint": "eslint ./src --ext=.ts",
     "lint:fix": "eslint ./src --fix --ext=.ts"
   },
