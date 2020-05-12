@@ -1,16 +1,9 @@
 import 'reflect-metadata'
 
-import express, {
-  Request,
-  Response,
-  NextFunction,
-  Application,
-  Router,
-} from 'express'
+import express, { Request, Response, NextFunction, Application } from 'express'
 import 'express-async-errors'
 
 import AppError from './App/Errors/AppError'
-
 import createConnection from './Database'
 
 import IApp from './@types/IApp'
@@ -20,20 +13,19 @@ class App implements IApp {
   public port: number
   public database: boolean
   public routes: []
-  public router: Router
 
-  constructor(appConfig: { routes: any; port: any; database: boolean }) {
+  constructor(appConfig: { port: any; routes: any; database: boolean }) {
     this.app = express()
     this.port = appConfig.port
-    this.router = Router()
-    this.routes = appConfig.routes
     this.database = appConfig.database
+    this.routes = appConfig.routes
+    this.createApp()
     this.eHandler()
   }
 
   public createApp(): void {
     this.app.use(express.json())
-    this.router.use(this.routes)
+    this.app.use(this.routes)
     this.database ? this.createDatabase() : this.mochaDb()
     this.app.listen(this.port, () =>
       process.env.NODE_ENV === 'testing'
@@ -50,7 +42,7 @@ class App implements IApp {
     console.log('Mocking database for unit tests! 🤯')
   }
 
-  private eHandler(): void {
+  public eHandler(): void {
     this.app.use(
       (err: Error, request: Request, response: Response, _: NextFunction) => {
         if (err instanceof AppError) {
