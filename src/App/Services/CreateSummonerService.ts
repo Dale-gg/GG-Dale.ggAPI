@@ -34,7 +34,17 @@ class CreateSummonerService implements ISubject {
 
       return summoner
     } catch (error) {
-      throw new AppError(error, 400)
+      if (error.status === 404) {
+        throw new AppError(
+          `Summoner ${sname} not found in region ${region}`,
+          404,
+        )
+      }
+
+      throw new AppError(
+        'Riot services are current offline, please try again later',
+        403,
+      )
     }
   }
 
