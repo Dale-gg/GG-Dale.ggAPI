@@ -1,5 +1,5 @@
 import 'reflect-metadata'
-import 'dotenv/config'
+import * as dotenv from 'dotenv'
 
 import express, { Request, Response, NextFunction } from 'express'
 import 'express-async-errors'
@@ -8,6 +8,20 @@ import routes from './Routes'
 import AppError from './App/Errors/AppError'
 
 import createConnection from './Database'
+
+dotenv.config()
+let path
+switch (process.env.NODE_ENV) {
+  case 'testing':
+    path = `${__dirname}/../../.env.testing`
+    break
+  case 'unitTesting':
+    path = `${__dirname}/../../.env.testing`
+    break
+  default:
+    path = `${__dirname}/../../.env`
+}
+dotenv.config({ path: path })
 
 createConnection()
 const app = express()
