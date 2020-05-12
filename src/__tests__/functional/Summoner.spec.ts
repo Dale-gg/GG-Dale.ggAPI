@@ -1,5 +1,5 @@
 import createConnection from '../../Database'
-import Factory from '../../Database/Factory'
+import Factory from '../../Database/factory'
 import { Connection, getConnection } from 'typeorm'
 import { LolApi } from '@jlenon7/zedjs'
 
