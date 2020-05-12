@@ -1,7 +1,8 @@
 import App from './bootstrap.app'
-import routes from './Routes'
-
 import * as dotenv from 'dotenv'
+import Routes from './Routes'
+
+const endpoints = new Routes()
 
 dotenv.config()
 let path
@@ -18,9 +19,9 @@ switch (process.env.NODE_ENV) {
 dotenv.config({ path: path })
 
 const app = new App({
-  routes: routes,
   port: process.env.PORT || 3333,
+  routes: endpoints.router,
   database: process.env.NODE_ENV !== 'unitTesting',
 })
 
-export default app.createApp()
+export default app.app
