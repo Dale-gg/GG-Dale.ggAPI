@@ -4,6 +4,7 @@ import SummonerController from '../App/Controllers/Summoners/SummonerController'
 import SummonerFounder from '../App/Middlewares/SummonerFounder'
 
 const summonerRouter = Router()
+
 const Controller = new SummonerController()
 const Founder = new SummonerFounder()
 
