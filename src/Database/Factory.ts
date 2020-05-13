@@ -2,13 +2,13 @@ import faker from 'faker'
 import { getRepository } from 'typeorm'
 
 import IFactory from '../@types/IFactory'
-import ISummoner from '../@types/ISummoner'
+import ISummoner, { ISummonerObject } from '../@types/ISummoner'
 import IChampion from '../@types/IChampion'
 import Summoner from '../App/Models/Summoner'
 import Champion from '../App/Models/Champion'
 
 export default class Factory implements IFactory {
-  public async Summoner(data: ISummoner = {}): Promise<void> {
+  public async Summoner(data: ISummoner = {}): Promise<ISummonerObject> {
     const repository = getRepository(Summoner)
 
     const summoner = repository.create({
@@ -24,6 +24,8 @@ export default class Factory implements IFactory {
     })
 
     await repository.save(summoner)
+
+    return summoner
   }
 
   public async ManySummoners(
