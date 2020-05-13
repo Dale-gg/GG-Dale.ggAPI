@@ -1,34 +1,37 @@
 import { getRepository } from 'typeorm'
 import Summoner from '../Models/Summoner'
 import { LolApi } from '@jlenon7/zedjs/dist'
-import { Regions } from '@jlenon7/zedjs/dist/constants'
 import { ISubject, IObserver } from '../../@types/IObserver'
 import AppError from '../Errors/AppError'
 
-class CreateSummonerService implements ISubject {
+class UpdateSummonerService implements ISubject {
   private observers: IObserver[] = []
   private summoner: Summoner
 
-  public async execute(sname: string, region: Regions): Promise<Summoner> {
+  public async execute(id: string): Promise<Summoner> {
     const api = new LolApi()
     const repository = getRepository(Summoner)
 
+    const summoner: any = await repository.findOneOrFail({
+      where: { id: id },
+    })
+
     try {
-      const { response: S }: any = await api.Summoner.getByName(sname, region)
+      const { response: S }: any = await api.Summoner.getById(
+        summoner.summoner_id,
+        summoner.region,
+      )
 
       this.summoner = S
       this.notifyObservers()
 
-      const summoner = repository.create({
-        summoner_id: S.id,
-        account_id: S.accountId,
-        puuid: S.puuid,
-        summoner_name: S.name,
-        profile_icon: S.profileIconId,
-        revision_date: S.revisionDate,
-        summoner_level: S.summonerLevel,
-        region,
-      })
+      summoner.summoner_id = S.id
+      summoner.account_id = S.accountId
+      summoner.puuid = S.puuid
+      summoner.summoner_name = S.name
+      summoner.profile_icon = S.profileIconId
+      summoner.revision_date = S.revisionDate
+      summoner.summoner_level = S.summonerLevel
 
       await repository.save(summoner)
 
@@ -36,7 +39,7 @@ class CreateSummonerService implements ISubject {
     } catch (error) {
       if (error.status === 404) {
         throw new AppError(
-          `Summoner ${sname} not found in region ${region}`,
+          `Summoner of ID ${summoner.summoner_id} not found in region ${summoner.region}`,
           404,
         )
       }
@@ -64,4 +67,4 @@ class CreateSummonerService implements ISubject {
   }
 }
 
-export default CreateSummonerService
+export default UpdateSummonerService

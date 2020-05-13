@@ -13,13 +13,14 @@ class SummonerRepository extends Repository<Summoner> {
     const repository = getRepository(Summoner)
 
     const summoner = await repository.findOne({
-      where: { region, summonerName },
+      where: {
+        region: region,
+        summoner_name: summonerName,
+      },
     })
 
     if (!summoner) {
-      throw new AppError(
-        'Summoner not found in database, I really dont know how you get here!',
-      )
+      throw new AppError('Summoner not found in database')
     }
 
     return summoner

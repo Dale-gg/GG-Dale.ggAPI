@@ -35,7 +35,7 @@ class Summoner implements ISummonerObject {
   region: string
 
   @Column()
-  revision_date: number | Date
+  revision_date: number
 
   @CreateDateColumn()
   created_at: Date

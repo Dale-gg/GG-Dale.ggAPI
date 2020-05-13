@@ -1,5 +1,4 @@
 .idea/
-.vscode/
 node_modules/
 build/
 temp/
@@ -7,3 +6,4 @@ temp/
 tmp/*
 !tmp/.gitkeep
 .env
+.env.testing

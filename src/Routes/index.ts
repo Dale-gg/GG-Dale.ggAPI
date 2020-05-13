@@ -2,8 +2,15 @@ import { Router } from 'express'
 
 import summoners from './summoners.routes'
 
-const routes = Router()
+export default class Routes {
+  public router = Router()
+  public path = process.env.APP_PREFIX
 
-routes.use(`${process.env.APP_PREFIX}/summoners`, summoners)
+  constructor() {
+    this.setupRoutes()
+  }
 
-export default routes
+  public setupRoutes(): any {
+    this.router.use(`${this.path}/summoners`, summoners)
+  }
+}

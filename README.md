@@ -6,16 +6,16 @@
   🚀 Dale.gg 🎮
 </h4>
 <p align="center">
-  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/Dale-gg/dale.gg?style=for-the-badge&logo=appveyor">
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/Dale-gg/GG-Dale.ggAPI?style=for-the-badge&logo=appveyor">
 
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/Dale-gg/dale.gg?style=for-the-badge&logo=appveyor">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/Dale-gg/GG-Dale.ggAPI?style=for-the-badge&logo=appveyor">
 
-  <a href="https://github.com/Dale-gg/dale.gg/commits/master">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/Dale-gg/dale.gg?style=for-the-badge&logo=appveyor">
+  <a href="https://github.com/Dale-gg/GG-Dale.ggAPI/commits/master">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/Dale-gg/GG-Dale.ggAPI?style=for-the-badge&logo=appveyor">
   </a>
 
-  <a href="https://github.com/Dale-gg/dale.gg/issues">
-    <img alt="Repository issues" src="https://img.shields.io/github/issues/Dale-gg/dale.gg?style=for-the-badge&logo=appveyor">
+  <a href="https://github.com/Dale-gg/GG-Dale.ggAPI/issues">
+    <img alt="Repository issues" src="https://img.shields.io/github/issues/Dale-gg/GG-Dale.ggAPI?style=for-the-badge&logo=appveyor">
   </a>
 
   <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen?style=for-the-badge&logo=appveyor">
@@ -92,8 +92,8 @@ After the merge of your pull request is done, you can delete your branch.
 
 ## 📝 License
 
-This project is under the MIT license. See the [LICENSE](LICENSE.md) for more details.
+This project is under the MIT license. See the [LICENSE](LICENSE) for more details.
 
 ---
 
-Made with 🖤 by [jlenon7](https://github.com/jlenon7) :wave:
+Made with 🖤 by [jlenon7](https://github.com/jlenon7) & [Adryell](https://github.com/adryell) :wave:
