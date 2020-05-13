@@ -23,7 +23,7 @@ class SummonerController {
 
     const summoner = await create.execute(summonerName, region)
 
-    const res = dedSec.withOne(summoner, 'Summoner founded')
+    const res = dedSec.withOne(summoner, 'Summoner registered')
     return response.json(res)
   }
 
