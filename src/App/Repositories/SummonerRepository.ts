@@ -17,9 +17,7 @@ class SummonerRepository extends Repository<Summoner> {
     })
 
     if (!summoner) {
-      throw new AppError(
-        'Summoner not found in database, I really dont know how you get here!',
-      )
+      throw new AppError('Summoner not found in database!')
     }
 
     return summoner
