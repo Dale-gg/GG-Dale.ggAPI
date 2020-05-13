@@ -1,6 +1,7 @@
 import 'reflect-metadata'
 
 import express, { Request, Response, NextFunction, Application } from 'express'
+import { SecResponse } from '@jlenon7/dedsec/build/Responses'
 import 'express-async-errors'
 
 import AppError from './App/Errors/AppError'
@@ -13,12 +14,14 @@ class App implements IApp {
   public port: number
   public database: boolean
   public routes: []
+  public dedsec: SecResponse
 
   constructor(appConfig: { port: any; routes: any; database: boolean }) {
     this.app = express()
     this.port = appConfig.port
     this.database = appConfig.database
     this.routes = appConfig.routes
+    this.dedsec = new SecResponse()
     this.createApp()
     this.eHandler()
   }
@@ -46,20 +49,23 @@ class App implements IApp {
     this.app.use(
       (err: Error, request: Request, response: Response, _: NextFunction) => {
         if (err instanceof AppError) {
-          return response.status(err.statusCode).json({
-            status: 'error',
-            message: err.message,
-          })
+          const res = this.dedsec.withError(
+            err.dataObj,
+            err.message,
+            err.name,
+            err.statusCode,
+          )
+
+          return response.status(err.statusCode).json(res)
         }
 
         if (
           process.env.NODE_ENV === 'testing' ||
           process.env.NODE_ENV === 'development'
         ) {
-          return response.status(500).json({
-            status: 'error',
-            message: err.message,
-          })
+          const res = this.dedsec.withError({}, err.message)
+
+          return response.status(500).json(res)
         }
 
         return response.status(500).json({
