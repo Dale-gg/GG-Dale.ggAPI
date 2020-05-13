@@ -10,6 +10,6 @@ const Founder = new SummonerFounder()
 
 summonerRouter.get('/', Controller.show)
 summonerRouter.post('/', Founder.handle, Controller.store)
-summonerRouter.put('/', Controller.update)
+summonerRouter.put('/:id', Controller.update)
 
 export default summonerRouter
