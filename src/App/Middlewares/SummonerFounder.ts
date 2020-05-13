@@ -12,7 +12,10 @@ class SummonerFounder {
     const summonerRepository = getRepository(Summoner)
 
     const summoner = await summonerRepository.findOne({
-      where: { region, summonerName },
+      where: {
+        region: region,
+        summoner_name: summonerName,
+      },
     })
 
     if (summoner) {
