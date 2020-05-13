@@ -1,14 +1,23 @@
 import { Request, Response } from 'express'
 import { SecResponse } from '@jlenon7/dedsec/build/Responses'
 import CreateSummonerService from '../../Services/CreateSummonerService'
-import CreateTierService from '../../Services/CreateTierService'
+import UpdateSummonerService from '../../Services/UpdateSummonerService'
 import SummonerRepository from '../../Repositories/SummonerRepository'
+import TierService from '../../Services/Observers/TierService'
+import MatchService from '../../Services/Observers/MatchService'
 
 const dedSec = new SecResponse()
 const create = new CreateSummonerService()
-const tier = new CreateTierService(create)
+const update = new UpdateSummonerService()
 
 class SummonerController {
+  constructor() {
+    new TierService(create)
+    new TierService(update)
+    new MatchService(create)
+    new MatchService(update)
+  }
+
   public async store(request: Request, response: Response): Promise<object> {
     const { region, summonerName }: any = request.query
 
@@ -28,7 +37,14 @@ class SummonerController {
     return response.json(res)
   }
 
-  public async update(): Promise<void> {}
+  public async update(request: Request, response: Response): Promise<object> {
+    const { id }: any = request.params
+
+    const summoner = await update.execute(id)
+
+    const res = dedSec.withOne(summoner, 'Summoner founded')
+    return response.json(res)
+  }
 }
 
 export default SummonerController
