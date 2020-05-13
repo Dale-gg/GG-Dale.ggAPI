@@ -1,15 +1,19 @@
 import { Router } from 'express'
 
-import SummonerController from '../App/Controllers/Summoners/SummonerController'
+import ShowValidate from '../App/Validators/ShowSummoner'
+import StoreValidate from '../App/Validators/StoreSummoner'
+import UpdateValidate from '../App/Validators/UpdateSummoner'
+
 import SummonerFounder from '../App/Middlewares/SummonerFounder'
+import SummonerController from '../App/Controllers/Summoners/SummonerController'
 
-const summonerRouter = Router()
+const routes = Router()
 
-const Controller = new SummonerController()
 const Founder = new SummonerFounder()
+const Controller = new SummonerController()
 
-summonerRouter.get('/', Controller.show)
-summonerRouter.post('/', Founder.handle, Controller.store)
-summonerRouter.put('/:id', Controller.update)
+routes.get('/', ShowValidate, Controller.show)
+routes.put('/:id', UpdateValidate, Controller.update)
+routes.post('/', StoreValidate, Founder.handle, Controller.store)
 
-export default summonerRouter
+export default routes
