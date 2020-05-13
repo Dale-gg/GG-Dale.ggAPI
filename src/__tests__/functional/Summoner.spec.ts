@@ -47,7 +47,7 @@ test.group('1 - Summoner', group => {
     )
 
     assert.exists(response.body.data.summoner_name)
-  }).timeout(30000)
+  }).timeout(5000)
 
   test('B) it should show a summoner', async assert => {
     const api = new LolApi()
@@ -66,5 +66,27 @@ test.group('1 - Summoner', group => {
     )
 
     assert.exists(response.body.data.summoner_name)
-  }).timeout(30000)
+  }).timeout(5000)
+
+  test('C) it should update a summoner', async assert => {
+    const api = new LolApi()
+    const { data } = await api.DataDragon.getChampion()
+
+    const promises = []
+    for (const champion in data) {
+      promises.push(factory.Champion(data[champion]))
+    }
+    await Promise.all(promises)
+
+    const summoner = await factory.Summoner({
+      summoner_name: 'iLenon7',
+      region: 'br1',
+    })
+
+    const response = await request(app).put(
+      `${process.env.APP_PREFIX}/summoners/${summoner.id}`,
+    )
+
+    assert.exists(response.body.data.summoner_name)
+  }).timeout(5000)
 })
