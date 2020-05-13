@@ -3,10 +3,10 @@ class AppError {
   public readonly message: string
   public readonly statusCode: number
 
-  constructor(dataObj: object, message: string, statusCode = 400) {
-    this.dataObj = dataObj
+  constructor(message: string, statusCode = 400, dataObj = {}) {
     this.message = message
     this.statusCode = statusCode
+    this.dataObj = dataObj
   }
 }
 
