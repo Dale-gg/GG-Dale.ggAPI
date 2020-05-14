@@ -13,7 +13,7 @@ const factory = new Factory()
 const region = 'br1'
 const summonerName = 'iLenon7'
 
-test.group('> [1] Summoner', group => {
+test.group('> [2] Summoner', group => {
   group.before(async () => {
     connection = await createConnection('test-connection')
     await connection.runMigrations()
