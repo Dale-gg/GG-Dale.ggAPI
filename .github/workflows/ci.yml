@@ -14,8 +14,6 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
       - name: Installation
         run: yarn
-      - name: Lint project
-        run: yarn lint:fix
       - name: Test Champions
         run: yarn test:champion
       - name: Test Summoners
