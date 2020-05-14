@@ -1,8 +1,8 @@
 import { Router } from 'express'
 
-import ShowValidate from '../App/Validators/ShowSummoner'
-import StoreValidate from '../App/Validators/StoreSummoner'
-import UpdateValidate from '../App/Validators/UpdateSummoner'
+import ShowValidate from '../App/Validators/Summoner/ShowSummoner'
+import StoreValidate from '../App/Validators/Summoner/StoreSummoner'
+import UpdateValidate from '../App/Validators/Summoner/UpdateSummoner'
 
 import SummonerFounder from '../App/Middlewares/SummonerFounder'
 import SummonerController from '../App/Controllers/Summoners/SummonerController'
