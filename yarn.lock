@@ -115,10 +115,10 @@
     ts-node "^8.9.0"
     typescript "^3.8.3"
 
-"@jlenon7/zedjs@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@jlenon7/zedjs/-/zedjs-1.0.3.tgz#691509d2740dd8871e29e462e6eec6cbc7b68cb5"
-  integrity sha512-FrmDOOqjGXbyc6Wu1WeAbWwRw8LaNU2A4AWgBJrrwLcXu+TDw/J0rFv/Tw8dF0HQUoQl9W4wPadBfHLStNSPwQ==
+"@jlenon7/zedjs@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@jlenon7/zedjs/-/zedjs-1.0.5.tgz#a80c39a901f4da3762729dc64596295cccbab1b6"
+  integrity sha512-eC/gec+JE+u08+JuPumoqw4rhG+lMa3b7E63WD646aoXqLufKw8UmWcXd1sevXoAu3MO9oGxHcvjHQz2xjynow==
   dependencies:
     camelcasejs "^1.0.3"
     dotenv "^8.1.0"
