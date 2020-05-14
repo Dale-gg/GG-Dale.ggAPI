@@ -9,7 +9,9 @@
     "start": "ts-node src/index.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
     "test": "cross-env NODE_ENV=testing node japaFile.js",
+    "test:all": "cross-env NODE_ENV=testing yarn ts-node src/__tests__/functional/*.ts",
     "test:summoner": "cross-env NODE_ENV=testing yarn ts-node src/__tests__/functional/Summoner.spec.ts",
+    "test:champion": "cross-env NODE_ENV=testing yarn ts-node src/__tests__/functional/Champion.spec.ts",
     "test:unit": "cross-env NODE_ENV=unitTesting yarn ts-node src/__tests__/unit/*.ts",
     "lint": "eslint ./src --ext=.ts",
     "lint:fix": "eslint ./src --fix --ext=.ts"
