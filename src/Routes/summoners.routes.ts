@@ -5,7 +5,7 @@ import StoreValidate from '../App/Validators/Summoner/StoreSummoner'
 import UpdateValidate from '../App/Validators/Summoner/UpdateSummoner'
 
 import SummonerFounder from '../App/Middlewares/SummonerFounder'
-import SummonerController from '../App/Controllers/Summoners/SummonerController'
+import SummonerController from '../App/Controllers/Summoner/SummonerController'
 
 const routes = Router()
 
