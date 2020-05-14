@@ -12,7 +12,7 @@ class CreateChampionService {
     try {
       const data = await api.DataDragon.getChampion(champion)
 
-      const image_full = `http://ddragon.leagueoflegends.com/cdn/${data.version}/img/champion/${data.image.full}`
+      const image_full = `http://ddragon.leagueoflegends.com/cdn/10.10.3208608/img/champion/${data.image.full}`
       const image_splash = `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${data.name}_0.jpg`
       const image_loading = `http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${data.name}_0.jpg`
 
@@ -21,10 +21,11 @@ class CreateChampionService {
         key: data.key,
         title: data.title,
         tags: data.tags,
-        version: data.version,
+        version: '10.10.3208608',
         image_full_url: image_full,
         image_splash_url: image_splash,
         image_loading_url: image_loading,
+        image_sprite_url: data.image.sprite,
       })
 
       await repository.save(champ)
