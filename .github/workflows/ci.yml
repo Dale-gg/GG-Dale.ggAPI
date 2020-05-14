@@ -3,7 +3,7 @@ on: [pull_request]
 name: CI-GG
 
 jobs:
-  build:
+  run_tests:
     runs-on: ubuntu-latest
 
     services:
@@ -35,7 +35,5 @@ jobs:
         run: yarn test:champion
       - name: Test Summoners
         run: yarn test:summoner
-      - name: Build
-        run: yarn build
         env:
           CI: true
