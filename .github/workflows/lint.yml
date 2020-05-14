@@ -1,0 +1,26 @@
+on: [pull_request]
+
+name: Check TSLint
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+          registry-url: 'https://npm.pkg.github.com'
+      - name: Installation
+        run: yarn install --ignore-scripts
+      - name: Lint project
+        run: yarn lint:fix
+      - name: Test Champions
+        run: yarn test:champion
+      - name: Test Summoners
+        run: yarn test:summoner
+      - name: Build
+        run: yarn build
+        env:
+          CI: true
