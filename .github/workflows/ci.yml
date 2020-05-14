@@ -1,6 +1,6 @@
 on: [pull_request]
 
-name: Check TSLint
+name: CI-GG
 
 jobs:
   build:
@@ -13,7 +13,7 @@ jobs:
           node-version: '10.x'
           registry-url: 'https://npm.pkg.github.com'
       - name: Installation
-        run: yarn install --ignore-scripts
+        run: yarn
       - name: Lint project
         run: yarn lint:fix
       - name: Test Champions
