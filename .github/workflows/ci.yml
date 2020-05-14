@@ -4,7 +4,22 @@ name: CI-GG
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:11
+        env:
+          DB_CONNECTION: postgres
+          DB_HOST: localhost
+          DB_PORT: 5433
+          DB_USER: postgres
+          DB_PASSWORD: docker
+          DB_DATABASE: daledb
+        ports:
+          - '5433:5432'
+
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 10
 
     steps:
       - uses: actions/checkout@v2
