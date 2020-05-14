@@ -57,7 +57,7 @@ export default class Factory implements IFactory {
       key: data.key,
       title: data.title,
       tags: data.tags,
-      version: data.version,
+      version: '10.10.3208608',
       image_full_url: 'http://localhost:3333',
       image_loading_url: 'http://localhost:3333',
       image_splash_url: 'http://localhost:3333',
