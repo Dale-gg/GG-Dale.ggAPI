@@ -27,7 +27,7 @@ class UpdateChampionService {
         oldChamp.key = data.key
         oldChamp.title = data.title
         oldChamp.tags = data.tags
-        oldChamp.version = data.version
+        oldChamp.version = '10.10.3208608'
         oldChamp.image_full_url = image_full
         oldChamp.image_splash_url = image_splash
         oldChamp.image_loading_url = image_loading
