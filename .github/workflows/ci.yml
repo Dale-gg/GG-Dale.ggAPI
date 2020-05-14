@@ -33,6 +33,8 @@ jobs:
       - name: Build
         run: yarn build
         env:
+          POSTGRES_HOST: localhost
+          POSTGRES_PORT: 5432
           CI: true
           DB_CONNECTION: postgres
           DB_HOST: localhost
