@@ -8,14 +8,9 @@ jobs:
 
     services:
       postgres:
-        image: postgres:11
+        image: postgres
         env:
-          DB_CONNECTION: postgres
-          DB_HOST: localhost
-          DB_PORT: 5433
-          DB_USER: postgres
-          DB_PASSWORD: docker
-          DB_DATABASE: daledb
+          POSTGRES_PASSWORD: docker
         ports:
           - '5433:5432'
 
@@ -39,3 +34,9 @@ jobs:
         run: yarn build
         env:
           CI: true
+          DB_CONNECTION: postgres
+          DB_HOST: localhost
+          DB_PORT: 5433
+          DB_USER: postgres
+          DB_PASSWORD: docker
+          DB_DATABASE: daledb
