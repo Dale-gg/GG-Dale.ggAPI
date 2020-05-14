@@ -10,7 +10,10 @@ jobs:
       postgres:
         image: postgres
         env:
+          POSTGRES_DATABASE: daledb_test
+          POSTGRES_USER: postgres
           POSTGRES_PASSWORD: docker
+          POSTGRES_ROOT_PASSWORD: root1234
         ports:
           - '5433:5432'
 
