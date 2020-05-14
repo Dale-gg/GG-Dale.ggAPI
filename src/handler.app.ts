@@ -6,7 +6,7 @@ const env = process.env.NODE_ENV
 
 class Handler {
   public createHandler(
-    err: Error,
+    err: Error | any,
     request: Request,
     response: Response,
     _: NextFunction,
@@ -17,7 +17,7 @@ class Handler {
       const res = dedsec.withError(
         err.dataObj,
         err.message,
-        err.name,
+        'null',
         err.statusCode,
       )
 
