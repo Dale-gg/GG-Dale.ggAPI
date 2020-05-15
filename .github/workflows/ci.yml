@@ -1,0 +1,39 @@
+on: [pull_request]
+
+name: CI-GG
+
+jobs:
+  run_tests:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_DATABASE: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: docker
+          POSTGRES_ROOT_PASSWORD: root1234
+        ports:
+          - '5433:5432'
+
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 10
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.14.2'
+          registry-url: 'https://npm.pkg.github.com'
+      - name: Conf ENV
+        run: cp .env.example .env
+      - name: Installation
+        run: yarn
+      - name: Lint project
+        run: yarn lint:fix
+      - name: Test Champions
+        run: yarn test:champion
+      - name: Test Summoners
+        run: yarn test:summoner
+        env:
+          CI: true

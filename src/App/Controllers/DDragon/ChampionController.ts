@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { SecResponse } from '@jlenon7/dedsec/build/Responses'
-import CreateChampionService from '../../Services/CreateChampionService'
-import UpdateChampionService from '../../Services/UpdateChampionService'
+import CreateChampionService from '../../Services/Champion/CreateChampionService'
+import UpdateChampionService from '../../Services/Champion/UpdateChampionService'
 import ChampionsScript from '../../Utils/ChampionsScript'
 
 const dedSec = new SecResponse()
