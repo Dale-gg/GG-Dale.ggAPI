@@ -53,28 +53,28 @@ test.group('> [1] Champion', group => {
     assert.exists(response.body.data.name)
   }).timeout(5000)
 
-  test('C) it should store all champions', async assert => {
-    const response = await request(app).post(
-      `${process.env.APP_PREFIX}/champions/script/all`,
-    )
+  // test('C) it should store all champions', async assert => {
+  //   const response = await request(app).post(
+  //     `${process.env.APP_PREFIX}/champions/script/all`,
+  //   )
 
-    assert.exists(response.body.data[0])
-  }).timeout(10000)
+  //   assert.exists(response.body.data[0])
+  // }).timeout(10000)
 
-  test('D) it should update all champions', async assert => {
-    const api = new LolApi()
-    const { data } = await api.DataDragon.getChampion()
+  // test('D) it should update all champions', async assert => {
+  //   const api = new LolApi()
+  //   const { data } = await api.DataDragon.getChampion()
 
-    const promises = []
-    for (const champion in data) {
-      promises.push(factory.Champion(data[champion]))
-    }
-    await Promise.all(promises)
+  //   const promises = []
+  //   for (const champion in data) {
+  //     promises.push(factory.Champion(data[champion]))
+  //   }
+  //   await Promise.all(promises)
 
-    const response = await request(app).put(
-      `${process.env.APP_PREFIX}/champions/script/all`,
-    )
+  //   const response = await request(app).put(
+  //     `${process.env.APP_PREFIX}/champions/script/all`,
+  //   )
 
-    assert.exists(response.body.data[0])
-  }).timeout(10000)
+  //   assert.exists(response.body.data[0])
+  // }).timeout(10000)
 })

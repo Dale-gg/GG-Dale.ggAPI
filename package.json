@@ -4,10 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "start": "cd dist && node src/server.js",
     "build": "tsc",
     "dev:server": "ts-node-dev --inspect --transpileOnly --ignore-watch node_modules src/server.ts",
-    "start": "ts-node src/index.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
+    "typeorm:prod": "ts-node ./node_modules/typeorm/cli.js",
     "test": "cross-env NODE_ENV=testing node japaFile.js",
     "test:all": "cross-env NODE_ENV=testing yarn ts-node src/__tests__/functional/*.ts",
     "test:summoner": "cross-env NODE_ENV=testing yarn ts-node src/__tests__/functional/Summoner.spec.ts",
@@ -15,12 +16,13 @@
     "test:unit": "cross-env NODE_ENV=unitTesting yarn ts-node src/__tests__/unit/*.ts",
     "lint": "eslint ./src --ext=.ts",
     "lint:fix": "eslint ./src --fix --ext=.ts",
-    "migrate:run": "yarn typeorm migration:run",
-    "migration:revert": "yarn typeorm migration:revert"
+    "migrate:run": "yarn typeorm:prod migration:run",
+    "migration:revert": "yarn typeorm migration:revert",
+    "heroku": "yarn migrate:run"
   },
   "dependencies": {
     "@jlenon7/dedsec": "^1.1.6",
-    "@jlenon7/zedjs": "^1.0.8",
+    "@jlenon7/zedjs": "^1.0.9",
     "celebrate": "^12.1.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -28,7 +30,8 @@
     "faker": "^4.1.0",
     "pg": "^8.0.0",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.2.24"
+    "typeorm": "^0.2.24",
+    "ts-node": "3.3.0"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
@@ -53,7 +56,6 @@
     "japa": "^3.0.1",
     "prettier": "^2.0.5",
     "supertest": "^4.0.2",
-    "ts-node": "3.3.0",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.8.3"
   }

@@ -5,8 +5,11 @@ module.exports = {
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  entities: ['./src/App/Models/*.ts'],
-  migrations: ['./src/Database/migrations/*.ts'],
+  entities: ['./src/App/Models/*.ts', './src/App/Models/*.js'],
+  migrations: [
+    './src/Database/migrations/*.ts',
+    './src/Database/migrations/*.js',
+  ],
   cli: {
     migrationsDir: './src/Database/migrations',
   },

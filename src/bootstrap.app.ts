@@ -6,7 +6,7 @@ import 'express-async-errors'
 import createConnection from './Database'
 import Handler from './handler.app'
 
-import IApp from './@types/IApp'
+import IApp from './types/IApp'
 
 class App implements IApp {
   public app: Application

@@ -1,7 +1,7 @@
 import { getRepository } from 'typeorm'
 import Summoner from '../../Models/Summoner'
 import { LolApi } from '@jlenon7/zedjs/dist'
-import { ISubject, IObserver } from '../../../@types/IObserver'
+import { ISubject, IObserver } from '../../../types/IObserver'
 import AppError from '../../Errors/AppError'
 
 class UpdateSummonerService implements ISubject {

@@ -1,4 +1,4 @@
-import { ISummonerObject } from '../../@types/ISummoner'
+import { ISummonerObject } from '../../types/ISummoner'
 
 import {
   Entity,
