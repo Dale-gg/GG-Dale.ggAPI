@@ -9,6 +9,7 @@
     "dev:server": "ts-node-dev --inspect --transpileOnly --ignore-watch node_modules src/server.ts",
     "start": "node dist/src/server.js",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
+    "typeorm:prod": "ts-node ./node_modules/typeorm/cli.js",
     "test": "cross-env NODE_ENV=testing node japaFile.js",
     "test:all": "cross-env NODE_ENV=testing yarn ts-node src/__tests__/functional/*.ts",
     "test:summoner": "cross-env NODE_ENV=testing yarn ts-node src/__tests__/functional/Summoner.spec.ts",
@@ -30,7 +31,8 @@
     "faker": "^4.1.0",
     "pg": "^8.0.0",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.2.24"
+    "typeorm": "^0.2.24",
+    "ts-node": "3.3.0"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
@@ -55,7 +57,6 @@
     "japa": "^3.0.1",
     "prettier": "^2.0.5",
     "supertest": "^4.0.2",
-    "ts-node": "3.3.0",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.8.3"
   }
