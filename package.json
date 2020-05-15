@@ -18,7 +18,7 @@
     "lint:fix": "eslint ./src --fix --ext=.ts",
     "migrate:run": "yarn typeorm:prod migration:run",
     "migration:revert": "yarn typeorm migration:revert",
-    "heroku": "yarn migrate:run && cd dist"
+    "heroku": "yarn migrate:run"
   },
   "dependencies": {
     "@jlenon7/dedsec": "^1.1.6",

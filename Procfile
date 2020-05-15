@@ -1,2 +1,2 @@
 release: yarn heroku
-web: yarn start
+web: cd dist && yarn start
