@@ -1,1 +1,1 @@
-release: yarn heroku web: yarn start
+release: yarn heroku web: npm run start
