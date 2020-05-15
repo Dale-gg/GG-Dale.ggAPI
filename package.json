@@ -4,9 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
+    "compile": "yarn lint:fix && tsc",
+    "build": "yarn compile",
     "dev:server": "ts-node-dev --inspect --transpileOnly --ignore-watch node_modules src/server.ts",
-    "start": "ts-node src/index.ts",
+    "start": "node dist/src/server.js",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
     "test": "cross-env NODE_ENV=testing node japaFile.js",
     "test:all": "cross-env NODE_ENV=testing yarn ts-node src/__tests__/functional/*.ts",
@@ -16,7 +17,8 @@
     "lint": "eslint ./src --ext=.ts",
     "lint:fix": "eslint ./src --fix --ext=.ts",
     "migrate:run": "yarn typeorm migration:run",
-    "migration:revert": "yarn typeorm migration:revert"
+    "migration:revert": "yarn typeorm migration:revert",
+    "heroku": "yarn migrate:run && yarn build"
   },
   "dependencies": {
     "@jlenon7/dedsec": "^1.1.6",
