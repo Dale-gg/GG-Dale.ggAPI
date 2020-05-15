@@ -1,1 +1,2 @@
-release: yarn heroku web: cd dist && node src/server.js
+release: yarn heroku
+web: yarn start

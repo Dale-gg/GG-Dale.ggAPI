@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "cd dist && node src/server.js",
+    "start": "node src/server.js",
     "build": "tsc",
     "dev:server": "ts-node-dev --inspect --transpileOnly --ignore-watch node_modules src/server.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
@@ -18,7 +18,7 @@
     "lint:fix": "eslint ./src --fix --ext=.ts",
     "migrate:run": "yarn typeorm:prod migration:run",
     "migration:revert": "yarn typeorm migration:revert",
-    "heroku": "yarn build && yarn migrate:run"
+    "heroku": "yarn migrate:run && cd dist"
   },
   "dependencies": {
     "@jlenon7/dedsec": "^1.1.6",
