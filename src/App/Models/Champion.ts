@@ -1,4 +1,4 @@
-import { IChampionObject } from '../../types/IChampion'
+import { IChampionObject } from '../../Interfaces/IChampion'
 
 import {
   Entity,
