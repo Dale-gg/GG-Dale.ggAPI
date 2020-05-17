@@ -29,7 +29,7 @@ export default class CreateRune1588730365286 implements MigrationInterface {
           },
           {
             name: 'key',
-            type: 'integer',
+            type: 'varchar',
           },
           {
             name: 'icon',
