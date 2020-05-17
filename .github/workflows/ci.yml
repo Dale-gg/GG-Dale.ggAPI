@@ -33,6 +33,8 @@ jobs:
         run: yarn lint:fix
       - name: Test Champions
         run: yarn test:champion
+      - name: Test Runes
+        run: yarn test:rune
       - name: Test Summoners
         run: yarn test:summoner
         env:
