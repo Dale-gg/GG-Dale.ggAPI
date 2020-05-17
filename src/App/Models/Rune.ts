@@ -9,9 +9,10 @@ import {
 } from 'typeorm'
 
 import Tree from './Tree'
+import { IRuneObject } from '../../Interfaces/IRune'
 
 @Entity('runes')
-class Rune {
+class Rune implements IRuneObject {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
