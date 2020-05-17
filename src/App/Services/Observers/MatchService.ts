@@ -1,4 +1,4 @@
-import { IObserver, ISubject } from '../../../types/IObserver'
+import { IObserver, ISubject } from '../../../Interfaces/IObserver'
 import { SummonerV4DTO } from '@jlenon7/zedjs/dist/models-dto'
 
 class MatchService implements IObserver {

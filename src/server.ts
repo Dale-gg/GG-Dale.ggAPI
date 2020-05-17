@@ -2,8 +2,6 @@ import App from './bootstrap.app'
 import * as dotenv from 'dotenv'
 import Routes from './Routes'
 
-const endpoints = new Routes()
-
 dotenv.config()
 let path
 switch (process.env.NODE_ENV) {
@@ -17,6 +15,8 @@ switch (process.env.NODE_ENV) {
     path = `${__dirname}/../../.env`
 }
 dotenv.config({ path: path })
+
+const endpoints = new Routes()
 
 const app = new App({
   port: process.env.PORT || 3333,

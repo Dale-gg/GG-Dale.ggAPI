@@ -1,9 +1,9 @@
 import faker from 'faker'
 import { getRepository } from 'typeorm'
 
-import IFactory from '../types/IFactory'
-import ISummoner, { ISummonerObject } from '../types/ISummoner'
-import IChampion from '../types/IChampion'
+import IFactory from '../Interfaces/IFactory'
+import ISummoner, { ISummonerObject } from '../Interfaces/ISummoner'
+import IChampion from '../Interfaces/IChampion'
 import Summoner from '../App/Models/Summoner'
 import Champion from '../App/Models/Champion'
 

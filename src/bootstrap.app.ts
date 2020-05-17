@@ -6,13 +6,13 @@ import 'express-async-errors'
 import createConnection from './Database'
 import Handler from './handler.app'
 
-import IApp from './types/IApp'
+import IApp from './Interfaces/IApp'
 
 class App implements IApp {
   public app: Application
-  public port: number
-  public database: boolean
-  public routes: []
+  private port: number
+  private database: boolean
+  private routes: []
 
   constructor(appConfig: { port: any; routes: any; database: boolean }) {
     this.app = express()
@@ -42,7 +42,7 @@ class App implements IApp {
     console.log('Mocking database for unit tests! 🤯')
   }
 
-  public eHandler(): void {
+  private eHandler(): void {
     const handler = new Handler()
     this.app.use(handler.createHandler)
   }

@@ -21,6 +21,7 @@ export default class CreateRune1588730365286 implements MigrationInterface {
           {
             name: 'id_api',
             type: 'integer',
+            isUnique: true,
           },
           {
             name: 'tree_id',
@@ -29,7 +30,8 @@ export default class CreateRune1588730365286 implements MigrationInterface {
           },
           {
             name: 'key',
-            type: 'integer',
+            type: 'varchar',
+            isUnique: true,
           },
           {
             name: 'icon',

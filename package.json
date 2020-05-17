@@ -9,16 +9,17 @@
     "dev:server": "ts-node-dev --inspect --transpileOnly --ignore-watch node_modules src/server.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
     "typeorm:prod": "ts-node ./node_modules/typeorm/cli.js",
-    "test": "cross-env NODE_ENV=testing node japaFile.js",
-    "test:all": "cross-env NODE_ENV=testing yarn ts-node src/__tests__/functional/*.ts",
-    "test:summoner": "cross-env NODE_ENV=testing yarn ts-node src/__tests__/functional/Summoner.spec.ts",
-    "test:champion": "cross-env NODE_ENV=testing yarn ts-node src/__tests__/functional/Champion.spec.ts",
-    "test:unit": "cross-env NODE_ENV=unitTesting yarn ts-node src/__tests__/unit/*.ts",
     "lint": "eslint ./src --ext=.ts",
     "lint:fix": "eslint ./src --fix --ext=.ts",
     "migrate:run": "yarn typeorm:prod migration:run",
     "migration:revert": "yarn typeorm migration:revert",
-    "heroku": "yarn migrate:run"
+    "heroku": "yarn migrate:run",
+    "test": "cross-env NODE_ENV=testing node japaFile.js",
+    "test:all": "cross-env NODE_ENV=testing yarn ts-node src/__tests__/functional/*.ts",
+    "test:unit": "cross-env NODE_ENV=unitTesting yarn ts-node src/__tests__/unit/*.ts",
+    "test:rune": "cross-env NODE_ENV=testing yarn ts-node src/__tests__/functional/Rune.spec.ts",
+    "test:summoner": "cross-env NODE_ENV=testing yarn ts-node src/__tests__/functional/Summoner.spec.ts",
+    "test:champion": "cross-env NODE_ENV=testing yarn ts-node src/__tests__/functional/Champion.spec.ts"
   },
   "dependencies": {
     "@jlenon7/dedsec": "^1.1.6",

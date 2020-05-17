@@ -5,9 +5,10 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm'
+import { ITreeObject } from '../../Interfaces/ITree'
 
 @Entity('trees')
-class Tree {
+class Tree implements ITreeObject {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
