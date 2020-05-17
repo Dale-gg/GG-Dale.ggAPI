@@ -1,6 +1,6 @@
+import { SecResponse } from '@jlenon7/dedsec/build/Responses'
 import { Request, Response, NextFunction } from 'express'
 import AppError from './App/Errors/AppError'
-import { SecResponse } from '@jlenon7/dedsec/build/Responses'
 
 const env = process.env.NODE_ENV
 
