@@ -1,16 +1,16 @@
 import createConnection from '../../Database'
-import Factory from '../../Database/factory'
+// import Factory from '../../Database/factory'
 import { Connection, getConnection } from 'typeorm'
-import { LolApi } from '@jlenon7/zedjs'
+// import { LolApi } from '@jlenon7/zedjs'
 
 import test from 'japa'
 import app from '../../server'
 import request from 'supertest'
 
 let connection: Connection
-const factory = new Factory()
+// const factory = new Factory()
 
-const key = 238
+// const key = 238
 
 test.group('> [2] Runes', group => {
   group.before(async () => {
