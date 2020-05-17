@@ -16,10 +16,12 @@ export default class CreateTree1588730365285 implements MigrationInterface {
           {
             name: 'id_api',
             type: 'integer',
+            isUnique: true,
           },
           {
             name: 'key',
             type: 'varchar',
+            isUnique: true,
           },
           {
             name: 'icon',
