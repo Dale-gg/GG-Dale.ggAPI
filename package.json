@@ -41,7 +41,7 @@
     "@types/express-serve-static-core": "4.17.2",
     "@types/faker": "^4.1.11",
     "@types/hapi__joi": "^17.1.0",
-    "@types/request": "^2.48.4",
+    "@types/request": "^2.48.5",
     "@types/supertest": "^2.0.9",
     "@typescript-eslint/eslint-plugin": "^2.31.0",
     "@typescript-eslint/parser": "^2.31.0",
