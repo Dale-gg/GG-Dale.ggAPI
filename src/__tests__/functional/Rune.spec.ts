@@ -1,14 +1,14 @@
 import createConnection from '../../Database'
-// import Factory from '../../Database/factory'
+import Factory from '../../Database/factory'
 import { Connection, getConnection } from 'typeorm'
-// import { LolApi } from '@jlenon7/zedjs'
+import { LolApi } from '@jlenon7/zedjs'
 
 import test from 'japa'
 import app from '../../server'
 import request from 'supertest'
 
 let connection: Connection
-// const factory = new Factory()
+const factory = new Factory()
 
 // const key = 238
 
@@ -38,20 +38,40 @@ test.group('> [2] Runes', group => {
     assert.exists(response.body.data[0])
   }).timeout(10000)
 
-  // test('B) it should update all runes', async assert => {
-  //   const api = new LolApi()
-  //   const data = await api.DataDragon.getRunesReforged()
+  test('B) it should update all runes', async assert => {
+    const api = new LolApi()
+    const data: any = await api.DataDragon.getRunesReforged()
 
-  //   const promises = []
-  //   for (const runes in data) {
-  //     promises.push(factory.Champion(data[champion]))
-  //   }
-  //   await Promise.all(promises)
+    for (const tree in data) {
+      const treeObj = data[tree]
 
-  //   const response = await request(app).put(
-  //     `${process.env.APP_PREFIX}/champions/script/all`,
-  //   )
+      const newTree = await factory.Tree({
+        id_api: treeObj.id,
+        key: treeObj.key,
+        icon: treeObj.icon,
+        name: treeObj.name,
+      })
 
-  //   assert.exists(response.body.data[0])
-  // }).timeout(10000)
+      const slots = treeObj.slots
+      for (const slot in slots) {
+        for (const runeObj of slots[slot].runes) {
+          await factory.Rune({
+            id_api: runeObj.id,
+            key: runeObj.key,
+            name: runeObj.name,
+            icon: runeObj.icon,
+            longDesc: runeObj.longDesc,
+            shortDesc: runeObj.shortDesc,
+            tree: newTree,
+          })
+        }
+      }
+    }
+
+    const response = await request(app).put(
+      `${process.env.APP_PREFIX}/runes/script/all`,
+    )
+
+    assert.exists(response.body.data[0])
+  }).timeout(10000)
 })
