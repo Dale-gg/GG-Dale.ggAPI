@@ -20,8 +20,8 @@ test.group('> [3] Summoners', group => {
   })
 
   group.beforeEach(async () => {
-    await connection.query('DELETE FROM summoners')
     await connection.query('DELETE FROM champions')
+    await connection.query('DELETE FROM summoners')
   })
 
   group.after(async () => {
@@ -49,7 +49,7 @@ test.group('> [3] Summoners', group => {
     assert.equal(response.body.status, 'success')
     assert.exists(response.body.data.summoner_name)
     assert.equal(response.body.data.summoner_name, 'iLenon7')
-  }).timeout(5000)
+  }).timeout(7000)
 
   test('B) it should show a summoner', async assert => {
     const api = new LolApi()
@@ -70,7 +70,7 @@ test.group('> [3] Summoners', group => {
     assert.equal(response.body.status, 'success')
     assert.exists(response.body.data.summoner_name)
     assert.equal(response.body.data.summoner_name, 'iLenon7')
-  }).timeout(5000)
+  }).timeout(7000)
 
   test('C) it should update a summoner', async assert => {
     const api = new LolApi()
@@ -83,7 +83,7 @@ test.group('> [3] Summoners', group => {
     await Promise.all(promises)
 
     const summoner = await factory.Summoner({
-      summoner_id: 'q7kJ4LOHcfyzVsBLSlgPo1K6_zAIH3HLsMRTpVtxOzLFPZ8',
+      summoner_id: 'JE_PnBR-qVkVO5GCfhLdd-4KQGU1BTY1EHGs3sy4zL1OCiU',
       summoner_name: 'iLenon7',
       region: 'br1',
     })
@@ -95,5 +95,5 @@ test.group('> [3] Summoners', group => {
     assert.equal(response.body.status, 'success')
     assert.exists(response.body.data.summoner_name)
     assert.equal(response.body.data.summoner_name, 'iLenon7')
-  }).timeout(5000)
+  }).timeout(7000)
 })
