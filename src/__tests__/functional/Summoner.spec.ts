@@ -88,8 +88,6 @@ test.group('> [3] Summoners', group => {
       region: 'br1',
     })
 
-    console.log(summoner.id)
-
     const response = await request(app).put(
       `${process.env.APP_PREFIX}/summoners/${summoner.id}`,
     )

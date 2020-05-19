@@ -16,15 +16,11 @@ class UpdateSummonerService implements ISubject {
       where: { id: id },
     })
 
-    console.log('oldSummoner', summoner)
-
     try {
-      const { response: S }: any = await api.Summoner.getById(
-        summoner.summoner_id,
+      const { response: S }: any = await api.Summoner.getByName(
+        summoner.summoner_name,
         summoner.region,
       )
-
-      console.log('service', S)
 
       this.summoner = S
       this.notifyObservers()
@@ -51,7 +47,6 @@ class UpdateSummonerService implements ISubject {
       throw new AppError(
         'Riot services are current offline, please try again later',
         403,
-        error,
       )
     }
   }
