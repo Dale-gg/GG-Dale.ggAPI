@@ -79,7 +79,6 @@ export default class Factory implements IFactory {
       key: data.key,
       icon: data.icon,
       name: data.name,
-      ...data,
     })
 
     await repository.save(tree)
@@ -91,15 +90,13 @@ export default class Factory implements IFactory {
     const repository = getRepository(Rune)
 
     const rune = repository.create({
-      tree_id: data.tree_id,
       id_api: data.id_api,
       key: data.key,
       icon: data.icon,
       name: data.name,
       shortDesc: data.shortDesc,
       longDesc: data.longDesc,
-      tree: data.tree
-      ...data,
+      tree: data.tree,
     })
 
     await repository.save(rune)
