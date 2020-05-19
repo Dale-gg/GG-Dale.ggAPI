@@ -46,7 +46,9 @@ test.group('> [3] Summoners', group => {
       `${process.env.APP_PREFIX}/summoners?region=${region}&summonerName=${summonerName}`,
     )
 
+    assert.equal(response.body.status, 'success')
     assert.exists(response.body.data.summoner_name)
+    assert.equal(response.body.data.summoner_name, 'iLenon7')
   }).timeout(5000)
 
   test('B) it should show a summoner', async assert => {
@@ -65,7 +67,9 @@ test.group('> [3] Summoners', group => {
       `${process.env.APP_PREFIX}/summoners?region=${region}&summonerName=${summonerName}`,
     )
 
+    assert.equal(response.body.status, 'success')
     assert.exists(response.body.data.summoner_name)
+    assert.equal(response.body.data.summoner_name, 'iLenon7')
   }).timeout(5000)
 
   test('C) it should update a summoner', async assert => {
@@ -88,6 +92,8 @@ test.group('> [3] Summoners', group => {
       `${process.env.APP_PREFIX}/summoners/${summoner.id}`,
     )
 
+    assert.equal(response.body.status, 'success')
     assert.exists(response.body.data.summoner_name)
+    assert.equal(response.body.data.summoner_name, 'iLenon7')
   }).timeout(5000)
 })
