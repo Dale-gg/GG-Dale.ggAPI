@@ -2,12 +2,17 @@ import { LolApi } from '@jlenon7/zedjs'
 import { getRepository } from 'typeorm'
 import Rune from '../Models/Rune'
 import Tree from '../Models/Tree'
+import { RunesReforgedDTO } from '@jlenon7/zedjs/dist/models-dto/data-dragon/runes-reforged.dto'
 
 const api = new LolApi()
 
+interface IRune extends RunesReforgedDTO {
+  name?: string
+}
+
 class RunesScript {
   public async createRunes(): Promise<Rune[]> {
-    const data: any = await api.DataDragon.getRunesReforged()
+    const data: IRune[] = await api.DataDragon.getRunesReforged()
     const runeRepo = getRepository(Rune)
     const treeRepo = getRepository(Tree)
 
@@ -23,22 +28,22 @@ class RunesScript {
 
       await treeRepo.save(newTree)
 
-      const slots = treeObj.slots
-      for (const slot in slots) {
-        for (const runeObj of slots[slot].runes) {
+      const slots: any = treeObj.slots
+      slots.map(async (slot: any) => {
+        slot.runes.map(async (rune: any) => {
           const newRune = runeRepo.create({
-            id_api: runeObj.id,
-            key: runeObj.key,
-            name: runeObj.name,
-            icon: runeObj.icon,
-            longDesc: runeObj.longDesc,
-            shortDesc: runeObj.shortDesc,
+            id_api: rune.id,
+            key: rune.key,
+            name: rune.name,
+            icon: rune.icon,
+            longDesc: rune.longDesc,
+            shortDesc: rune.shortDesc,
             tree: newTree,
           })
 
           await runeRepo.save(newRune)
-        }
-      }
+        })
+      })
     }
 
     const runes = await runeRepo.find({ relations: ['tree'] })
@@ -70,29 +75,31 @@ class RunesScript {
         return treeObj
       }
 
-      const slots = treeObj.slots
-      for (const slot in slots) {
-        for (const runeObj of slots[slot].runes) {
+      await treeRepo.save(oldTree)
+
+      const slots: any = treeObj.slots
+      slots.map(async (slot: any) => {
+        slot.runes.map(async (rune: any) => {
           const oldRune = await runeRepo.findOne({
             where: {
-              key: runeObj.key,
+              key: rune.key,
             },
           })
 
           if (oldRune && oldTree) {
-            oldRune.name = runeObj.name
-            oldRune.key = runeObj.key
-            oldRune.icon = runeObj.icon
-            oldRune.longDesc = runeObj.longDesc
-            oldRune.shortDesc = runeObj.shortDesc
+            oldRune.name = rune.name
+            oldRune.key = rune.key
+            oldRune.icon = rune.icon
+            oldRune.longDesc = rune.longDesc
+            oldRune.shortDesc = rune.shortDesc
             oldRune.tree = oldTree
 
             await runeRepo.save(oldRune)
           } else {
-            return runeObj
+            return rune
           }
-        }
-      }
+        })
+      })
     }
 
     const runes = await runeRepo.find({ relations: ['tree'] })
