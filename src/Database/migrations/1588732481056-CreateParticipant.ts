@@ -25,6 +25,14 @@ export default class CreateParticipant1588732481056
             isNullable: true,
           },
           {
+            name: 'spell_id1',
+            type: 'integer',
+          },
+          {
+            name: 'spell_id2',
+            type: 'integer',
+          },
+          {
             name: 'perk0',
             type: 'integer',
           },
