@@ -38,8 +38,8 @@ test.group('> [1] Champions', group => {
       })
 
     assert.equal(response.body.status, 'success')
-    assert.equal(response.body.data.name, 'Zed')
     assert.exists(response.body.data.name)
+    assert.equal(response.body.data.name, 'Zed')
   }).timeout(5000)
 
   test('B) it should update a champion', async assert => {
@@ -53,8 +53,8 @@ test.group('> [1] Champions', group => {
     )
 
     assert.equal(response.body.status, 'success')
-    assert.equal(response.body.data.name, 'Zed')
     assert.exists(response.body.data.name)
+    assert.equal(response.body.data.name, 'Zed')
   }).timeout(5000)
 
   // test('C) it should store all champions', async assert => {
