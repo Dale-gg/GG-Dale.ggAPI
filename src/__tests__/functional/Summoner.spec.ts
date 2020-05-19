@@ -92,6 +92,8 @@ test.group('> [3] Summoners', group => {
       `${process.env.APP_PREFIX}/summoners/${summoner.id}`,
     )
 
+    console.log(response)
+
     assert.equal(response.body.status, 'success')
     assert.exists(response.body.data.summoner_name)
     assert.equal(response.body.data.summoner_name, 'iLenon7')
