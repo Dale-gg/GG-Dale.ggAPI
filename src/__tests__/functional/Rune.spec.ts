@@ -79,8 +79,6 @@ test.group('> [2] Runes', group => {
       `${process.env.APP_PREFIX}/runes/script/all`,
     )
 
-    console.log(response.body)
-
     assert.equal(response.body.status, 'success')
     assert.exists(response.body.data[0])
   }).timeout(5000)
