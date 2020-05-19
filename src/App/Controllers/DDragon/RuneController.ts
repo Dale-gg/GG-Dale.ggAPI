@@ -19,7 +19,7 @@ class RuneController {
   ): Promise<object> {
     const runes = await script.updateRunes()
 
-    if (typeof runes === 'object') {
+    if (typeof runes === 'string') {
       const res = dedSec.withError(runes, 'Not found, try storing instead.')
 
       return response.json(res)
