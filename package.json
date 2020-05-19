@@ -31,8 +31,9 @@
     "faker": "^4.1.0",
     "pg": "^8.0.0",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.2.24",
-    "ts-node": "3.3.0"
+    "request": "^2.88.2",
+    "ts-node": "3.3.0",
+    "typeorm": "^0.2.24"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
