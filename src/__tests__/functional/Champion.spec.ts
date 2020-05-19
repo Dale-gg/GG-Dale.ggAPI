@@ -12,7 +12,7 @@ const factory = new Factory()
 
 const key = 238
 
-test.group('> [1] Champions', group => {
+test.group('> 1️⃣  Champions', group => {
   group.before(async () => {
     connection = await createConnection('test-connection')
     await connection.runMigrations()
