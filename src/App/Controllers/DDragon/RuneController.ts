@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
 import RunesScript from '../../Utils/RunesScript'
 import { SecResponse } from '@jlenon7/dedsec/build/Responses'
-import Rune from '../../Models/Rune'
 
 const script = new RunesScript()
 const dedSec = new SecResponse()
