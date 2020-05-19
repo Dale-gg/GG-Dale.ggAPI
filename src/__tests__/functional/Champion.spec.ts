@@ -37,6 +37,8 @@ test.group('> [1] Champions', group => {
         key,
       })
 
+    assert.equal(response.body.status, 'success')
+    assert.equal(response.body.data.name, 'Zed')
     assert.exists(response.body.data.name)
   }).timeout(5000)
 
@@ -50,6 +52,8 @@ test.group('> [1] Champions', group => {
       `${process.env.APP_PREFIX}/champions/${key}`,
     )
 
+    assert.equal(response.body.status, 'success')
+    assert.equal(response.body.data.name, 'Zed')
     assert.exists(response.body.data.name)
   }).timeout(5000)
 
