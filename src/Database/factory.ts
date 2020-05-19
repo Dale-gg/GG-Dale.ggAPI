@@ -24,7 +24,6 @@ export default class Factory implements IFactory {
       revision_date: faker.random.number(),
       region: data.region || 'br1',
       summoner_name: data.summoner_name || 'iLenon7',
-      ...data,
     })
 
     await repository.save(summoner)
