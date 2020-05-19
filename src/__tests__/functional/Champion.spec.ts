@@ -37,8 +37,10 @@ test.group('> [1] Champions', group => {
         key,
       })
 
+    assert.equal(response.body.status, 'success')
     assert.exists(response.body.data.name)
-  }).timeout(5000)
+    assert.equal(response.body.data.name, 'Zed')
+  }).timeout(7000)
 
   test('B) it should update a champion', async assert => {
     const api = new LolApi()
@@ -50,8 +52,10 @@ test.group('> [1] Champions', group => {
       `${process.env.APP_PREFIX}/champions/${key}`,
     )
 
+    assert.equal(response.body.status, 'success')
     assert.exists(response.body.data.name)
-  }).timeout(5000)
+    assert.equal(response.body.data.name, 'Zed')
+  }).timeout(7000)
 
   // test('C) it should store all champions', async assert => {
   //   const response = await request(app).post(

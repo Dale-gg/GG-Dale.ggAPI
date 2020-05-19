@@ -1,16 +1,19 @@
 import createConnection from '../../Database'
-// import Factory from '../../Database/factory'
+import Factory from '../../Database/factory'
 import { Connection, getConnection } from 'typeorm'
-// import { LolApi } from '@jlenon7/zedjs'
+import { LolApi } from '@jlenon7/zedjs'
 
 import test from 'japa'
 import app from '../../server'
 import request from 'supertest'
+import { RunesReforgedDTO } from '@jlenon7/zedjs/dist/models-dto/data-dragon/runes-reforged.dto'
 
 let connection: Connection
-// const factory = new Factory()
+const factory = new Factory()
 
-// const key = 238
+interface IRune extends RunesReforgedDTO {
+  name?: string
+}
 
 test.group('> [2] Runes', group => {
   group.before(async () => {
@@ -20,6 +23,7 @@ test.group('> [2] Runes', group => {
 
   group.beforeEach(async () => {
     await connection.query('DELETE FROM runes')
+    await connection.query('DELETE FROM trees')
   })
 
   group.after(async () => {
@@ -35,23 +39,46 @@ test.group('> [2] Runes', group => {
       `${process.env.APP_PREFIX}/runes/script/all`,
     )
 
+    assert.equal(response.body.status, 'success')
     assert.exists(response.body.data[0])
-  }).timeout(10000)
+  }).timeout(7000)
 
-  // test('B) it should update all runes', async assert => {
-  //   const api = new LolApi()
-  //   const data = await api.DataDragon.getRunesReforged()
+  test('B) it should update all runes', async assert => {
+    const api = new LolApi()
+    const data: IRune[] = await api.DataDragon.getRunesReforged()
 
-  //   const promises = []
-  //   for (const runes in data) {
-  //     promises.push(factory.Champion(data[champion]))
-  //   }
-  //   await Promise.all(promises)
+    for (const tree in data) {
+      const treeObj = data[tree]
 
-  //   const response = await request(app).put(
-  //     `${process.env.APP_PREFIX}/champions/script/all`,
-  //   )
+      const newTree = await factory.Tree({
+        id_api: treeObj.id,
+        key: treeObj.key,
+        icon: treeObj.icon,
+        name: treeObj.name,
+      })
 
-  //   assert.exists(response.body.data[0])
-  // }).timeout(10000)
+      const slots: any = treeObj.slots
+
+      slots.map(async (slot: any) => {
+        slot.runes.map(async (rune: any) => {
+          await factory.Rune({
+            id_api: rune.id,
+            key: rune.key,
+            name: rune.name,
+            icon: rune.icon,
+            longDesc: rune.longDesc,
+            shortDesc: rune.shortDesc,
+            tree: newTree,
+          })
+        })
+      })
+    }
+
+    const response = await request(app).put(
+      `${process.env.APP_PREFIX}/runes/script/all`,
+    )
+
+    assert.equal(response.body.status, 'success')
+    assert.exists(response.body.data[0])
+  }).timeout(7000)
 })

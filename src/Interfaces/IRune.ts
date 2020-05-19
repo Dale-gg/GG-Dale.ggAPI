@@ -1,7 +1,7 @@
-import ITree, { ITreeObject } from './ITree'
+import { ITreeObject } from './ITree'
 
 export default interface IRune {
-  tree?: ITree
+  tree?: ITreeObject
   tree_id?: string
   id_api?: number
   key?: string

@@ -7,6 +7,6 @@ const routes = Router()
 const Controller = new RuneController()
 
 routes.post('/script/all', Controller.storeAll)
-// routes.put('/script/all', Controller.updateAll)
+routes.put('/script/all', Controller.updateAll)
 
 export default routes
