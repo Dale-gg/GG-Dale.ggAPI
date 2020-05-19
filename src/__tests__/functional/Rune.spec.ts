@@ -42,7 +42,7 @@ test.group('> [2] Runes', group => {
 
     assert.equal(response.body.status, 'success')
     assert.exists(response.body.data[0])
-  }).timeout(5000)
+  }).timeout(7000)
 
   test('B) it should update all runes', async assert => {
     const api = new LolApi()
@@ -81,5 +81,5 @@ test.group('> [2] Runes', group => {
 
     assert.equal(response.body.status, 'success')
     assert.exists(response.body.data[0])
-  }).timeout(5000)
+  }).timeout(7000)
 })
