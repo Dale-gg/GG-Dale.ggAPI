@@ -22,8 +22,9 @@ test.group('> [2] Runes', group => {
   })
 
   group.beforeEach(async () => {
-    await connection.query('DELETE FROM runes')
     await connection.query('DELETE FROM trees')
+
+    await connection.query('DELETE FROM runes')
   })
 
   group.after(async () => {
@@ -39,6 +40,7 @@ test.group('> [2] Runes', group => {
       `${process.env.APP_PREFIX}/runes/script/all`,
     )
 
+    assert.equal(response.body.status, 'success')
     assert.exists(response.body.data[0])
   }).timeout(5000)
 
@@ -77,6 +79,9 @@ test.group('> [2] Runes', group => {
       `${process.env.APP_PREFIX}/runes/script/all`,
     )
 
+    console.log(response.body)
+
+    assert.equal(response.body.status, 'success')
     assert.exists(response.body.data[0])
   }).timeout(5000)
 })
