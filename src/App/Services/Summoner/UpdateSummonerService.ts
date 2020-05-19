@@ -17,8 +17,8 @@ class UpdateSummonerService implements ISubject {
     })
 
     try {
-      const { response: S }: any = await api.Summoner.getById(
-        summoner.summoner_id,
+      const { response: S }: any = await api.Summoner.getByName(
+        summoner.summoner_name,
         summoner.region,
       )
 
