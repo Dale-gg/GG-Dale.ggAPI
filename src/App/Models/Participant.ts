@@ -6,12 +6,9 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
-  ManyToMany,
-  JoinTable,
 } from 'typeorm'
 
 import Participantlist from './Participantlist'
-import Spell from './Spell'
 
 @Entity('participants')
 class Participant {
@@ -22,9 +19,11 @@ class Participant {
   @JoinColumn({ name: 'participantlist_id' })
   participantlist: Participantlist
 
-  @ManyToMany(() => Spell)
-  @JoinTable()
-  spells: Spell[]
+  @Column()
+  spell1Id: number
+
+  @Column()
+  spell2Id: number
 
   @Column()
   participantlist_id: string
