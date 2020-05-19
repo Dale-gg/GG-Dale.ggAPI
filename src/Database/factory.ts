@@ -71,7 +71,7 @@ export default class Factory implements IFactory {
     await repository.save(champion)
   }
 
-  public async Tree(data: ITree = {}): Promise<ITreeObject> {
+  public async Tree(data: ITree): Promise<ITreeObject> {
     const repository = getRepository(Tree)
 
     const tree = repository.create({
@@ -87,7 +87,7 @@ export default class Factory implements IFactory {
     return tree
   }
 
-  public async Rune(data: IRune = {}): Promise<IRuneObject> {
+  public async Rune(data: IRune): Promise<IRuneObject> {
     const repository = getRepository(Rune)
 
     const rune = repository.create({
@@ -98,6 +98,7 @@ export default class Factory implements IFactory {
       name: data.name,
       shortDesc: data.shortDesc,
       longDesc: data.longDesc,
+      tree: data.tree
       ...data,
     })
 
