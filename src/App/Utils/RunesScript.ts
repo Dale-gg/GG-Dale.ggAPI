@@ -46,42 +46,59 @@ class RunesScript {
     return runes
   }
 
-  // public async updateSpells(): Promise<Champion[]> {
-  //   const { data } = await api.DataDragon.getChampion()
-  //   const repository = getRepository(Champion)
+  public async updateRunes(): Promise<Rune[] | object> {
+    const data: any = await api.DataDragon.getRunesReforged()
+    const runeRepo = getRepository(Rune)
+    const treeRepo = getRepository(Tree)
 
-  //   for (const champion in data) {
-  //     const dataObj = data[champion]
+    for (const tree in data) {
+      const treeObj = data[tree]
 
-  //     const oldChamp = await repository.findOne({
-  //       where: {
-  //         name: dataObj.name,
-  //       },
-  //     })
+      const oldTree = await treeRepo.findOne({
+        where: {
+          key: treeObj.key,
+        },
+      })
 
-  //     const image_full = `http://ddragon.leagueoflegends.com/cdn/${dataObj.version}/img/champion/${dataObj.image.full}`
-  //     const image_splash = `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${dataObj.name}_0.jpg`
-  //     const image_loading = `http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${dataObj.name}_0.jpg`
+      if (oldTree) {
+        oldTree.name = treeObj.name
+        oldTree.key = treeObj.key
+        oldTree.icon = treeObj.icon
 
-  //     if (oldChamp) {
-  //       oldChamp.name = dataObj.name
-  //       oldChamp.key = dataObj.key
-  //       oldChamp.title = dataObj.title
-  //       oldChamp.tags = dataObj.tags
-  //       oldChamp.version = dataObj.version
-  //       oldChamp.image_full_url = image_full
-  //       oldChamp.image_loading_url = image_loading
-  //       oldChamp.image_splash_url = image_splash
-  //       oldChamp.image_sprite_url = dataObj.image.sprite
+        await treeRepo.save(oldTree)
+      } else {
+        return treeObj
+      }
 
-  //       await repository.save(oldChamp)
-  //     }
-  //   }
+      const slots = treeObj.slots
+      for (const slot in slots) {
+        for (const runeObj of slots[slot].runes) {
+          const oldRune = await runeRepo.findOne({
+            where: {
+              key: runeObj.key,
+            },
+          })
 
-  //   const champions = repository.find()
+          if (oldRune && oldTree) {
+            oldRune.name = runeObj.name
+            oldRune.key = runeObj.key
+            oldRune.icon = runeObj.icon
+            oldRune.longDesc = runeObj.longDesc
+            oldRune.shortDesc = runeObj.shortDesc
+            oldRune.tree = oldTree
 
-  //   return champions
-  // }
+            await runeRepo.save(oldRune)
+          } else {
+            return runeObj
+          }
+        }
+      }
+    }
+
+    const runes = await runeRepo.find({ relations: ['tree'] })
+
+    return runes
+  }
 }
 
 export default RunesScript
