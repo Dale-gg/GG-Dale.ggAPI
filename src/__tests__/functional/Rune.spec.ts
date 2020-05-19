@@ -22,9 +22,8 @@ test.group('> [2] Runes', group => {
   })
 
   group.beforeEach(async () => {
-    await connection.query('DELETE FROM trees')
-
     await connection.query('DELETE FROM runes')
+    await connection.query('DELETE FROM trees')
   })
 
   group.after(async () => {

@@ -95,5 +95,5 @@ test.group('> [3] Summoners', group => {
     assert.equal(response.body.status, 'success')
     assert.exists(response.body.data.summoner_name)
     assert.equal(response.body.data.summoner_name, 'iLenon7')
-  }).timeout(7000)
+  }).timeout(7001)
 })
