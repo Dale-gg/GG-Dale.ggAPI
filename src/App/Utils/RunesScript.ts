@@ -51,8 +51,8 @@ class RunesScript {
     return runes
   }
 
-  public async updateRunes(): Promise<Rune[] | object> {
-    const data: any = await api.DataDragon.getRunesReforged()
+  public async updateRunes(): Promise<Rune[] | string> {
+    const data: IRune[] = await api.DataDragon.getRunesReforged()
     const runeRepo = getRepository(Rune)
     const treeRepo = getRepository(Tree)
 
@@ -66,13 +66,13 @@ class RunesScript {
       })
 
       if (oldTree) {
-        oldTree.name = treeObj.name
+        oldTree.name = treeObj.name || treeObj.key
         oldTree.key = treeObj.key
         oldTree.icon = treeObj.icon
 
         await treeRepo.save(oldTree)
       } else {
-        return treeObj
+        return treeObj.key
       }
 
       await treeRepo.save(oldTree)
@@ -96,7 +96,7 @@ class RunesScript {
 
             await runeRepo.save(oldRune)
           } else {
-            return rune
+            return rune.key
           }
         })
       })
