@@ -1,3 +1,5 @@
+import { ITierObject } from './ITier'
+
 export default interface ISummoner {
   account_id?: string
   summoner_id?: string
@@ -7,6 +9,7 @@ export default interface ISummoner {
   summoner_level?: number
   region?: string
   revision_date?: number
+  tiers?: ITierObject[]
 }
 
 export interface ISummonerObject {
@@ -19,6 +22,7 @@ export interface ISummonerObject {
   summoner_level: number
   region: string
   revision_date: number
+  tiers?: ITierObject[]
   created_at: Date
   updated_at: Date
 }
