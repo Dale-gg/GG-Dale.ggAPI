@@ -16,7 +16,7 @@ class Tier implements ITierObject {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
-  @ManyToOne(() => Summoner)
+  @ManyToOne(_type => Summoner, summoner => summoner.tiers)
   @JoinColumn({ name: 'summoner_id' })
   summoner: Summoner
 
