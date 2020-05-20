@@ -3,10 +3,12 @@ import Summoner from '../../Models/Summoner'
 import { LolApi } from '@jlenon7/zedjs/dist'
 import { ISubject, IObserver } from '../../../Interfaces/IObserver'
 import AppError from '../../Errors/AppError'
+import { Regions } from '@jlenon7/zedjs/dist/constants'
 
 class UpdateSummonerService implements ISubject {
   private observers: IObserver[] = []
   private summoner: Summoner
+  private region: Regions
 
   public async execute(id: string): Promise<Summoner> {
     const api = new LolApi()
@@ -22,9 +24,6 @@ class UpdateSummonerService implements ISubject {
         summoner.region,
       )
 
-      this.summoner = S
-      this.notifyObservers()
-
       summoner.summoner_id = S.id
       summoner.account_id = S.accountId
       summoner.puuid = S.puuid
@@ -34,6 +33,10 @@ class UpdateSummonerService implements ISubject {
       summoner.summoner_level = S.summonerLevel
 
       await repository.save(summoner)
+
+      this.summoner = summoner
+      this.region = summoner.region
+      this.notifyObservers()
 
       return summoner
     } catch (error) {
@@ -62,7 +65,7 @@ class UpdateSummonerService implements ISubject {
 
   notifyObservers(): void {
     for (const observer of this.observers) {
-      observer.updateSummoner(this.summoner)
+      observer.updateSummoner(this.summoner, this.region)
     }
   }
 }
