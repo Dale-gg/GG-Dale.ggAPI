@@ -1,5 +1,6 @@
 import { IObserver, ISubject } from '../../../Interfaces/IObserver'
-import { SummonerV4DTO } from '@jlenon7/zedjs/dist/models-dto'
+import { Regions } from '@jlenon7/zedjs/dist/constants'
+import Summoner from '../../Models/Summoner'
 
 class MatchService implements IObserver {
   private subject: ISubject
@@ -9,8 +10,10 @@ class MatchService implements IObserver {
     summonerService.registerObserver(this)
   }
 
-  updateSummoner(summoner: SummonerV4DTO): void {
-    console.log(`> [MATCH] Summoner ${summoner.name}`)
+  updateSummoner(summoner: Summoner, region: Regions): void {
+    console.log(
+      `> [MATCH] Summoner ${summoner.summoner_name}, region: ${region}`,
+    )
   }
 }
 
