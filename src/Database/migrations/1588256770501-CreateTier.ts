@@ -96,7 +96,6 @@ export default class CreateTier1588256770501 implements MigrationInterface {
         referencedColumnNames: ['id'],
         referencedTableName: 'summoners',
         name: 'SummonerTier',
-        onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       }),
     )
