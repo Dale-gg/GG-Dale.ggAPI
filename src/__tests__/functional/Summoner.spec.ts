@@ -1,7 +1,7 @@
 import createConnection from '../../Database'
 import Factory from '../../Database/factory'
 import { Connection, getConnection } from 'typeorm'
-import { LolApi } from '@jlenon7/zedjs'
+// import { LolApi } from '@jlenon7/zedjs'
 
 import test from 'japa'
 import app from '../../server'
@@ -13,14 +13,15 @@ const factory = new Factory()
 const region = 'br1'
 const summonerName = 'iLenon7'
 
-test.group('> [3] Summoners', group => {
+test.group('> 3️⃣  Summoners', group => {
   group.before(async () => {
     connection = await createConnection('test-connection')
     await connection.runMigrations()
   })
 
   group.beforeEach(async () => {
-    await connection.query('DELETE FROM champions')
+    // await connection.query('DELETE FROM champions')
+    await connection.query('DELETE FROM tiers')
     await connection.query('DELETE FROM summoners')
   })
 
@@ -33,14 +34,14 @@ test.group('> [3] Summoners', group => {
   })
 
   test('A) it should store a summoner', async assert => {
-    const api = new LolApi()
-    const { data } = await api.DataDragon.getChampion()
+    // const api = new LolApi()
+    // const { data } = await api.DataDragon.getChampion()
 
-    const promises = []
-    for (const champion in data) {
-      promises.push(factory.Champion(data[champion]))
-    }
-    await Promise.all(promises)
+    // const promises = []
+    // for (const champion in data) {
+    //   promises.push(factory.Champion(data[champion]))
+    // }
+    // await Promise.all(promises)
 
     const response = await request(app).post(
       `${process.env.APP_PREFIX}/summoners?region=${region}&summonerName=${summonerName}`,
@@ -52,15 +53,6 @@ test.group('> [3] Summoners', group => {
   }).timeout(7000)
 
   test('B) it should show a summoner', async assert => {
-    const api = new LolApi()
-    const { data } = await api.DataDragon.getChampion()
-
-    const promises = []
-    for (const champion in data) {
-      promises.push(factory.Champion(data[champion]))
-    }
-    await Promise.all(promises)
-
     await factory.Summoner({ summoner_name: 'iLenon7', region: 'br1' })
 
     const response = await request(app).get(
@@ -73,17 +65,7 @@ test.group('> [3] Summoners', group => {
   }).timeout(7000)
 
   test('C) it should update a summoner', async assert => {
-    const api = new LolApi()
-    const { data } = await api.DataDragon.getChampion()
-
-    const promises = []
-    for (const champion in data) {
-      promises.push(factory.Champion(data[champion]))
-    }
-    await Promise.all(promises)
-
     const summoner = await factory.Summoner({
-      summoner_id: 'JE_PnBR-qVkVO5GCfhLdd-4KQGU1BTY1EHGs3sy4zL1OCiU',
       summoner_name: 'iLenon7',
       region: 'br1',
     })
@@ -96,4 +78,19 @@ test.group('> [3] Summoners', group => {
     assert.exists(response.body.data.summoner_name)
     assert.equal(response.body.data.summoner_name, 'iLenon7')
   }).timeout(7000)
+
+  test('D) it should store a summoner tier', async assert => {
+    await request(app).post(
+      `${process.env.APP_PREFIX}/summoners?region=${region}&summonerName=${summonerName}`,
+    )
+
+    const response = await request(app).get(
+      `${process.env.APP_PREFIX}/summoners?region=${region}&summonerName=${summonerName}`,
+    )
+
+    assert.equal(response.body.status, 'success')
+    assert.exists(response.body.data.summoner_name)
+    assert.equal(response.body.data.summoner_name, 'iLenon7')
+    assert.exists(response.body.data.tiers)
+  })
 })

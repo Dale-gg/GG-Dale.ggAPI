@@ -8,6 +8,7 @@ import AppError from '../../Errors/AppError'
 class CreateSummonerService implements ISubject {
   private observers: IObserver[] = []
   private summoner: Summoner
+  private region: Regions
 
   public async execute(sname: string, region: Regions): Promise<Summoner> {
     const api = new LolApi()
@@ -15,9 +16,6 @@ class CreateSummonerService implements ISubject {
 
     try {
       const { response: S }: any = await api.Summoner.getByName(sname, region)
-
-      this.summoner = S
-      this.notifyObservers()
 
       const summoner = repository.create({
         summoner_id: S.id,
@@ -31,6 +29,10 @@ class CreateSummonerService implements ISubject {
       })
 
       await repository.save(summoner)
+
+      this.summoner = summoner
+      this.region = region
+      this.notifyObservers()
 
       return summoner
     } catch (error) {
@@ -59,7 +61,7 @@ class CreateSummonerService implements ISubject {
 
   notifyObservers(): void {
     for (const observer of this.observers) {
-      observer.updateSummoner(this.summoner)
+      observer.updateSummoner(this.summoner, this.region)
     }
   }
 }

@@ -15,7 +15,7 @@ interface IRune extends RunesReforgedDTO {
   name?: string
 }
 
-test.group('> [2] Runes', group => {
+test.group('> 2️⃣  Runes', group => {
   group.before(async () => {
     connection = await createConnection('test-connection')
     await connection.runMigrations()
