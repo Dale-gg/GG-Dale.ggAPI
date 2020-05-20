@@ -40,7 +40,7 @@ class Summoner implements ISummonerObject {
   revision_date: number
 
   @OneToMany(_type => Tier, tier => tier.summoner)
-  tiers: Tier[]
+  tiers?: Tier[]
 
   @CreateDateColumn()
   created_at: Date
