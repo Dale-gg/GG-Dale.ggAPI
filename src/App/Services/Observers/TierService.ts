@@ -28,7 +28,7 @@ class TierService implements IObserver {
       const total = tier.wins + tier.losses
       const winrate = (tier.wins / total) * 100
 
-      const dbTier = await repository.create({
+      const dbTier = repository.create({
         league_id: tier.leagueId,
         queue_type: tier.queueType,
         tier: tier.tier,
