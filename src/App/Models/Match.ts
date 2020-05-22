@@ -6,19 +6,34 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
+  OneToOne,
 } from 'typeorm'
 
-import Matchlist from './Matchlist'
 import { IMatchObject } from '../../Interfaces/IMatch'
+import Summoner from './Summoner'
+import Champion from './Champion'
 
 @Entity('matchs')
 class Match implements IMatchObject {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
-  @ManyToOne(() => Matchlist)
-  @JoinColumn({ name: 'matchlist_id' })
-  matchlist: Matchlist
+  @OneToOne(() => Champion)
+  @JoinColumn({ name: 'champion_id' })
+  champion: Champion
+
+  @Column()
+  champion_id: string
+
+  @Column()
+  champion_key: number
+
+  @ManyToOne(() => Summoner)
+  @JoinColumn({ name: 'summoner_id' })
+  summoner: Summoner
+
+  @Column()
+  summoner_id: string
 
   @Column()
   matchlist_id: string
@@ -37,6 +52,9 @@ class Match implements IMatchObject {
 
   @Column()
   season_id: number
+
+  @Column()
+  role: string
 
   @Column()
   game_mode: string
@@ -61,8 +79,6 @@ class Match implements IMatchObject {
 
   @UpdateDateColumn()
   updated_at: Date
-
-  // Relations -> Matchlist, Participants
 }
 
 export default Match
