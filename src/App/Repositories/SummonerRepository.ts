@@ -14,7 +14,7 @@ class SummonerRepository extends Repository<Summoner> {
 
     const summoner = await repository.findOne({
       where: `"summoner_name" ILIKE '%${summonerName}%' AND "region" = '${region}'`,
-      relations: ['tiers', 'matchs'],
+      relations: ['tiers', 'matchs', 'matchs.champion'],
     })
 
     if (!summoner) {
