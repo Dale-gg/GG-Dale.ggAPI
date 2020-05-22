@@ -11,9 +11,10 @@ import {
 
 import Summoner from './Summoner'
 import Champion from './Champion'
+import { IMatchlistObject } from '../../Interfaces/IMatchlist'
 
 @Entity('matchlists')
-class Matchlist {
+class Matchlist implements IMatchlistObject {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
@@ -32,10 +33,10 @@ class Matchlist {
   champion_id: string
 
   @Column()
-  champion_key: string
+  champion_key: number
 
   @Column()
-  game_id: string
+  game_id: number
 
   @Column()
   platform_id: string
