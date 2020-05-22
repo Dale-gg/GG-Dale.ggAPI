@@ -1,8 +1,12 @@
-import { IMatchlistObject } from './IMatchlist'
+import { ISummonerObject } from './ISummoner'
+import { IChampionObject } from './IChampion'
 
 export default interface IMatch {
-  matchlist?: IMatchlistObject
-  matchlist_id?: string
+  summoner?: ISummonerObject
+  summoner_id?: string
+  champion?: IChampionObject
+  champion_id?: string
+  champion_key?: number
   map_id?: string
   game_id?: number
   queue_id?: number
@@ -18,8 +22,11 @@ export default interface IMatch {
 
 export interface IMatchObject {
   id: string
-  matchlist: IMatchlistObject
-  matchlist_id: string
+  summoner: ISummonerObject
+  summoner_id: string
+  champion: IChampionObject
+  champion_id: string
+  champion_key: number
   map_id: string
   game_id: number
   queue_id: number
