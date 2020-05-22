@@ -4,7 +4,6 @@ import Summoner from '../../Models/Summoner'
 import { getRepository } from 'typeorm'
 import { LolApi } from '@jlenon7/zedjs/dist'
 import Match from '../../Models/Match'
-import Matchlist from '../../Models/Matchlist'
 import { MatchListingMatches } from '@jlenon7/zedjs/dist/models-dto'
 import Champion from '../../Models/Champion'
 
@@ -33,43 +32,26 @@ class MatchService implements IObserver {
 
   async createMatch(
     summoner: Summoner,
-    match: MatchListingMatches,
+    matchlist: MatchListingMatches,
     region: Regions,
   ): Promise<void> {
-    const matchlistRepo = getRepository(Matchlist)
+    const matchRepo = getRepository(Match)
     const championRepo = getRepository(Champion)
 
-    const champion = await championRepo.findOne({
-      where: { key: match.champion },
-    })
-
-    const matchlist = matchlistRepo.create({
-      lane: match.lane,
-      game_id: match.gameId,
-      platform_id: match.platformId,
-      summoner: summoner,
-      champion: champion,
-      champion_key: match.champion,
-      queue: match.queue,
-      role: match.role,
-      season: match.season,
-      timestamp: match.timestamp,
-    })
-
-    await matchlistRepo.save(matchlist)
-
-    await this.createMatchDto(matchlist, region)
-  }
-
-  async createMatchDto(matchlist: Matchlist, region: Regions): Promise<void> {
-    const matchRepo = getRepository(Match)
-
     const { response: matchApi } = await this.api.Match.get(
-      matchlist.game_id,
+      matchlist.gameId,
       region,
     )
 
+    const champion = await championRepo.findOne({
+      where: { key: matchlist.champion },
+    })
+
     const match = matchRepo.create({
+      champion: champion,
+      summoner: summoner,
+      champion_key: matchlist.champion,
+      role: matchlist.role,
       game_creation: matchApi.gameCreation,
       game_duration: matchApi.gameDuration,
       game_mode: matchApi.gameMode,
@@ -81,7 +63,6 @@ class MatchService implements IObserver {
       game_id: matchApi.gameId,
       season_id: matchApi.seasonId,
       remake: matchApi.remake,
-      matchlist: matchlist,
     })
 
     await matchRepo.save(match)

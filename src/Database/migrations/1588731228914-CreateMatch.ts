@@ -19,10 +19,6 @@ export default class CreateMatch1588731228914 implements MigrationInterface {
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'matchlist_id',
-            type: 'uuid',
-          },
-          {
             name: 'map_id',
             type: 'varchar',
           },
@@ -40,6 +36,22 @@ export default class CreateMatch1588731228914 implements MigrationInterface {
           },
           {
             name: 'platform_id',
+            type: 'varchar',
+          },
+          {
+            name: 'summoner_id',
+            type: 'uuid',
+          },
+          {
+            name: 'champion_id',
+            type: 'uuid',
+          },
+          {
+            name: 'champion_key',
+            type: 'integer',
+          },
+          {
+            name: 'role',
             type: 'varchar',
           },
           {
@@ -83,12 +95,24 @@ export default class CreateMatch1588731228914 implements MigrationInterface {
     await queryRunner.createForeignKey(
       'matchs',
       new TableForeignKey({
-        columnNames: ['matchlist_id'],
+        columnNames: ['summoner_id'],
         referencedColumnNames: ['id'],
-        referencedTableName: 'matchlists',
-        name: 'MatchMatchlist',
+        referencedTableName: 'summoners',
+        name: 'SummonersMatchs',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
+      }),
+    )
+
+    await queryRunner.createForeignKey(
+      'matchs',
+      new TableForeignKey({
+        columnNames: ['champion_id'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'champions',
+        name: 'ChampionsMatchs',
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
       }),
     )
   }

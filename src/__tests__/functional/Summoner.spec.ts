@@ -29,7 +29,6 @@ test.group('> 3️⃣  Summoners', group => {
     await connection.query('DELETE FROM tiers')
     //  TODO find a way to test tier observer
     // await connection.query('DELETE FROM summoners')
-    await connection.query('DELETE FROM matchlists')
     await connection.query('DELETE FROM matchs')
   })
 
