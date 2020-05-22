@@ -9,9 +9,10 @@ import {
 } from 'typeorm'
 
 import Matchlist from './Matchlist'
+import { IMatchObject } from '../../Interfaces/IMatch'
 
 @Entity('matchs')
-class Match {
+class Match implements IMatchObject {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
@@ -23,16 +24,19 @@ class Match {
   matchlist_id: string
 
   @Column()
-  map_id: number
+  map_id: string
 
   @Column()
-  game_id: string
+  game_id: number
 
   @Column()
   queue_id: number
 
   @Column()
   platform_id: string
+
+  @Column()
+  season_id: number
 
   @Column()
   game_mode: string
@@ -48,6 +52,9 @@ class Match {
 
   @Column()
   game_creation: number
+
+  @Column()
+  remake: boolean
 
   @CreateDateColumn()
   created_at: Date
