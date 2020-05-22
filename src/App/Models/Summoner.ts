@@ -9,6 +9,7 @@ import {
   OneToMany,
 } from 'typeorm'
 import Tier from './Tier'
+import Matchlist from './Matchlist'
 
 @Entity('summoners')
 class Summoner implements ISummonerObject {
@@ -41,6 +42,9 @@ class Summoner implements ISummonerObject {
 
   @OneToMany(_type => Tier, tier => tier.summoner)
   tiers?: Tier[]
+
+  @OneToMany(_type => Matchlist, matchlist => matchlist.summoner)
+  matchs?: Matchlist[]
 
   @CreateDateColumn()
   created_at: Date
