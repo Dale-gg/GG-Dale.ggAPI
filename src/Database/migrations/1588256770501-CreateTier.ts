@@ -21,7 +21,6 @@ export default class CreateTier1588256770501 implements MigrationInterface {
           {
             name: 'summoner_id',
             type: 'uuid',
-            isNullable: true,
           },
           {
             name: 'league_id',
