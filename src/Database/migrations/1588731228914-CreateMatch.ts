@@ -24,11 +24,15 @@ export default class CreateMatch1588731228914 implements MigrationInterface {
           },
           {
             name: 'map_id',
-            type: 'integer',
+            type: 'varchar',
           },
           {
             name: 'game_id',
-            type: 'varchar',
+            type: 'integer',
+          },
+          {
+            name: 'queue_id',
+            type: 'integer',
           },
           {
             name: 'season_id',
@@ -48,7 +52,7 @@ export default class CreateMatch1588731228914 implements MigrationInterface {
           },
           {
             name: 'game_type',
-            type: 'integer',
+            type: 'varchar',
           },
           {
             name: 'game_duration',
@@ -57,6 +61,10 @@ export default class CreateMatch1588731228914 implements MigrationInterface {
           {
             name: 'game_creation',
             type: 'bigint',
+          },
+          {
+            name: 'remake',
+            type: 'boolean',
           },
           {
             name: 'created_at',

@@ -6,4 +6,8 @@ export default celebrate({
     .keys({
       id: Joi.string().required().max(40),
     }),
+  [Segments.BODY]: Joi.object().options({ abortEarly: false }).keys({
+    withTiers: Joi.boolean(),
+    withMatchs: Joi.boolean(),
+  }),
 })

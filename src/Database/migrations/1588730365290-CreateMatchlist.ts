@@ -33,7 +33,7 @@ export default class CreateMatchlist1588730365290
           },
           {
             name: 'game_id',
-            type: 'varchar',
+            type: 'integer',
           },
           {
             name: 'platform_id',
@@ -54,6 +54,10 @@ export default class CreateMatchlist1588730365290
           {
             name: 'season',
             type: 'integer',
+          },
+          {
+            name: 'timestamp',
+            type: 'bigint',
           },
           {
             name: 'created_at',

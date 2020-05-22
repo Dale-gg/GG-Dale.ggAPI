@@ -11,15 +11,16 @@ const create = new CreateSummonerService()
 const update = new UpdateSummonerService()
 
 class SummonerController {
-  constructor() {
-    new TierService(create)
-    new TierService(update)
-    new MatchService(create)
-    new MatchService(update)
-  }
-
   public async store(request: Request, response: Response): Promise<object> {
-    const { region, summonerName }: any = request.query
+    const { region, summonerName, withTiers, withMatchs }: any = request.query
+
+    if (withTiers === true) {
+      new TierService(create)
+    }
+
+    if (withMatchs === true) {
+      new MatchService(create)
+    }
 
     const summoner = await create.execute(summonerName, region)
 
@@ -39,6 +40,15 @@ class SummonerController {
 
   public async update(request: Request, response: Response): Promise<object> {
     const { id }: any = request.params
+    const { withTiers, withMatchs }: any = request.body
+
+    if (withTiers === true) {
+      new TierService(update)
+    }
+
+    if (withMatchs === true) {
+      new MatchService(update)
+    }
 
     const summoner = await update.execute(id)
 

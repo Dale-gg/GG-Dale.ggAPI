@@ -6,5 +6,7 @@ export default celebrate({
     .keys({
       region: Joi.string().required().max(8),
       summonerName: Joi.string().required().max(20),
+      withTiers: Joi.boolean(),
+      withMatchs: Joi.boolean(),
     }),
 })
