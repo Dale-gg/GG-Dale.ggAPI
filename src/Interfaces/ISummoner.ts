@@ -1,4 +1,5 @@
 import { ITierObject } from './ITier'
+import { IMatchObject } from './IMatch'
 
 export default interface ISummoner {
   account_id?: string
@@ -10,6 +11,7 @@ export default interface ISummoner {
   region?: string
   revision_date?: number
   tiers?: ITierObject[]
+  matchs?: IMatchObject[]
 }
 
 export interface ISummonerObject {
@@ -23,6 +25,7 @@ export interface ISummonerObject {
   region: string
   revision_date: number
   tiers?: ITierObject[]
+  matchs?: IMatchObject[]
   created_at: Date
   updated_at: Date
 }
