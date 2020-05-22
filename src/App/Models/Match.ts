@@ -36,9 +36,6 @@ class Match implements IMatchObject {
   summoner_id: string
 
   @Column()
-  matchlist_id: string
-
-  @Column()
   map_id: string
 
   @Column()
