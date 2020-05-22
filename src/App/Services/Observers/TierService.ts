@@ -47,6 +47,8 @@ class TierService implements IObserver {
 
       await repository.save(dbTier)
     })
+
+    this.subject.removeObserver(this)
   }
 }
 
