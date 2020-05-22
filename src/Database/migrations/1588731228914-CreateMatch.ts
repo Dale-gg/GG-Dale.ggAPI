@@ -19,10 +19,6 @@ export default class CreateMatch1588731228914 implements MigrationInterface {
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'matchlist_id',
-            type: 'uuid',
-          },
-          {
             name: 'map_id',
             type: 'varchar',
           },
@@ -102,7 +98,7 @@ export default class CreateMatch1588731228914 implements MigrationInterface {
         columnNames: ['summoner_id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'summoners',
-        name: 'SummonersMatchlists',
+        name: 'SummonersMatchs',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       }),
@@ -114,7 +110,7 @@ export default class CreateMatch1588731228914 implements MigrationInterface {
         columnNames: ['champion_id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'champions',
-        name: 'ChampionsMatchlists',
+        name: 'ChampionsMatchs',
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL',
       }),
