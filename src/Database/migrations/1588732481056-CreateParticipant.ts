@@ -22,12 +22,10 @@ export default class CreateParticipant1588732481056
           {
             name: 'champion_id',
             type: 'uuid',
-            isNullable: true,
           },
           {
             name: 'match_id',
             type: 'uuid',
-            isNullable: true,
           },
           {
             name: 'team_id',
@@ -60,118 +58,147 @@ export default class CreateParticipant1588732481056
           {
             name: 'champion_key',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'highest_achieved_season_tier',
             type: 'varchar',
+            isNullable: true,
           },
           {
-            name: 'spell_id1',
+            name: 'spell1_id',
             type: 'integer',
+            isNullable: true,
           },
           {
-            name: 'spell_id2',
+            name: 'spell2_id',
             type: 'integer',
+            isNullable: true,
           },
           {
             name: 'perk0',
             type: 'integer',
+            isNullable: true,
           },
           {
             name: 'perk1',
             type: 'integer',
+            isNullable: true,
           },
           {
             name: 'perk2',
             type: 'integer',
+            isNullable: true,
           },
           {
             name: 'perk3',
             type: 'integer',
+            isNullable: true,
           },
           {
             name: 'perk4',
             type: 'integer',
+            isNullable: true,
           },
           {
             name: 'perk5',
             type: 'integer',
+            isNullable: true,
           },
           {
             name: 'item0',
             type: 'integer',
+            isNullable: true,
           },
           {
             name: 'item1',
             type: 'integer',
+            isNullable: true,
           },
           {
             name: 'item2',
             type: 'integer',
+            isNullable: true,
           },
           {
             name: 'item3',
             type: 'integer',
+            isNullable: true,
           },
           {
             name: 'item4',
             type: 'integer',
+            isNullable: true,
           },
           {
             name: 'item5',
             type: 'integer',
+            isNullable: true,
           },
           {
             name: 'item6',
             type: 'integer',
+            isNullable: true,
           },
           {
             name: 'kills',
             type: 'integer',
+            isNullable: true,
           },
           {
             name: 'deaths',
             type: 'integer',
+            isNullable: true,
           },
           {
             name: 'assists',
             type: 'integer',
+            isNullable: true,
           },
           {
             name: 'win',
             type: 'boolean',
+            isNullable: true,
           },
           {
             name: 'double_kills',
             type: 'integer',
+            isNullable: true,
           },
           {
             name: 'triple_kills',
             type: 'integer',
+            isNullable: true,
           },
           {
             name: 'quadra_kills',
             type: 'integer',
+            isNullable: true,
           },
           {
             name: 'penta_kills',
             type: 'integer',
+            isNullable: true,
           },
           {
             name: 'champ_level',
             type: 'integer',
+            isNullable: true,
           },
           {
             name: 'turret_kills',
             type: 'integer',
+            isNullable: true,
           },
           {
             name: 'gold_earned',
             type: 'integer',
+            isNullable: true,
           },
           {
             name: 'cs',
             type: 'integer',
+            isNullable: true,
           },
           {
             name: 'created_at',
