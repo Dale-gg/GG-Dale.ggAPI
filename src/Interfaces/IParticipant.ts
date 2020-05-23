@@ -14,8 +14,8 @@ export default interface IParticipant {
   profile_icon?: number
   champion_key?: number
   highest_achieved_season_tier?: string
-  spell1Id?: number
-  spell2Id?: number
+  spell1_id?: number
+  spell2_id?: number
   participant_api_id?: number
   kills?: number
   deaths?: number
@@ -58,8 +58,8 @@ export interface IParticipantObject {
   profile_icon: number
   champion_key: number
   highest_achieved_season_tier: string
-  spell1Id: number
-  spell2Id: number
+  spell1_id: number
+  spell2_id: number
   participant_api_id: number
   kills: number
   deaths: number
