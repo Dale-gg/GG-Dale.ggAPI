@@ -71,6 +71,9 @@ class Match implements IMatchObject {
   @Column()
   remake: boolean
 
+  @Column()
+  timestamp: number
+
   @CreateDateColumn()
   created_at: Date
 
