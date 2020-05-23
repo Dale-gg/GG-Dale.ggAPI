@@ -79,6 +79,10 @@ export default class CreateMatch1588731228914 implements MigrationInterface {
             type: 'boolean',
           },
           {
+            name: 'timestamp',
+            type: 'bigint',
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',
