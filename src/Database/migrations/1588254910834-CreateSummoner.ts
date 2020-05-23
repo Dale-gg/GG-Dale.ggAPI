@@ -32,6 +32,7 @@ export default class CreateSummoner1588254910834 implements MigrationInterface {
           {
             name: 'summoner_name',
             type: 'varchar',
+            isUnique: true,
           },
           {
             name: 'summoner_level',
