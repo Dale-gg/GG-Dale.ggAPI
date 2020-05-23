@@ -8,25 +8,59 @@ import {
   JoinColumn,
 } from 'typeorm'
 
-import Participantlist from './Participantlist'
+import Champion from './Champion'
+import Match from './Match'
+
+import { IParticipantObject } from '../../Interfaces/IParticipant'
 
 @Entity('participants')
-class Participant {
+class Participant implements IParticipantObject {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
-  @ManyToOne(() => Participantlist)
-  @JoinColumn({ name: 'participantlist_id' })
-  participantlist: Participantlist
+  @ManyToOne(() => Champion)
+  @JoinColumn({ name: 'champion_id' })
+  champion: Champion
+
+  @Column()
+  champion_id: string
+
+  @ManyToOne(() => Match)
+  @JoinColumn({ name: 'match_id' })
+  match: Match
+
+  @Column()
+  match_id: string
+
+  @Column()
+  team_id: number
+
+  @Column()
+  game_id: number
+
+  @Column()
+  account_id: string
+
+  @Column()
+  summoner_id: string
+
+  @Column()
+  summoner_name: string
+
+  @Column()
+  profile_icon: number
+
+  @Column()
+  champion_key: number
+
+  @Column()
+  highest_achieved_season_tier: string
 
   @Column()
   spell1Id: number
 
   @Column()
   spell2Id: number
-
-  @Column()
-  participantlist_id: string
 
   @Column()
   participant_api_id: number
@@ -111,8 +145,6 @@ class Participant {
 
   @UpdateDateColumn()
   updated_at: Date
-
-  // Relations -> Participantlist
 }
 
 export default Participant
