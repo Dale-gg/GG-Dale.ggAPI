@@ -63,6 +63,7 @@ class MatchService implements IObserver {
       game_id: matchApi.gameId,
       season_id: matchApi.seasonId,
       remake: matchApi.remake,
+      timestamp: matchlist.timestamp,
     })
 
     await matchRepo.save(match)
