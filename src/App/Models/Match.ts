@@ -7,16 +7,21 @@ import {
   ManyToOne,
   JoinColumn,
   OneToOne,
+  OneToMany,
 } from 'typeorm'
 
 import { IMatchObject } from '../../Interfaces/IMatch'
 import Summoner from './Summoner'
 import Champion from './Champion'
+import Participant from './Participant'
 
 @Entity('matchs')
 class Match implements IMatchObject {
   @PrimaryGeneratedColumn('uuid')
   id: string
+
+  @OneToMany(_type => Participant, participant => participant.match)
+  participants?: Participant[]
 
   @OneToOne(() => Champion)
   @JoinColumn({ name: 'champion_id' })
