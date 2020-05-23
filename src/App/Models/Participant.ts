@@ -57,10 +57,10 @@ class Participant implements IParticipantObject {
   highest_achieved_season_tier: string
 
   @Column()
-  spell1Id: number
+  spell1_id: number
 
   @Column()
-  spell2Id: number
+  spell2_id: number
 
   @Column()
   participant_api_id: number
