@@ -27,8 +27,7 @@ test.group('> 3️⃣  Summoners', group => {
   group.beforeEach(async () => {
     await connection.query('DELETE FROM champions')
     await connection.query('DELETE FROM tiers')
-    //  TODO find a way to test tier observer
-    // await connection.query('DELETE FROM summoners')
+    await connection.query('DELETE FROM summoners')
     await connection.query('DELETE FROM matchs')
   })
 
