@@ -1,4 +1,4 @@
-import { EntityRepository, Repository, getRepository } from 'typeorm'
+import { EntityRepository, Repository, createQueryBuilder } from 'typeorm'
 import { Regions } from '@jlenon7/zedjs/dist/constants'
 
 import Summoner from '../Models/Summoner'
@@ -10,12 +10,16 @@ class SummonerRepository extends Repository<Summoner> {
     summonerName: string,
     region: Regions,
   ): Promise<Summoner> {
-    const repository = getRepository(Summoner)
-
-    const summoner = await repository.findOne({
-      where: `"summoner_name" ILIKE '%${summonerName}%' AND "region" = '${region}'`,
-      relations: ['tiers', 'matchs', 'matchs.champion'],
-    })
+    const summoner = await createQueryBuilder(Summoner, 'summoner')
+      .where(
+        'summoner.summoner_name ILIKE :summonerName AND summoner.region = :region',
+        { summonerName: summonerName, region: region },
+      )
+      .leftJoinAndSelect('summoner.tiers', 'tier')
+      .leftJoinAndSelect('summoner.matchs', 'match')
+      .leftJoinAndSelect('match.champion', 'champion')
+      .addOrderBy('match.timestamp', 'DESC')
+      .getOne()
 
     if (!summoner) {
       throw new AppError('Summoner not found in database')
