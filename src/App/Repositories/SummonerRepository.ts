@@ -18,7 +18,9 @@ class SummonerRepository extends Repository<Summoner> {
       .leftJoinAndSelect('summoner.tiers', 'tier')
       .leftJoinAndSelect('summoner.matchs', 'match')
       .leftJoinAndSelect('match.champion', 'champion')
+      .leftJoinAndSelect('match.participants', 'participant')
       .addOrderBy('match.timestamp', 'DESC')
+      .addOrderBy('participant.participant_api_id', 'ASC')
       .getOne()
 
     if (!summoner) {
