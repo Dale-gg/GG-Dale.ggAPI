@@ -20,9 +20,50 @@ export default class CreateParticipant1588732481056
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'participant_id',
+            name: 'champion_id',
             type: 'uuid',
             isNullable: true,
+          },
+          {
+            name: 'match_id',
+            type: 'uuid',
+            isNullable: true,
+          },
+          {
+            name: 'team_id',
+            type: 'integer',
+          },
+          {
+            name: 'game_id',
+            type: 'bigint',
+          },
+          {
+            name: 'account_id',
+            type: 'varchar',
+          },
+          {
+            name: 'summoner_id',
+            type: 'varchar',
+          },
+          {
+            name: 'summoner_name',
+            type: 'varchar',
+          },
+          {
+            name: 'profile_icon',
+            type: 'integer',
+          },
+          {
+            name: 'participant_api_id',
+            type: 'integer',
+          },
+          {
+            name: 'champion_key',
+            type: 'varchar',
+          },
+          {
+            name: 'highest_achieved_season_tier',
+            type: 'varchar',
           },
           {
             name: 'spell_id1',
@@ -149,10 +190,22 @@ export default class CreateParticipant1588732481056
     await queryRunner.createForeignKey(
       'participants',
       new TableForeignKey({
-        columnNames: ['participant_id'],
+        columnNames: ['champion_id'],
         referencedColumnNames: ['id'],
-        referencedTableName: 'participantlists',
-        name: 'ParticipantsParticipantlists',
+        referencedTableName: 'champions',
+        name: 'ParticipantsChampion',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      }),
+    )
+
+    await queryRunner.createForeignKey(
+      'participants',
+      new TableForeignKey({
+        columnNames: ['match_id'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'matchs',
+        name: 'ParticipantsMatchs',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       }),
