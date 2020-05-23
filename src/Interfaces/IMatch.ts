@@ -18,6 +18,7 @@ export default interface IMatch {
   game_duration?: number
   game_creation?: number
   remake?: boolean
+  timestramp?: number
 }
 
 export interface IMatchObject {
@@ -38,6 +39,7 @@ export interface IMatchObject {
   game_duration: number
   game_creation: number
   remake: boolean
+  timestamp: number
   created_at: Date
   updated_at: Date
 }

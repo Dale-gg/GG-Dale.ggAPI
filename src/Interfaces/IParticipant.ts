@@ -1,0 +1,91 @@
+import { IMatchObject } from './IMatch'
+import { IChampionObject } from './IChampion'
+
+export default interface IParticipant {
+  champion?: IChampionObject
+  champion_id?: string
+  match?: IMatchObject
+  match_id?: string
+  team_id?: number
+  game_id?: number
+  account_id?: string
+  summoner_id?: string
+  summoner_name?: string
+  profile_icon?: number
+  champion_key?: number
+  highest_achieved_season_tier?: string
+  spell1_id?: number
+  spell2_id?: number
+  participant_api_id?: number
+  kills?: number
+  deaths?: number
+  assists?: number
+  win?: boolean
+  double_kills?: number
+  triple_kills?: number
+  quadra_kills?: number
+  penta_kills?: number
+  champ_level?: number
+  turret_kills?: number
+  gold_earned?: number
+  cs?: number
+  perk0?: number
+  perk1?: number
+  perk2?: number
+  perk3?: number
+  perk4?: number
+  perk5?: number
+  item0?: number
+  item1?: number
+  item2?: number
+  item3?: number
+  item4?: number
+  item5?: number
+  item6?: number
+}
+
+export interface IParticipantObject {
+  id: string
+  champion: IChampionObject
+  champion_id: string
+  match: IMatchObject
+  match_id: string
+  team_id: number
+  game_id: number
+  account_id: string
+  summoner_id: string
+  summoner_name: string
+  profile_icon: number
+  champion_key: number
+  highest_achieved_season_tier: string
+  spell1_id: number
+  spell2_id: number
+  participant_api_id: number
+  kills: number
+  deaths: number
+  assists: number
+  win: boolean
+  double_kills: number
+  triple_kills: number
+  quadra_kills: number
+  penta_kills: number
+  champ_level: number
+  turret_kills: number
+  gold_earned: number
+  cs: number
+  perk0: number
+  perk1: number
+  perk2: number
+  perk3: number
+  perk4: number
+  perk5: number
+  item0: number
+  item1: number
+  item2: number
+  item3: number
+  item4: number
+  item5: number
+  item6: number
+  created_at: Date
+  updated_at: Date
+}

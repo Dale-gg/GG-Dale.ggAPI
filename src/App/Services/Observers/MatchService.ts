@@ -4,8 +4,10 @@ import Summoner from '../../Models/Summoner'
 import { getRepository } from 'typeorm'
 import { LolApi } from '@jlenon7/zedjs/dist'
 import Match from '../../Models/Match'
-import { MatchListingMatches } from '@jlenon7/zedjs/dist/models-dto'
+import { MatchListingMatches, MatchDto } from '@jlenon7/zedjs/dist/models-dto'
 import Champion from '../../Models/Champion'
+import Participant from '../../Models/Participant'
+import { IMatchObject } from '../../../Interfaces/IMatch'
 
 class MatchService implements IObserver {
   private subject: ISubject
@@ -63,9 +65,72 @@ class MatchService implements IObserver {
       game_id: matchApi.gameId,
       season_id: matchApi.seasonId,
       remake: matchApi.remake,
+      timestamp: matchlist.timestamp,
     })
 
     await matchRepo.save(match)
+
+    await this.createParticipant(matchApi, match)
+  }
+
+  async createParticipant(
+    matchApi: MatchDto,
+    match: IMatchObject,
+  ): Promise<void> {
+    const repository = getRepository(Participant)
+    const championRepo = getRepository(Champion)
+    const players = matchApi.participantIdentities
+    const playersDto = matchApi.participants
+
+    for (const player in players) {
+      const champion = await championRepo.findOne({
+        where: { key: playersDto[player].championId },
+      })
+
+      const participantDb = repository.create({
+        match: match,
+        champion: champion,
+        account_id: players[player].player.accountId,
+        profile_icon: players[player].player.profileIcon,
+        summoner_name: players[player].player.summonerName,
+        summoner_id: players[player].player.summonerId,
+        participant_api_id: players[player].participantId,
+        game_id: match.game_id,
+        spell1_id: playersDto[player].spell1Id,
+        spell2_id: playersDto[player].spell2Id,
+        highest_achieved_season_tier:
+          playersDto[player].highestAchievedSeasonTier,
+        team_id: playersDto[player].teamId,
+        champion_key: playersDto[player].championId,
+        kills: playersDto[player].stats.kills,
+        deaths: playersDto[player].stats.deaths,
+        assists: playersDto[player].stats.assists,
+        cs: playersDto[player].stats.totalMinionsKilled,
+        gold_earned: playersDto[player].stats.goldEarned,
+        turret_kills: playersDto[player].stats.turretKills,
+        double_kills: playersDto[player].stats.doubleKills,
+        triple_kills: playersDto[player].stats.tripleKills,
+        quadra_kills: playersDto[player].stats.quadraKills,
+        penta_kills: playersDto[player].stats.pentaKills,
+        win: playersDto[player].stats.win,
+        champ_level: playersDto[player].stats.champLevel,
+        perk0: playersDto[player].stats.perk0,
+        perk1: playersDto[player].stats.perk1,
+        perk2: playersDto[player].stats.perk2,
+        perk3: playersDto[player].stats.perk3,
+        perk4: playersDto[player].stats.perk4,
+        perk5: playersDto[player].stats.perk5,
+        item0: playersDto[player].stats.item0,
+        item1: playersDto[player].stats.item1,
+        item2: playersDto[player].stats.item2,
+        item3: playersDto[player].stats.item3,
+        item4: playersDto[player].stats.item4,
+        item5: playersDto[player].stats.item5,
+        item6: playersDto[player].stats.item6,
+      })
+
+      await repository.save(participantDb)
+    }
   }
 }
 
