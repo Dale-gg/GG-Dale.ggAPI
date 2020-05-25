@@ -29,8 +29,6 @@ class Tree implements ITreeObject {
 
   @UpdateDateColumn()
   updated_at: Date
-
-  // Relations -> Runes
 }
 
 export default Tree

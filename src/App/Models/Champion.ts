@@ -49,8 +49,6 @@ class Champion implements IChampionObject {
 
   @UpdateDateColumn()
   updated_at: Date
-
-  // Relations -> Matchlist, Participant
 }
 
 export default Champion

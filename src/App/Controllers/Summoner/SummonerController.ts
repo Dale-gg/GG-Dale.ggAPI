@@ -30,9 +30,13 @@ class SummonerController {
 
   public async show(request: Request, response: Response): Promise<object> {
     const repository = new SummonerRepository()
-    const { region, summonerName }: any = request.query
+    const { region, summonerName, matchLimit }: any = request.query
 
-    const summoner = await repository.getByName(summonerName, region)
+    const summoner = await repository.getByName(
+      summonerName,
+      region,
+      matchLimit,
+    )
 
     const res = dedSec.withOne(summoner, 'Summoner founded')
     return response.json(res)

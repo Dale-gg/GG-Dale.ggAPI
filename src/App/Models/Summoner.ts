@@ -51,8 +51,6 @@ class Summoner implements ISummonerObject {
 
   @UpdateDateColumn()
   updated_at: Date
-
-  // Relations -> Tiers, Matchs
 }
 
 export default Summoner

@@ -67,8 +67,6 @@ class Tier implements ITierObject {
 
   @UpdateDateColumn()
   updated_at: Date
-
-  // Relations -> Summoner
 }
 
 export default Tier
