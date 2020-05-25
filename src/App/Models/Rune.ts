@@ -46,8 +46,6 @@ class Rune implements IRuneObject {
 
   @UpdateDateColumn()
   updated_at: Date
-
-  // Relations -> Tree
 }
 
 export default Rune
