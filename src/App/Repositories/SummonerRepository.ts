@@ -9,14 +9,16 @@ class SummonerRepository extends Repository<Summoner> {
   public async getByName(
     summonerName: string,
     region: Regions,
+    matchLimit = 100,
   ): Promise<Summoner> {
     const summoner = await createQueryBuilder(Summoner, 'summoner')
       .where(
-        'summoner.summoner_name ILIKE :summonerName AND summoner.region = :region',
+        `summoner.summoner_name = :summonerName AND summoner.region = :region`,
         { summonerName: summonerName, region: region },
       )
       .leftJoinAndSelect('summoner.tiers', 'tier')
       .leftJoinAndSelect('summoner.matchs', 'match')
+      .limit(matchLimit)
       .leftJoinAndSelect('match.champion', 'champion')
       .leftJoinAndSelect('match.participants', 'participant')
       .addOrderBy('match.timestamp', 'DESC')
