@@ -11,8 +11,12 @@ class SummonerFounder {
     const { region, summonerName } = request.query
     const summonerRepository = getRepository(Summoner)
 
+    // FRONTEND NEED TO MAKE A REQUEST TO RIOT API TO GET THE REAL SUMMONERNAME
     const summoner = await summonerRepository.findOne({
-      where: `"summoner_name" ILIKE '%${summonerName}%' AND "region" = '${region}'`,
+      where: {
+        summoner_name: summonerName,
+        region: region,
+      },
     })
 
     if (summoner) {
