@@ -7,7 +7,7 @@ import {
 } from 'typeorm'
 import { ITreeObject } from '../../Interfaces/ITree'
 
-@Entity('trees')
+@Entity('gg_trees')
 class Tree implements ITreeObject {
   @PrimaryGeneratedColumn('uuid')
   id: string
