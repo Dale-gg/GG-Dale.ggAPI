@@ -1,0 +1,66 @@
+version: "3"
+
+services:
+  db:
+    container_name: db
+    image: postgres
+    volumes:
+      - ./.docker/postgresql:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_ROOT_PASSWORD: 12345
+    networks:
+      - app-network
+
+  adminer:
+    container_name: adminer
+    image: adminer
+    restart: on-failure
+    ports:
+      - 8081:8080
+    environment:
+      ADMINER_DEFAULT_SERVER: db
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - ./.docker/redis:/redis
+    environment:
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_PASS: ${REDIS_PASS}
+    networks:
+      - app-network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: yarn start
+    networks:
+      - app-network
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - 3333:3333
+    depends_on:
+      - redis
+      - db
+    links:
+      - redis
+      - db
+
+networks:
+  app-network:
+    driver: bridge

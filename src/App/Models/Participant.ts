@@ -13,7 +13,7 @@ import Match from './Match'
 
 import { IParticipantObject } from '../../Interfaces/IParticipant'
 
-@Entity('participants')
+@Entity('gg_participants')
 class Participant implements IParticipantObject {
   @PrimaryGeneratedColumn('uuid')
   id: string

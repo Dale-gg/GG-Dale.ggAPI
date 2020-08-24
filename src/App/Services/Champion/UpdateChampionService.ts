@@ -1,7 +1,7 @@
 import { getRepository } from 'typeorm'
 import Champion from '../../Models/Champion'
-import { LolApi } from '@jlenon7/zedjs/dist'
-import { Champions } from '@jlenon7/zedjs/dist/constants'
+import { LolApi } from '@dale-gg/zedjs/build'
+import { Champions } from '@dale-gg/zedjs/build/constants'
 import AppError from '../../Errors/AppError'
 
 class UpdateChampionService {

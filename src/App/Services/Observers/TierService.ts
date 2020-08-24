@@ -1,8 +1,8 @@
 import { IObserver, ISubject } from '../../../Interfaces/IObserver'
-import { SummonerLeagueDto } from '@jlenon7/zedjs/dist/models-dto'
+import { SummonerLeagueDto } from '@dale-gg/zedjs/build/models-dto'
 import { getRepository } from 'typeorm'
-import { LolApi } from '@jlenon7/zedjs/dist'
-import { Regions } from '@jlenon7/zedjs/dist/constants'
+import { LolApi } from '@dale-gg/zedjs/build'
+import { Regions } from '@dale-gg/zedjs/build/constants'
 import Tier from '../../Models/Tier'
 import Summoner from '../../Models/Summoner'
 

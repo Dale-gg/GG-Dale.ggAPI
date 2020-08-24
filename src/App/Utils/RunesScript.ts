@@ -1,8 +1,8 @@
-import { LolApi } from '@jlenon7/zedjs'
+import { LolApi } from '@dale-gg/zedjs/build'
 import { getRepository } from 'typeorm'
 import Rune from '../Models/Rune'
 import Tree from '../Models/Tree'
-import { RunesReforgedDTO } from '@jlenon7/zedjs/dist/models-dto/data-dragon/runes-reforged.dto'
+import { RunesReforgedDTO } from '@dale-gg/zedjs/build/models-dto/data-dragon/runes-reforged.dto'
 
 const api = new LolApi()
 

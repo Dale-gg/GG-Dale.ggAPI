@@ -11,7 +11,7 @@ import {
 import Summoner from './Summoner'
 import { ITierObject } from '../../Interfaces/ITier'
 
-@Entity('tiers')
+@Entity('gg_tiers')
 class Tier implements ITierObject {
   @PrimaryGeneratedColumn('uuid')
   id: string

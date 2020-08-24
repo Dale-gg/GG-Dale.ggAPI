@@ -1,7 +1,7 @@
 import { getRepository } from 'typeorm'
 import Summoner from '../../Models/Summoner'
-import { LolApi } from '@jlenon7/zedjs/dist'
-import { Regions } from '@jlenon7/zedjs/dist/constants'
+import { LolApi } from '@dale-gg/zedjs/build'
+import { Regions } from '@dale-gg/zedjs/build/constants'
 import { ISubject, IObserver } from '../../../Interfaces/IObserver'
 import AppError from '../../Errors/AppError'
 

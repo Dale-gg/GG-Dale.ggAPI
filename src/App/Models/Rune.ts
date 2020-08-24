@@ -11,7 +11,7 @@ import {
 import Tree from './Tree'
 import { IRuneObject } from '../../Interfaces/IRune'
 
-@Entity('runes')
+@Entity('gg_runes')
 class Rune implements IRuneObject {
   @PrimaryGeneratedColumn('uuid')
   id: string

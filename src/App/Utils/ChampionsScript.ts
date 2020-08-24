@@ -1,4 +1,4 @@
-import { LolApi } from '@jlenon7/zedjs'
+import { LolApi } from '@dale-gg/zedjs/build'
 import { getRepository } from 'typeorm'
 import Champion from '../Models/Champion'
 

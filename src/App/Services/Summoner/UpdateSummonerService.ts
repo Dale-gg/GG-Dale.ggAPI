@@ -1,9 +1,9 @@
 import { getRepository } from 'typeorm'
 import Summoner from '../../Models/Summoner'
-import { LolApi } from '@jlenon7/zedjs/dist'
+import { LolApi } from '@dale-gg/zedjs/build'
 import { ISubject, IObserver } from '../../../Interfaces/IObserver'
 import AppError from '../../Errors/AppError'
-import { Regions } from '@jlenon7/zedjs/dist/constants'
+import { Regions } from '@dale-gg/zedjs/build/constants'
 
 class UpdateSummonerService implements ISubject {
   private observers: IObserver[] = []

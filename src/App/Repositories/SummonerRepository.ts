@@ -1,5 +1,5 @@
 import { EntityRepository, Repository, createQueryBuilder } from 'typeorm'
-import { Regions } from '@jlenon7/zedjs/dist/constants'
+import { Regions } from '@dale-gg/zedjs/build/constants'
 
 import Summoner from '../Models/Summoner'
 import AppError from '../Errors/AppError'

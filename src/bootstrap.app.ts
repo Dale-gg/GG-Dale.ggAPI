@@ -28,9 +28,7 @@ class App implements IApp {
     this.app.use(this.routes)
     this.database ? this.createDatabase() : this.mochaDb()
     this.app.listen(this.port, () =>
-      process.env.NODE_ENV === 'testing'
-        ? console.log(`🤓 Dale.gg started testing on port ${this.port}! 🧙‍♂️`)
-        : console.log(`🚀 Dale.gg started on port ${this.port}! 🤯`),
+      console.log(`🎮 [HTTP] Server is listening on port ${this.port}! 🐉`),
     )
   }
 

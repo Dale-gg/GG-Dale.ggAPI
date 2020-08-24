@@ -1,4 +1,4 @@
-import { Regions } from '@jlenon7/zedjs/dist/constants'
+import { Regions } from '@dale-gg/zedjs/build/constants'
 
 export interface ISubject {
   registerObserver(o: IObserver): void
