@@ -11,7 +11,7 @@ import {
 import Tier from './Tier'
 import Match from './Match'
 
-@Entity('summoners')
+@Entity('gg_summoners')
 class Summoner implements ISummonerObject {
   @PrimaryGeneratedColumn('uuid')
   id: string
