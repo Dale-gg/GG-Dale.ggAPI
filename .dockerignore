@@ -1,0 +1,5 @@
+node_modules
+coverage
+docker-compose.yaml
+Procfile
+.env
