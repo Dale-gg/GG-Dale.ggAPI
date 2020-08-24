@@ -8,7 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm'
 
-@Entity('champions')
+@Entity('gg_champions')
 class Champion implements IChampionObject {
   @PrimaryGeneratedColumn('uuid')
   id: string
