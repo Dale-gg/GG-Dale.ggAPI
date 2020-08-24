@@ -15,7 +15,7 @@ import Summoner from './Summoner'
 import Champion from './Champion'
 import Participant from './Participant'
 
-@Entity('matchs')
+@Entity('gg_matchs')
 class Match implements IMatchObject {
   @PrimaryGeneratedColumn('uuid')
   id: string
