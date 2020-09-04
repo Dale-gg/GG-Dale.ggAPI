@@ -1,0 +1,22 @@
+name: CD Dale.gg
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      env:
+        NPM_AUTH_PKG: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        name: jlenon7/dalegg
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        buildargs: NPM_AUTH_PKG
