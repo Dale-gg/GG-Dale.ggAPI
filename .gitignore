@@ -8,7 +8,6 @@ tmp/*
 !tmp/.gitkeep
 .env
 .env.testing
-.npmrc
 
 docker-compose.yaml
 

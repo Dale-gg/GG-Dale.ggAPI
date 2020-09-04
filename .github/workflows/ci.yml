@@ -1,6 +1,6 @@
-on: [pull_request]
+name: CI Dale.gg
 
-name: CI-GG
+on: [pull_request]
 
 jobs:
   run_tests:
