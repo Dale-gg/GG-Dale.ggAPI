@@ -7,11 +7,12 @@
     "rootDir": "./src",
     "strict": true /* Enable all strict type-checking options. */,
     "strictPropertyInitialization": false /* Enable strict checking of property initialization in classes. */,
+    "resolveJsonModule": true,
     "esModuleInterop": true /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */,
     "experimentalDecorators": true /* Enables experimental support for ES7 decorators. */,
     "emitDecoratorMetadata": true /* Enables experimental support for emitting type metadata for decorators. */,
     "forceConsistentCasingInFileNames": false
   },
   "include": ["package.json"],
-  "exclude": ["babel.config.js", "node_modules", "build", "dist", "ormconfig.js"],
+  "exclude": ["babel.config.js", "node_modules", "build", "dist", "ormconfig.js"]
 }
