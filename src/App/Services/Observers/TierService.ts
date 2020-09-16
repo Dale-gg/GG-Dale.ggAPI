@@ -35,7 +35,7 @@ class TierService implements IObserver {
         rank: tier.rank,
         summoner: summoner,
         pdl: tier.leaguePoints,
-        winrate: `${winrate}%`,
+        winrate: `${winrate.toFixed(2)}%`,
         wins: tier.wins,
         losses: tier.losses,
         veteran: tier.veteran,
