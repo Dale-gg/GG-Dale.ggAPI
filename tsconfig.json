@@ -13,6 +13,5 @@
     "emitDecoratorMetadata": true /* Enables experimental support for emitting type metadata for decorators. */,
     "forceConsistentCasingInFileNames": false
   },
-  "include": ["package.json"],
   "exclude": ["babel.config.js", "node_modules", "build", "dist", "ormconfig.js"]
 }
