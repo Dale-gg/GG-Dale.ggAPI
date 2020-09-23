@@ -17,6 +17,7 @@ export default class Routes {
     this.router.use(`${this.path}/summoners`, summoners)
     this.router.use(`${this.path}/champions`, champions)
     this.router.use(`${this.path}/runes`, runes)
-    this.router.use('/', welcome)
+    this.router.use(`${this.path}/welcome`, welcome)
+    this.router.use(`${this.path}`, welcome)
   }
 }
